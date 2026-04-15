@@ -1,39 +1,22 @@
-# 🛸 Dev Hub — George Pricop
+# 🚀 Gzeu Dev Hub
 
-Personal developer dashboard combining GitHub project discovery with Vercel toolbar thread monitoring.
-
-**Live preview:** open `index.html` in browser or deploy to GitHub Pages / Vercel.
+Personal developer dashboard centralizing GitHub projects and Vercel deployment threads.
 
 ## Features
 
-- **GitHub Projects Tab** — 30 most recently updated repositories with live search, language filter, issue badges, pagination (12/page)
-- **Vercel Threads Tab** — panel for distributed Vercel toolbar comments & feedback threads
-- Dark / light mode toggle
-- Responsive (375px → 1280px+)
-- Zero dependencies — pure HTML/CSS/JS
+- **📁 Projects** — Browse all repositories with search, filter by language, sort by stars/date/name
+- **🔀 Activity** — Recent commit history with SHA, message and relative timestamps  
+- **📊 Statistics** — Animated KPIs: total repos, stars, forks, languages breakdown chart
+- **💬 Vercel Threads** — Deployment feedback and preview comments (team: gzeus-projects)
+- **🌙 Dark/Light mode** — System preference + manual toggle
+- **📱 Fully responsive** — Works on mobile (375px) through desktop (1280px+)
 
-## Stack
+## Tech
 
-- Vanilla HTML5 · CSS custom properties · ES6+ JS
-- Fonts: Inter + JetBrains Mono (Google Fonts)
-- OKLCH color system (Nexus design tokens)
+Pure HTML + CSS + Vanilla JS. No build tools, no frameworks.
 
-## Roadmap
+Font: **Geist** + **Geist Mono** (same as Vercel's design system)
 
-- [ ] GitHub API live fetch (all 140+ repos)
-- [ ] Language stats chart
-- [ ] Vercel projects live integration
-- [ ] Keyboard shortcuts
-- [ ] PWA support
+## Live
 
-## Usage
-
-```bash
-# Clone and open locally
-git clone https://github.com/Gzeu/dev-hub
-open dev-hub/index.html
-```
-
----
-
-Built with [Perplexity](https://perplexity.ai) · [@Gzeu](https://github.com/Gzeu)
+Deployed via Vercel — see deployments tab.
