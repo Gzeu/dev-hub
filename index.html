@@ -18,6 +18,7 @@
   --color-primary-highlight:#cedcd8;
   --color-success:#437a22;--color-blue:#006494;
   --color-orange:#da7101;--color-gold:#d19900;--color-purple:#7a39bb;
+  --color-error:#a12c7b;
   --shadow-sm:0 1px 2px oklch(0.2 0.01 80/0.06);
   --shadow-md:0 4px 12px oklch(0.2 0.01 80/0.08);
   --shadow-lg:0 12px 32px oklch(0.2 0.01 80/0.12);
@@ -28,7 +29,6 @@
   --text-sm:clamp(0.875rem,0.8rem + 0.35vw,1rem);
   --text-base:clamp(1rem,0.95rem + 0.25vw,1.125rem);
   --text-lg:clamp(1.125rem,1rem + 0.75vw,1.5rem);
-  --text-xl:clamp(1.5rem,1.2rem + 1.25vw,2.25rem);
 }
 [data-theme="dark"]{
   --color-bg:#0e0d0c;--color-surface:#141311;--color-surface-2:#181614;
@@ -39,24 +39,11 @@
   --color-primary-highlight:#1e3437;
   --color-success:#6daa45;--color-blue:#5591c7;
   --color-orange:#fdab43;--color-gold:#e8af34;--color-purple:#a86fdf;
+  --color-error:#d163a7;
   --shadow-sm:0 1px 2px oklch(0 0 0/0.3);
   --shadow-md:0 4px 12px oklch(0 0 0/0.4);
   --shadow-lg:0 12px 32px oklch(0 0 0/0.5);
 }
-@media(prefers-color-scheme:light){:root:not([data-theme]){
-  --color-bg:#f7f6f2;--color-surface:#f9f8f5;--color-surface-2:#fbfbf9;
-  --color-surface-offset:#f3f0ec;--color-surface-dynamic:#e6e4df;
-  --color-divider:#dcd9d5;--color-border:#d4d1ca;
-  --color-text:#28251d;--color-text-muted:#7a7974;--color-text-faint:#bab9b4;
-  --color-primary:#01696f;--color-primary-hover:#0c4e54;
-  --color-primary-highlight:#cedcd8;
-  --color-success:#437a22;--color-blue:#006494;
-  --color-orange:#da7101;--color-gold:#d19900;--color-purple:#7a39bb;
-  --shadow-sm:0 1px 2px oklch(0.2 0.01 80/0.06);
-  --shadow-md:0 4px 12px oklch(0.2 0.01 80/0.08);
-  --shadow-lg:0 12px 32px oklch(0.2 0.01 80/0.12);
-}}
-
 html{-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility;scroll-behavior:smooth}
 body{min-height:100dvh;font-family:var(--font-body);font-size:var(--text-base);color:var(--color-text);background:var(--color-bg);line-height:1.6}
 img{display:block;max-width:100%;height:auto}
@@ -64,86 +51,137 @@ button{cursor:pointer;background:none;border:none;font:inherit;color:inherit}
 a{color:inherit;text-decoration:none}
 a,button,[role="button"]{transition:color var(--transition),background var(--transition),border-color var(--transition),box-shadow var(--transition),opacity var(--transition)}
 
+/* HEADER */
 .header{position:sticky;top:0;z-index:100;background:color-mix(in oklch,var(--color-bg) 85%,transparent);backdrop-filter:blur(16px);border-bottom:1px solid var(--color-border);padding:0.75rem 1.5rem;display:flex;align-items:center;justify-content:space-between;gap:1rem}
 .logo{display:flex;align-items:center;gap:0.75rem}
-.logo-icon{width:36px;height:36px;flex-shrink:0}
+.logo-icon{width:32px;height:32px;flex-shrink:0}
 .logo-text{font-size:var(--text-sm);font-weight:600;letter-spacing:-0.02em}
 .logo-sub{font-size:var(--text-xs);color:var(--color-text-muted);font-family:var(--font-mono)}
 .header-actions{display:flex;align-items:center;gap:0.5rem}
-.theme-toggle{width:36px;height:36px;display:flex;align-items:center;justify-content:center;border-radius:var(--radius-md);color:var(--color-text-muted);border:1px solid var(--color-border)}
-.theme-toggle:hover{background:var(--color-surface-offset);color:var(--color-text)}
-.gh-link{display:flex;align-items:center;gap:0.5rem;font-size:var(--text-xs);font-weight:500;color:var(--color-text-muted);padding:0.375rem 0.75rem;border-radius:var(--radius-md);border:1px solid var(--color-border)}
+.btn-icon{width:34px;height:34px;display:flex;align-items:center;justify-content:center;border-radius:var(--radius-md);color:var(--color-text-muted);border:1px solid var(--color-border)}
+.btn-icon:hover{background:var(--color-surface-offset);color:var(--color-text)}
+.gh-link{display:flex;align-items:center;gap:0.5rem;font-size:var(--text-xs);font-weight:500;color:var(--color-text-muted);padding:0.35rem 0.7rem;border-radius:var(--radius-md);border:1px solid var(--color-border)}
 .gh-link:hover{background:var(--color-surface-offset);color:var(--color-text)}
 
-.page{max-width:1280px;margin:0 auto;padding:2rem 1.5rem}
-.profile-bar{display:flex;align-items:center;gap:1.25rem;margin-bottom:2rem;padding:1.25rem 1.5rem;background:var(--color-surface);border:1px solid var(--color-border);border-radius:var(--radius-xl);box-shadow:var(--shadow-sm)}
-.avatar{width:52px;height:52px;border-radius:var(--radius-full);border:2px solid var(--color-border)}
-.profile-info{flex:1;min-width:0}
-.profile-name{font-size:var(--text-lg);font-weight:600;letter-spacing:-0.02em}
-.profile-bio{font-size:var(--text-xs);color:var(--color-text-muted);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;margin-top:0.2rem}
-.profile-stats{display:flex;gap:1.5rem;flex-shrink:0}
-.stat{text-align:center}
-.stat-num{font-size:var(--text-lg);font-weight:700;font-family:var(--font-mono);color:var(--color-primary);line-height:1}
-.stat-label{font-size:var(--text-xs);color:var(--color-text-muted);margin-top:0.15rem}
+/* LAYOUT */
+.page{max-width:1280px;margin:0 auto;padding:1.75rem 1.5rem}
 
-.tabs{display:flex;gap:0.25rem;margin-bottom:1.5rem;background:var(--color-surface);border:1px solid var(--color-border);border-radius:var(--radius-lg);padding:0.25rem}
-.tab{flex:1;padding:0.6rem 1rem;font-size:var(--text-sm);font-weight:500;border-radius:var(--radius-md);color:var(--color-text-muted);text-align:center;transition:all var(--transition)}
+/* PROFILE */
+.profile-bar{display:flex;align-items:center;gap:1.25rem;margin-bottom:1.75rem;padding:1.125rem 1.5rem;background:var(--color-surface);border:1px solid var(--color-border);border-radius:var(--radius-xl);box-shadow:var(--shadow-sm)}
+.avatar{width:48px;height:48px;border-radius:var(--radius-full);border:2px solid var(--color-border)}
+.profile-info{flex:1;min-width:0}
+.profile-name{font-size:var(--text-base);font-weight:600;letter-spacing:-0.02em}
+.profile-bio{font-size:var(--text-xs);color:var(--color-text-muted);overflow:hidden;text-overflow:ellipsis;white-space:nowrap;margin-top:0.15rem;max-width:60ch}
+.profile-meta{display:flex;align-items:center;gap:1.25rem;flex-shrink:0}
+.meta-stat{display:flex;flex-direction:column;align-items:center;gap:0.1rem}
+.meta-num{font-size:var(--text-base);font-weight:700;font-family:var(--font-mono);color:var(--color-primary);line-height:1}
+.meta-label{font-size:10px;color:var(--color-text-faint);text-transform:uppercase;letter-spacing:0.06em}
+.meta-divider{width:1px;height:28px;background:var(--color-border)}
+
+/* TABS */
+.tabs{display:flex;gap:0.25rem;margin-bottom:1.5rem;background:var(--color-surface);border:1px solid var(--color-border);border-radius:var(--radius-lg);padding:0.25rem;overflow-x:auto}
+.tab{flex-shrink:0;padding:0.5rem 0.9rem;font-size:var(--text-xs);font-weight:500;border-radius:var(--radius-md);color:var(--color-text-muted);white-space:nowrap;transition:all var(--transition)}
 .tab:hover{color:var(--color-text);background:var(--color-surface-offset)}
 .tab.active{color:var(--color-text);background:var(--color-surface-offset);box-shadow:var(--shadow-sm)}
-.tab-count{display:inline-block;margin-left:0.4rem;padding:0.1rem 0.45rem;font-size:var(--text-xs);font-family:var(--font-mono);background:var(--color-primary-highlight);color:var(--color-primary);border-radius:var(--radius-full)}
+.tab-badge{display:inline-block;margin-left:0.35rem;padding:0.1rem 0.4rem;font-size:10px;font-family:var(--font-mono);background:var(--color-primary-highlight);color:var(--color-primary);border-radius:var(--radius-full);font-weight:600}
 
+/* FILTERS */
 .filters{display:flex;gap:0.5rem;margin-bottom:1.25rem;flex-wrap:wrap;align-items:center}
-.search-box{flex:1;min-width:200px;position:relative}
-.search-box input{width:100%;padding:0.55rem 0.75rem 0.55rem 2.25rem;font-size:var(--text-sm);background:var(--color-surface);border:1px solid var(--color-border);border-radius:var(--radius-md);color:var(--color-text);outline:none}
-.search-box input::placeholder{color:var(--color-text-faint)}
-.search-box input:focus{border-color:var(--color-primary);box-shadow:0 0 0 3px color-mix(in oklch,var(--color-primary) 15%,transparent)}
-.search-icon{position:absolute;left:0.7rem;top:50%;transform:translateY(-50%);color:var(--color-text-faint);pointer-events:none}
-.lang-filter{display:flex;gap:0.3rem;flex-wrap:wrap}
-.lang-btn{padding:0.35rem 0.7rem;font-size:var(--text-xs);font-weight:500;border-radius:var(--radius-full);border:1px solid var(--color-border);background:var(--color-surface);color:var(--color-text-muted);transition:all var(--transition)}
-.lang-btn:hover,.lang-btn.active{background:var(--color-primary);color:#fff;border-color:var(--color-primary)}
+.search-wrap{flex:1;min-width:200px;position:relative}
+.search-wrap input{width:100%;padding:0.5rem 0.75rem 0.5rem 2.1rem;font-size:var(--text-xs);background:var(--color-surface);border:1px solid var(--color-border);border-radius:var(--radius-md);color:var(--color-text);outline:none}
+.search-wrap input::placeholder{color:var(--color-text-faint)}
+.search-wrap input:focus{border-color:var(--color-primary);box-shadow:0 0 0 3px color-mix(in oklch,var(--color-primary) 15%,transparent)}
+.search-icon{position:absolute;left:0.65rem;top:50%;transform:translateY(-50%);color:var(--color-text-faint);pointer-events:none}
+.lang-pills{display:flex;gap:0.3rem;flex-wrap:wrap}
+.lang-pill{padding:0.3rem 0.65rem;font-size:10px;font-weight:600;border-radius:var(--radius-full);border:1px solid var(--color-border);background:var(--color-surface);color:var(--color-text-muted);letter-spacing:0.02em;transition:all var(--transition)}
+.lang-pill:hover,.lang-pill.active{background:var(--color-primary);color:#fff;border-color:var(--color-primary)}
 
-.repos-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(min(340px,100%),1fr));gap:1rem}
-.repo-card{background:var(--color-surface);border:1px solid var(--color-border);border-radius:var(--radius-xl);padding:1.25rem;display:flex;flex-direction:column;gap:0.75rem;box-shadow:var(--shadow-sm);transition:box-shadow var(--transition),transform var(--transition),border-color var(--transition)}
+/* SECTION HEADER */
+.section-row{display:flex;align-items:center;justify-content:space-between;margin-bottom:0.875rem}
+.section-label{font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:0.08em;color:var(--color-text-faint)}
+
+/* REPOS GRID */
+.repos-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(min(320px,100%),1fr));gap:0.875rem}
+.repo-card{background:var(--color-surface);border:1px solid var(--color-border);border-radius:var(--radius-lg);padding:1.125rem;display:flex;flex-direction:column;gap:0.6rem;transition:box-shadow var(--transition),border-color var(--transition),transform var(--transition)}
 .repo-card:hover{box-shadow:var(--shadow-md);border-color:color-mix(in oklch,var(--color-primary) 30%,var(--color-border));transform:translateY(-1px)}
-.repo-header{display:flex;align-items:flex-start;justify-content:space-between;gap:0.5rem}
-.repo-name{font-size:var(--text-sm);font-weight:600;font-family:var(--font-mono);color:var(--color-primary)}
+.repo-head{display:flex;align-items:flex-start;justify-content:space-between;gap:0.5rem}
+.repo-name{font-size:var(--text-xs);font-weight:600;font-family:var(--font-mono);color:var(--color-primary);word-break:break-all}
 .repo-name:hover{text-decoration:underline}
-.repo-badges{display:flex;gap:0.35rem;flex-shrink:0;flex-wrap:wrap}
-.badge{padding:0.15rem 0.5rem;font-size:var(--text-xs);border-radius:var(--radius-full);font-weight:500;font-family:var(--font-mono)}
-.badge-issues{background:color-mix(in oklch,var(--color-orange) 12%,transparent);color:var(--color-orange);border:1px solid color-mix(in oklch,var(--color-orange) 20%,transparent)}
-.badge-fork{background:color-mix(in oklch,var(--color-blue) 12%,transparent);color:var(--color-blue);border:1px solid color-mix(in oklch,var(--color-blue) 20%,transparent)}
+.repo-badges{display:flex;gap:0.3rem;flex-shrink:0}
+.badge{padding:0.1rem 0.4rem;font-size:10px;font-family:var(--font-mono);font-weight:600;border-radius:var(--radius-full)}
+.badge-issue{background:color-mix(in oklch,var(--color-orange) 12%,transparent);color:var(--color-orange);border:1px solid color-mix(in oklch,var(--color-orange) 25%,transparent)}
+.badge-fork{background:color-mix(in oklch,var(--color-blue) 12%,transparent);color:var(--color-blue);border:1px solid color-mix(in oklch,var(--color-blue) 25%,transparent)}
 .repo-desc{font-size:var(--text-xs);color:var(--color-text-muted);line-height:1.5;flex:1}
-.repo-footer{display:flex;align-items:center;gap:0.75rem;flex-wrap:wrap}
-.lang-dot{display:inline-block;width:10px;height:10px;border-radius:50%}
-.lang-label{font-size:var(--text-xs);color:var(--color-text-muted)}
-.repo-date{font-size:var(--text-xs);color:var(--color-text-faint);margin-left:auto;font-family:var(--font-mono)}
 .repo-topics{display:flex;gap:0.3rem;flex-wrap:wrap}
-.topic-tag{padding:0.1rem 0.45rem;font-size:var(--text-xs);border-radius:var(--radius-full);background:var(--color-surface-offset);color:var(--color-text-muted);border:1px solid var(--color-border)}
+.topic{padding:0.1rem 0.4rem;font-size:10px;border-radius:var(--radius-full);background:var(--color-surface-offset);color:var(--color-text-muted);border:1px solid var(--color-border)}
+.repo-foot{display:flex;align-items:center;gap:0.65rem}
+.lang-dot{width:9px;height:9px;border-radius:50%;flex-shrink:0}
+.lang-name{font-size:10px;color:var(--color-text-muted)}
+.repo-age{font-size:10px;color:var(--color-text-faint);margin-left:auto;font-family:var(--font-mono)}
 
-.empty{display:flex;flex-direction:column;align-items:center;justify-content:center;padding:4rem 2rem;text-align:center;color:var(--color-text-muted)}
-.empty svg{margin-bottom:1rem;color:var(--color-text-faint)}
-.empty p{max-width:32ch;font-size:var(--text-sm)}
-.no-results{padding:3rem 2rem;text-align:center;color:var(--color-text-muted);font-size:var(--text-sm)}
+/* VERCEL PROJECTS */
+.vprojects-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(min(280px,100%),1fr));gap:0.875rem}
+.vproject-card{background:var(--color-surface);border:1px solid var(--color-border);border-radius:var(--radius-lg);padding:1rem;display:flex;flex-direction:column;gap:0.5rem;transition:box-shadow var(--transition),border-color var(--transition),transform var(--transition)}
+.vproject-card:hover{box-shadow:var(--shadow-md);border-color:color-mix(in oklch,var(--color-primary) 30%,var(--color-border));transform:translateY(-1px)}
+.vp-head{display:flex;align-items:center;gap:0.6rem}
+.vp-icon{width:28px;height:28px;border-radius:var(--radius-md);background:var(--color-surface-offset);border:1px solid var(--color-border);display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:11px;font-weight:700;font-family:var(--font-mono);color:var(--color-primary)}
+.vp-name{font-size:var(--text-xs);font-weight:600;font-family:var(--font-mono);color:var(--color-text);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.vp-meta{display:flex;align-items:center;gap:0.5rem;flex-wrap:wrap}
+.vp-status{display:inline-flex;align-items:center;gap:0.3rem;font-size:10px;font-weight:600;padding:0.15rem 0.5rem;border-radius:var(--radius-full)}
+.status-ready{background:color-mix(in oklch,var(--color-success) 12%,transparent);color:var(--color-success);border:1px solid color-mix(in oklch,var(--color-success) 25%,transparent)}
+.status-dot{width:6px;height:6px;border-radius:50%;background:currentColor}
+.vp-date{font-size:10px;color:var(--color-text-faint);font-family:var(--font-mono)}
+.vp-links{display:flex;gap:0.4rem;margin-top:auto}
+.vp-link{font-size:10px;color:var(--color-text-muted);padding:0.2rem 0.5rem;border-radius:var(--radius-sm);border:1px solid var(--color-border);background:var(--color-surface-offset)}
+.vp-link:hover{color:var(--color-primary);border-color:var(--color-primary)}
 
-.pagination{display:flex;align-items:center;justify-content:center;gap:0.5rem;margin-top:2rem}
-.page-btn{padding:0.5rem 1rem;font-size:var(--text-sm);border-radius:var(--radius-md);border:1px solid var(--color-border);background:var(--color-surface);color:var(--color-text-muted)}
+/* DEPLOYMENTS */
+.deploy-list{display:flex;flex-direction:column;gap:0.5rem}
+.deploy-row{background:var(--color-surface);border:1px solid var(--color-border);border-radius:var(--radius-lg);padding:0.875rem 1.125rem;display:grid;grid-template-columns:auto 1fr auto auto;align-items:center;gap:1rem;transition:box-shadow var(--transition),border-color var(--transition)}
+.deploy-row:hover{box-shadow:var(--shadow-sm);border-color:color-mix(in oklch,var(--color-primary) 25%,var(--color-border))}
+.deploy-state{display:flex;align-items:center;gap:0.4rem;font-size:10px;font-weight:600}
+.deploy-state.ready{color:var(--color-success)}
+.deploy-dot{width:8px;height:8px;border-radius:50%;background:currentColor}
+.deploy-info{min-width:0}
+.deploy-commit{font-size:var(--text-xs);font-weight:500;font-family:var(--font-mono);color:var(--color-text);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.deploy-url{font-size:10px;color:var(--color-text-muted);font-family:var(--font-mono);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.deploy-env{font-size:10px;font-weight:600;padding:0.15rem 0.5rem;border-radius:var(--radius-full);background:color-mix(in oklch,var(--color-purple) 12%,transparent);color:var(--color-purple);border:1px solid color-mix(in oklch,var(--color-purple) 25%,transparent);white-space:nowrap}
+.deploy-age{font-size:10px;color:var(--color-text-faint);font-family:var(--font-mono);white-space:nowrap;text-align:right}
+.deploy-sha{font-size:10px;font-family:var(--font-mono);color:var(--color-text-faint);padding:0.1rem 0.4rem;background:var(--color-surface-offset);border-radius:var(--radius-sm);border:1px solid var(--color-border)}
+.deploy-links{display:flex;gap:0.4rem;align-items:center;flex-shrink:0}
+.deploy-link{font-size:10px;color:var(--color-text-muted);padding:0.2rem 0.5rem;border-radius:var(--radius-sm);border:1px solid var(--color-border);background:var(--color-surface-offset)}
+.deploy-link:hover{color:var(--color-primary);border-color:var(--color-primary)}
+
+/* THREADS */
+.threads-empty{display:flex;flex-direction:column;align-items:center;padding:3rem 2rem;text-align:center;gap:1rem;background:var(--color-surface);border:1px solid var(--color-border);border-radius:var(--radius-xl)}
+.threads-empty svg{color:var(--color-primary);opacity:0.5}
+.threads-empty h3{font-size:var(--text-sm);font-weight:600}
+.threads-empty p{font-size:var(--text-xs);color:var(--color-text-muted);max-width:40ch}
+.threads-empty code{font-size:10px;font-family:var(--font-mono);color:var(--color-text-faint);background:var(--color-surface-offset);padding:0.4rem 0.85rem;border-radius:var(--radius-md);border:1px solid var(--color-border)}
+
+/* PAGINATION */
+.pagination{display:flex;align-items:center;justify-content:center;gap:0.5rem;margin-top:1.5rem}
+.page-btn{padding:0.45rem 0.9rem;font-size:var(--text-xs);border-radius:var(--radius-md);border:1px solid var(--color-border);background:var(--color-surface);color:var(--color-text-muted)}
 .page-btn:hover:not(:disabled){background:var(--color-surface-offset);color:var(--color-text)}
-.page-btn:disabled{opacity:0.4;cursor:not-allowed}
-.page-info{font-size:var(--text-xs);color:var(--color-text-muted);font-family:var(--font-mono)}
+.page-btn:disabled{opacity:0.35;cursor:not-allowed}
+.page-info{font-size:10px;color:var(--color-text-faint);font-family:var(--font-mono)}
 
-.section-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:1rem}
-.section-title{font-size:var(--text-sm);font-weight:600;color:var(--color-text-muted);text-transform:uppercase;letter-spacing:0.08em}
-
+/* PANELS */
 .tab-panel{display:none}.tab-panel.active{display:block}
+.no-results{padding:2.5rem 1.5rem;text-align:center;color:var(--color-text-muted);font-size:var(--text-xs)}
 
-@media(max-width:600px){
+@media(max-width:640px){
   .header{padding:0.75rem 1rem}
   .page{padding:1.25rem 1rem}
   .profile-bar{flex-wrap:wrap}
-  .profile-stats{width:100%;justify-content:space-around;border-top:1px solid var(--color-border);padding-top:0.75rem;margin-top:0.25rem}
-  .tabs{flex-wrap:wrap}
+  .profile-meta{width:100%;justify-content:space-around;border-top:1px solid var(--color-border);padding-top:0.75rem;margin-top:0.25rem}
+  .meta-divider{display:none}
+  .tabs{padding:0.2rem}
+  .tab{padding:0.45rem 0.65rem}
   .filters{flex-direction:column;align-items:stretch}
-  .search-box{min-width:unset}
+  .search-wrap{min-width:unset}
+  .deploy-row{grid-template-columns:auto 1fr;grid-template-rows:auto auto}
+  .deploy-env,.deploy-age{display:none}
 }
 </style>
 </head>
@@ -151,234 +189,324 @@ a,button,[role="button"]{transition:color var(--transition),background var(--tra
 
 <header class="header">
   <div class="logo">
-    <svg class="logo-icon" viewBox="0 0 36 36" fill="none" aria-label="Dev Hub Logo">
-      <rect width="36" height="36" rx="10" fill="var(--color-primary)"/>
-      <path d="M10 13L18 8L26 13V23L18 28L10 23V13Z" stroke="white" stroke-width="1.5" fill="none"/>
-      <circle cx="18" cy="18" r="3.5" fill="white"/>
-      <path d="M18 8V11M18 25V28M10 13L12.5 15M23.5 21L26 23M10 23L12.5 21M23.5 15L26 13" stroke="white" stroke-width="1.2" opacity="0.6"/>
+    <svg class="logo-icon" viewBox="0 0 32 32" fill="none" aria-label="Dev Hub">
+      <rect width="32" height="32" rx="9" fill="var(--color-primary)"/>
+      <path d="M9 12L16 8L23 12V20L16 24L9 20V12Z" stroke="white" stroke-width="1.5" fill="none"/>
+      <circle cx="16" cy="16" r="3" fill="white"/>
+      <path d="M16 8V11M16 21V24M9 12L11 13.5M21 18.5L23 20M9 20L11 18.5M21 13.5L23 12" stroke="white" stroke-width="1.1" opacity="0.55"/>
     </svg>
     <div>
       <div class="logo-text">Dev Hub</div>
-      <div class="logo-sub">@Gzeu · GitHub</div>
+      <div class="logo-sub">@Gzeu · George Pricop</div>
     </div>
   </div>
   <div class="header-actions">
     <a href="https://github.com/Gzeu" target="_blank" rel="noopener noreferrer" class="gh-link">
-      <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z"/></svg>
+      <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z"/></svg>
       GitHub
     </a>
-    <button class="theme-toggle" data-theme-toggle aria-label="Switch theme">
-      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+    <button class="btn-icon" data-theme-toggle aria-label="Switch theme">
+      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
     </button>
   </div>
 </header>
 
 <main class="page">
+
   <div class="profile-bar">
-    <img class="avatar" src="https://avatars.githubusercontent.com/u/96602369?v=4" alt="George Pricop" width="52" height="52" loading="lazy">
+    <img class="avatar" src="https://avatars.githubusercontent.com/u/96602369?v=4" alt="George Pricop" width="48" height="48" loading="lazy">
     <div class="profile-info">
       <div class="profile-name">George Pricop</div>
       <div class="profile-bio">Blockchain Dev · MultiversX Smart Contracts · AI Agents · GameFi · Rust · TypeScript · Open to Remote/EU Roles 🌍</div>
     </div>
-    <div class="profile-stats">
-      <div class="stat"><div class="stat-num">141</div><div class="stat-label">Repos</div></div>
-      <div class="stat"><div class="stat-num">30</div><div class="stat-label">Loaded</div></div>
+    <div class="profile-meta">
+      <div class="meta-stat">
+        <div class="meta-num">141</div>
+        <div class="meta-label">Repos</div>
+      </div>
+      <div class="meta-divider"></div>
+      <div class="meta-stat">
+        <div class="meta-num">34</div>
+        <div class="meta-label">Vercel</div>
+      </div>
+      <div class="meta-divider"></div>
+      <div class="meta-stat">
+        <div class="meta-num">6</div>
+        <div class="meta-label">Deploys</div>
+      </div>
     </div>
   </div>
 
   <div class="tabs" role="tablist">
-    <button class="tab active" role="tab" aria-selected="true" data-tab="repos">
-      Proiecte GitHub <span class="tab-count" id="tab-repo-count">30</span>
+    <button class="tab active" role="tab" data-tab="repos">
+      GitHub <span class="tab-badge" id="cnt-repos">30</span>
     </button>
-    <button class="tab" role="tab" aria-selected="false" data-tab="threads">
-      Vercel Threads <span class="tab-count" id="tab-thread-count">0</span>
+    <button class="tab" role="tab" data-tab="vercel">
+      Vercel Projects <span class="tab-badge">34</span>
+    </button>
+    <button class="tab" role="tab" data-tab="deploys">
+      Deployments <span class="tab-badge">6</span>
+    </button>
+    <button class="tab" role="tab" data-tab="threads">
+      Threads <span class="tab-badge">0</span>
     </button>
   </div>
 
+  <!-- GITHUB REPOS -->
   <div class="tab-panel active" id="panel-repos">
     <div class="filters">
-      <div class="search-box">
-        <svg class="search-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
-        <input type="text" id="search-repos" placeholder="Caută repo..." autocomplete="off">
+      <div class="search-wrap">
+        <svg class="search-icon" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+        <input type="text" id="search-repos" placeholder="Caută repo după nume, descriere, topic…" autocomplete="off">
       </div>
-      <div class="lang-filter" id="lang-filters"></div>
+      <div class="lang-pills" id="lang-pills"></div>
     </div>
-    <div class="section-header">
-      <span class="section-title" id="results-count">30 proiecte</span>
+    <div class="section-row">
+      <span class="section-label" id="results-label">30 proiecte</span>
     </div>
     <div class="repos-grid" id="repos-grid"></div>
-    <div class="pagination" id="pagination"></div>
+    <div class="pagination" id="repo-pagination"></div>
   </div>
 
+  <!-- VERCEL PROJECTS -->
+  <div class="tab-panel" id="panel-vercel">
+    <div class="section-row">
+      <span class="section-label">34 proiecte Vercel — gzeus-projects</span>
+    </div>
+    <div class="vprojects-grid" id="vprojects-grid"></div>
+  </div>
+
+  <!-- DEPLOYMENTS -->
+  <div class="tab-panel" id="panel-deploys">
+    <div class="section-row">
+      <span class="section-label">dev-hub — 6 deployment-uri recente</span>
+    </div>
+    <div class="deploy-list" id="deploy-list"></div>
+  </div>
+
+  <!-- THREADS -->
   <div class="tab-panel" id="panel-threads">
-    <div style="padding:1rem">
-      <div style="background:var(--color-surface);border:1px solid var(--color-border);border-radius:var(--radius-xl);padding:2rem;text-align:center;margin-bottom:1rem">
-        <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="var(--color-primary)" stroke-width="1.5" style="margin:0 auto 1rem"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
-        <h3 style="font-size:var(--text-sm);font-weight:600;margin-bottom:0.5rem">Vercel Toolbar Threads</h3>
-        <p style="font-size:var(--text-xs);color:var(--color-text-muted);max-width:40ch;margin:0 auto 1rem">Thread-urile Vercel toolbar sunt comentarii și feedback-uri lăsate direct pe deployment-urile tale preview.</p>
-        <div style="display:inline-flex;align-items:center;gap:0.5rem;font-size:var(--text-xs);color:var(--color-text-faint);font-family:var(--font-mono);background:var(--color-surface-offset);padding:0.5rem 1rem;border-radius:var(--radius-md);border:1px solid var(--color-border)">
-          Fără thread-uri active momentan
-        </div>
-      </div>
-      <div style="font-size:var(--text-xs);color:var(--color-text-faint);text-align:center">Thread-urile apar automat când cineva lasă feedback pe un deployment Vercel preview.</div>
+    <div class="threads-empty">
+      <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+      <h3>Vercel Toolbar Threads</h3>
+      <p>Comentariile și feedback-urile lăsate pe deployment-urile preview apar automat aici.</p>
+      <code>gzeus-projects — 0 thread-uri active</code>
     </div>
   </div>
+
 </main>
 
 <script>
+/* ── DATA ── */
 const REPOS = [
-  {name:"contentforge-ai",desc:"Ghostwriter AI ultra-viral pentru YouTube, TikTok, Reels & X. Powered by Groq LLaMA 3.3 70B + LangChain + LangSmith.",lang:"TypeScript",issues:0,updated:"2026-04-14",topics:[],url:"https://github.com/Gzeu/contentforge-ai",fork:false},
-  {name:"roblox-procedural-worlds",desc:"Collection of procedural world generation systems for Roblox Studio — biomes, terrain, caves, chunk-based generation using Luau & math.noise()",lang:"Lua",issues:1,updated:"2026-04-14",topics:["game-development","lua","luau","procedural-generation","roblox"],url:"https://github.com/Gzeu/roblox-procedural-worlds",fork:false},
-  {name:"cosmoagent-ai",desc:"Multimodal AI agent combining cosmic insights, blockchain intelligence, and automated workflows for MyShell ShellAgent platform",lang:"Python",issues:0,updated:"2026-04-14",topics:[],url:"https://github.com/Gzeu/cosmoagent-ai",fork:false},
-  {name:"CelestialForge",desc:"Advanced MultiversX gaming platform with React frontend, FastAPI backend, all containerized with Docker.",lang:"TypeScript",issues:0,updated:"2026-04-14",topics:[],url:"https://github.com/Gzeu/CelestialForge",fork:false},
-  {name:"carbonflow-ai",desc:"AI-powered decentralized carbon credit trading platform with ML verification and blockchain automation",lang:"JavaScript",issues:8,updated:"2026-04-13",topics:[],url:"https://github.com/Gzeu/carbonflow-ai",fork:false},
-  {name:"agentbazaar",desc:"Permissionless AI Agent Marketplace on MultiversX Supernova — discover, negotiate, pay and execute services agent-to-agent on-chain.",lang:"TypeScript",issues:1,updated:"2026-04-12",topics:[],url:"https://github.com/Gzeu/agentbazaar",fork:false},
-  {name:"clawtree",desc:"Talent tree + knowledge graph for OpenClaw skills — audit, gap analysis, semantic search, evolve",lang:"TypeScript",issues:3,updated:"2026-04-11",topics:[],url:"https://github.com/Gzeu/clawtree",fork:false},
-  {name:"gematria-engine",desc:"Cryptolinguistic analysis tool — 6 Gematria ciphers with numerology summary and JSON output",lang:"TypeScript",issues:0,updated:"2026-04-10",topics:[],url:"https://github.com/Gzeu/gematria-engine",fork:false},
-  {name:"vaultkey",desc:"VaultKey — Secure, encrypted API Key Wallet for developers. AES-256-GCM + Argon2id | CLI + TUI + GUI",lang:"Python",issues:0,updated:"2026-04-07",topics:[],url:"https://github.com/Gzeu/vaultkey",fork:false},
-  {name:"100-great-humans",desc:"Research project compiling 100 influential figures in human history with concise biographies.",lang:"Python",issues:0,updated:"2026-04-03",topics:[],url:"https://github.com/Gzeu/100-great-humans",fork:false},
-  {name:"ai-task-escrow-router",desc:"Complete AI Task Escrow Router — escrow and settlement protocol for AI-mediated task execution on MultiversX.",lang:"Rust",issues:0,updated:"2026-04-02",topics:[],url:"https://github.com/Gzeu/ai-task-escrow-router",fork:false},
-  {name:"decentralized-ai-powered-content-moderation-platform",desc:"Privacy-preserving decentralized content moderation with federated learning",lang:"Python",issues:0,updated:"2026-03-22",topics:[],url:"https://github.com/Gzeu/decentralized-ai-powered-content-moderation-platform",fork:true},
-  {name:"ascii-canvas-ai",desc:"ASCII Canvas Diagram Editor with AI Assistant — single HTML file, OpenAI-compatible API integration",lang:"HTML",issues:0,updated:"2026-03-21",topics:[],url:"https://github.com/Gzeu/ascii-canvas-ai",fork:false},
-  {name:"ArchNeuronX",desc:"Sistem Automatizat de Trading cu Rețele Neurale - C++17, LibTorch 2.1.0, CUDA, Docker",lang:"C++",issues:5,updated:"2026-03-18",topics:[],url:"https://github.com/Gzeu/ArchNeuronX",fork:false},
-  {name:"play-to-earn-gaming-platform",desc:"AI-powered play-to-earn gaming platform with multi-agent system for game economy design, token rewards, NFT assets",lang:"TypeScript",issues:1,updated:"2026-03-12",topics:[],url:"https://github.com/Gzeu/play-to-earn-gaming-platform",fork:false},
-  {name:"binance-crypto-dashboard",desc:"Production-ready Binance cryptocurrency portfolio dashboard built with Next.js 14 App Router, Vercel deployment",lang:"TypeScript",issues:0,updated:"2026-03-09",topics:[],url:"https://github.com/Gzeu/binance-crypto-dashboard",fork:false},
-  {name:"wildmind",desc:"WildMind — How wild is your mind? A progressive animal guessing puzzle game built with PixiJS 8 & TypeScript.",lang:"TypeScript",issues:0,updated:"2026-03-06",topics:[],url:"https://github.com/Gzeu/wildmind",fork:false},
-  {name:"crypto-arena",desc:"CryptoArena — crypto-native AI agent game platform. Real-time multi-agent trading simulation on Base L2.",lang:"Python",issues:2,updated:"2026-03-05",topics:[],url:"https://github.com/Gzeu/crypto-arena",fork:false},
-  {name:"openclaw-hub",desc:"Centralized AI agent discovery, economy, and skill execution hub with embedded agent integration",lang:"TypeScript",issues:8,updated:"2026-03-04",topics:[],url:"https://github.com/Gzeu/openclaw-hub",fork:false},
-  {name:"mathcli-pro",desc:"Modern CLI calculator for developers: math expressions, unit conversions, currency rates, batch calculations.",lang:"JavaScript",issues:0,updated:"2026-03-03",topics:["calculator","cli","nodejs"],url:"https://github.com/Gzeu/mathcli-pro",fork:false},
-  {name:"mx-agentic-commerce",desc:"Gamified AI Agentic Commerce Platform on MultiversX — UCP/ACP/x402/MCP/AP2 stack, Next.js + xPortal frontend",lang:"TypeScript",issues:0,updated:"2026-03-02",topics:[],url:"https://github.com/Gzeu/mx-agentic-commerce",fork:false},
-  {name:"clawnet",desc:"Agent Mesh Platform for OpenClaw - Connect, Collaborate, Context Handoff",lang:"TypeScript",issues:0,updated:"2026-02-27",topics:[],url:"https://github.com/Gzeu/clawnet",fork:false},
-  {name:"guildmaster-io",desc:"MultiversX DeFi Intelligence Platform - AI-powered protocol monitoring, staking yield optimization on GCP.",lang:"TypeScript",issues:0,updated:"2026-02-21",topics:[],url:"https://github.com/Gzeu/guildmaster-io",fork:false},
-  {name:"talent-tree-skill",desc:"WoW-style talent progression system for AI agents - gamify your agent with specializations, combos, and XP tracking",lang:"JavaScript",issues:0,updated:"2026-02-21",topics:[],url:"https://github.com/Gzeu/talent-tree-skill",fork:false},
-  {name:"pangolin-security-claw",desc:"Pangolin Security Claw - A biomimetic Local Security Dashboard & Manager built for the OpenClaw / ClawHub ecosystem.",lang:"Python",issues:0,updated:"2026-02-21",topics:[],url:"https://github.com/Gzeu/pangolin-security-claw",fork:false},
-  {name:"pulsar-core",desc:"Real-time AI agent pulse monitoring platform with scoring engine, dashboard visualization, and event streaming.",lang:null,issues:0,updated:"2026-02-17",topics:[],url:"https://github.com/Gzeu/pulsar-core",fork:false},
-  {name:"pixelmolt",desc:"Territorial Pixel War for AI Agents - Dynamic canvas where agents fight for territory",lang:"TypeScript",issues:0,updated:"2026-02-09",topics:[],url:"https://github.com/Gzeu/pixelmolt",fork:false},
-  {name:"xarena",desc:"xArena - AI Agent Battle Platform on MultiversX. Gasless PvP battles, clans, tournaments.",lang:"TypeScript",issues:0,updated:"2026-02-08",topics:[],url:"https://github.com/Gzeu/xarena",fork:false},
-  {name:"skill-audit",desc:"Security auditor for AI agent skills - scan before you install",lang:"PowerShell",issues:0,updated:"2026-02-07",topics:[],url:"https://github.com/Gzeu/skill-audit",fork:false},
-  {name:"Gzeu",desc:"Config files for my GitHub profile.",lang:null,issues:0,updated:"2026-04-15",topics:["config","github-config"],url:"https://github.com/Gzeu/Gzeu",fork:false},
+  {name:"contentforge-ai",desc:"Ghostwriter AI ultra-viral pentru YouTube, TikTok, Reels & X. Powered by Groq LLaMA 3.3 70B + LangChain.",lang:"TypeScript",issues:0,updated:"2026-04-14",topics:[],fork:false,url:"https://github.com/Gzeu/contentforge-ai"},
+  {name:"roblox-procedural-worlds",desc:"Procedural world generation systems for Roblox Studio — biomes, terrain, caves, chunk-based generation (Luau).",lang:"Lua",issues:1,updated:"2026-04-14",topics:["game-development","lua","procedural-generation","roblox"],fork:false,url:"https://github.com/Gzeu/roblox-procedural-worlds"},
+  {name:"cosmoagent-ai",desc:"Multimodal AI agent combining cosmic insights, blockchain intelligence, and automated workflows for MyShell ShellAgent.",lang:"Python",issues:0,updated:"2026-04-14",topics:[],fork:false,url:"https://github.com/Gzeu/cosmoagent-ai"},
+  {name:"CelestialForge",desc:"Advanced MultiversX gaming platform with React frontend, FastAPI backend, containerized with Docker.",lang:"TypeScript",issues:0,updated:"2026-04-14",topics:[],fork:false,url:"https://github.com/Gzeu/CelestialForge"},
+  {name:"carbonflow-ai",desc:"AI-powered decentralized carbon credit trading platform with ML verification and blockchain automation.",lang:"JavaScript",issues:8,updated:"2026-04-13",topics:[],fork:false,url:"https://github.com/Gzeu/carbonflow-ai"},
+  {name:"agentbazaar",desc:"Permissionless AI Agent Marketplace on MultiversX Supernova — discover, negotiate, pay and execute services agent-to-agent on-chain.",lang:"TypeScript",issues:1,updated:"2026-04-12",topics:[],fork:false,url:"https://github.com/Gzeu/agentbazaar"},
+  {name:"clawtree",desc:"Talent tree + knowledge graph for OpenClaw skills — audit, gap analysis, semantic search, evolve.",lang:"TypeScript",issues:3,updated:"2026-04-11",topics:[],fork:false,url:"https://github.com/Gzeu/clawtree"},
+  {name:"gematria-engine",desc:"Cryptolinguistic analysis tool — 6 Gematria ciphers with numerology summary and JSON output.",lang:"TypeScript",issues:0,updated:"2026-04-10",topics:[],fork:false,url:"https://github.com/Gzeu/gematria-engine"},
+  {name:"vaultkey",desc:"Secure, encrypted API Key Wallet for developers. AES-256-GCM + Argon2id | CLI + TUI + GUI.",lang:"Python",issues:0,updated:"2026-04-07",topics:[],fork:false,url:"https://github.com/Gzeu/vaultkey"},
+  {name:"100-great-humans",desc:"Research project compiling 100 influential figures in human history with concise biographies.",lang:"Python",issues:0,updated:"2026-04-03",topics:[],fork:false,url:"https://github.com/Gzeu/100-great-humans"},
+  {name:"ai-task-escrow-router",desc:"Complete AI Task Escrow Router — escrow and settlement protocol for AI-mediated task execution on MultiversX.",lang:"Rust",issues:0,updated:"2026-04-02",topics:[],fork:false,url:"https://github.com/Gzeu/ai-task-escrow-router"},
+  {name:"decentralized-ai-content-moderation",desc:"Privacy-preserving decentralized content moderation with federated learning.",lang:"Python",issues:0,updated:"2026-03-22",topics:[],fork:true,url:"https://github.com/Gzeu/decentralized-ai-powered-content-moderation-platform"},
+  {name:"ascii-canvas-ai",desc:"ASCII Canvas Diagram Editor with AI Assistant — single HTML file, OpenAI-compatible API integration.",lang:"HTML",issues:0,updated:"2026-03-21",topics:[],fork:false,url:"https://github.com/Gzeu/ascii-canvas-ai"},
+  {name:"ArchNeuronX",desc:"Automated Trading System with Neural Networks — C++17, LibTorch 2.1.0, CUDA, Docker.",lang:"C++",issues:5,updated:"2026-03-18",topics:[],fork:false,url:"https://github.com/Gzeu/ArchNeuronX"},
+  {name:"play-to-earn-gaming-platform",desc:"AI-powered play-to-earn gaming platform with multi-agent system for game economy design, token rewards, NFT assets.",lang:"TypeScript",issues:1,updated:"2026-03-12",topics:[],fork:false,url:"https://github.com/Gzeu/play-to-earn-gaming-platform"},
+  {name:"binance-crypto-dashboard",desc:"Production-ready Binance cryptocurrency portfolio dashboard built with Next.js 14 App Router.",lang:"TypeScript",issues:0,updated:"2026-03-09",topics:[],fork:false,url:"https://github.com/Gzeu/binance-crypto-dashboard"},
+  {name:"wildmind",desc:"WildMind — progressive animal guessing puzzle game built with PixiJS 8 & TypeScript.",lang:"TypeScript",issues:0,updated:"2026-03-06",topics:[],fork:false,url:"https://github.com/Gzeu/wildmind"},
+  {name:"crypto-arena",desc:"CryptoArena — crypto-native AI agent game platform. Real-time multi-agent trading simulation on Base L2.",lang:"Python",issues:2,updated:"2026-03-05",topics:[],fork:false,url:"https://github.com/Gzeu/crypto-arena"},
+  {name:"openclaw-hub",desc:"Centralized AI agent discovery, economy, and skill execution hub with embedded agent integration.",lang:"TypeScript",issues:8,updated:"2026-03-04",topics:[],fork:false,url:"https://github.com/Gzeu/openclaw-hub"},
+  {name:"mathcli-pro",desc:"Modern CLI calculator for developers: math expressions, unit conversions, currency rates, batch calculations.",lang:"JavaScript",issues:0,updated:"2026-03-03",topics:["calculator","cli","nodejs"],fork:false,url:"https://github.com/Gzeu/mathcli-pro"},
+  {name:"mx-agentic-commerce",desc:"Gamified AI Agentic Commerce Platform on MultiversX — UCP/ACP/x402/MCP/AP2 stack, Next.js + xPortal.",lang:"TypeScript",issues:0,updated:"2026-03-02",topics:[],fork:false,url:"https://github.com/Gzeu/mx-agentic-commerce"},
+  {name:"clawnet",desc:"Agent Mesh Platform for OpenClaw — Connect, Collaborate, Context Handoff.",lang:"TypeScript",issues:0,updated:"2026-02-27",topics:[],fork:false,url:"https://github.com/Gzeu/clawnet"},
+  {name:"guildmaster-io",desc:"MultiversX DeFi Intelligence Platform — AI-powered protocol monitoring, staking yield optimization on GCP.",lang:"TypeScript",issues:0,updated:"2026-02-21",topics:[],fork:false,url:"https://github.com/Gzeu/guildmaster-io"},
+  {name:"talent-tree-skill",desc:"WoW-style talent progression system for AI agents — gamify your agent with specializations, combos, and XP.",lang:"JavaScript",issues:0,updated:"2026-02-21",topics:[],fork:false,url:"https://github.com/Gzeu/talent-tree-skill"},
+  {name:"pangolin-security-claw",desc:"Biomimetic Local Security Dashboard & Manager for the OpenClaw / ClawHub ecosystem.",lang:"Python",issues:0,updated:"2026-02-21",topics:[],fork:false,url:"https://github.com/Gzeu/pangolin-security-claw"},
+  {name:"pixelmolt",desc:"Territorial Pixel War for AI Agents — dynamic canvas where agents fight for territory.",lang:"TypeScript",issues:0,updated:"2026-02-09",topics:[],fork:false,url:"https://github.com/Gzeu/pixelmolt"},
+  {name:"xarena",desc:"xArena — AI Agent Battle Platform on MultiversX. Gasless PvP battles, clans, tournaments.",lang:"TypeScript",issues:0,updated:"2026-02-08",topics:[],fork:false,url:"https://github.com/Gzeu/xarena"},
+  {name:"skill-audit",desc:"Security auditor for AI agent skills — scan before you install.",lang:"PowerShell",issues:0,updated:"2026-02-07",topics:[],fork:false,url:"https://github.com/Gzeu/skill-audit"},
+  {name:"dev-hub",desc:"Personal developer dashboard — GitHub repos, Vercel projects & deployment history.",lang:"HTML",issues:0,updated:"2026-04-15",topics:["dashboard","vercel","github"],fork:false,url:"https://github.com/Gzeu/dev-hub"},
+  {name:"Gzeu",desc:"Config files for my GitHub profile.",lang:null,issues:0,updated:"2026-04-15",topics:["config","github-config"],fork:false,url:"https://github.com/Gzeu/Gzeu"},
 ];
 
-const LANG_COLORS={
-  TypeScript:"#3178c6",JavaScript:"#f1e05a",Python:"#3572A5",
-  Rust:"#dea584",HTML:"#e34c26",Lua:"#000080","C++":"#f34b7d",
-  PowerShell:"#012456"
-};
+const VERCEL_PROJECTS = [
+  {name:"dev-hub",id:"prj_oExEwVtS7Bblao65Td6OgB005Z9p",created:1776264293522,url:"https://vercel.com/gzeus-projects/dev-hub"},
+  {name:"contentforge-ai",id:"prj_ztc4UWElPBwi4Nni0lzoygnHddz2",created:1776194660095,url:"https://vercel.com/gzeus-projects/contentforge-ai"},
+  {name:"roblox-procedural-worlds",id:"prj_L6eh9r1tvCalKI4B6WhsFi9DTiau",created:1776185123605,url:"https://vercel.com/gzeus-projects/roblox-procedural-worlds"},
+  {name:"carbonflow-ai",id:"prj_qcsIEXpfYoX5oU49xWhtG1Cd2MGW",created:1776109477485,url:"https://vercel.com/gzeus-projects/carbonflow-ai"},
+  {name:"agentbazaar-frontend",id:"prj_T2SRgoThElzmFix63Jxbhg2HoWmy",created:1775749940639,url:"https://vercel.com/gzeus-projects/agentbazaar-frontend"},
+  {name:"gematria-engine",id:"prj_zOGTOILTvwIpwEvnZlLp41VBpoUe",created:1775770253256,url:"https://vercel.com/gzeus-projects/gematria-engine"},
+  {name:"100-great-humans",id:"prj_t3NXSt3FqLS6y3sjnLOGmB2jfAxm",created:1775174667015,url:"https://vercel.com/gzeus-projects/100-great-humans"},
+  {name:"y",id:"prj_bk7XTm36Jj6boEAqHKfBiNSKfcs8",created:1773963840708,url:"https://vercel.com/gzeus-projects/y"},
+  {name:"binance-crypto-dashboard",id:"prj_cztWw5OGhgGj5mrWQGRnT9XgKu6u",created:1761612725146,url:"https://vercel.com/gzeus-projects/binance-crypto-dashboard"},
+  {name:"openclaw-hub",id:"prj_GdEXcFN2uS354waFCLeWy2CxUuVx",created:1772291984507,url:"https://vercel.com/gzeus-projects/openclaw-hub"},
+  {name:"mx-agentic-commerce-frontend",id:"prj_dk01N6seK2o41YxqbNBPPOjBavoU",created:1772473963194,url:"https://vercel.com/gzeus-projects/mx-agentic-commerce-frontend"},
+  {name:"pixelmolt",id:"prj_qjhHJu4WFpQOEkFWqXJxSpSz6XtG",created:1770641157120,url:"https://vercel.com/gzeus-projects/pixelmolt"},
+  {name:"brandcraft",id:"prj_3N4DMuI4qpzo0rtWAcqUI2Z5iHv6",created:1766874113771,url:"https://vercel.com/gzeus-projects/brandcraft"},
+  {name:"aroma-divina",id:"prj_8HAbhG2etCSlXFqYJI7dSFvanGUl",created:1768044330964,url:"https://vercel.com/gzeus-projects/aroma-divina"},
+  {name:"stardust-engine",id:"prj_19kmFUupNeO0KStSR1inukzIfO5H",created:1760288070854,url:"https://vercel.com/gzeus-projects/stardust-engine"},
+  {name:"ufo-invasions-pump-tokens",id:"prj_LeK14ABnO5Bnq0sUprZ4ELtVIMte",created:1759147590532,url:"https://vercel.com/gzeus-projects/ufo-invasions-pump-tokens"},
+  {name:"vorbabuna",id:"prj_QoXHS0nIAGIQ0emUZDtI9yHN1B3l",created:1764675409950,url:"https://vercel.com/gzeus-projects/vorbabuna"},
+  {name:"hemi-arcana",id:"prj_4Ua79vW4rW6EimUcV5e4yy6PDsDe",created:1764456761222,url:"https://vercel.com/gzeus-projects/hemi-arcana"},
+  {name:"green-dot",id:"prj_YoKYHA5JWLDZh0mBk9c0dgSZJ5CO",created:1764316251669,url:"https://vercel.com/gzeus-projects/green-dot"},
+  {name:"profesor-x-trader",id:"prj_bd2p6BSofoVoJU8eYXSmPa7j8xGf",created:1744211513877,url:"https://vercel.com/gzeus-projects/profesor-x-trader"},
+  {name:"poly-craft",id:"prj_LxdumsivL5zWZ4n5WXTjdarIqSoT",created:1754769023103,url:"https://vercel.com/gzeus-projects/poly-craft"},
+  {name:"cosmicinsights",id:"prj_2oZ0vaglahPmICsShUZreg3SePQy",created:1745010715711,url:"https://vercel.com/gzeus-projects/cosmicinsights"},
+  {name:"dungeon-legends",id:"prj_k16ST0Rt0F5lsrIgED1u0fRa8GPx",created:1760653669066,url:"https://vercel.com/gzeus-projects/dungeon-legends"},
+  {name:"neoforge-legends",id:"prj_3kl68tOAybApvb74LD2U8hbY7H6C",created:1760725719052,url:"https://vercel.com/gzeus-projects/neoforge-legends"},
+  {name:"cosmic-quest-engine",id:"prj_SOI8ruDyIm00X6wqMh3p4EVjlShr",created:1760481625464,url:"https://vercel.com/gzeus-projects/cosmic-quest-engine"},
+  {name:"viralsafe-platform-free",id:"prj_C7zotMDLKKXjKAYkhMhix6EwBh6u",created:1759949624788,url:"https://vercel.com/gzeus-projects/viralsafe-platform-free"},
+  {name:"viralsafe-platform-deploy",id:"prj_YP8k5BM40uPF9EVhdXw7DmpUy0rd",created:1760039121637,url:"https://vercel.com/gzeus-projects/viralsafe-platform-deploy"},
+  {name:"vite-react",id:"prj_xj01CVhelfSRWL3etEa9ImQRzCZh",created:1759337620346,url:"https://vercel.com/gzeus-projects/vite-react"},
+  {name:"ufo-token-landing",id:"prj_t14gGDA6y2qC19yqlOcAMOcvYtCL",created:1758911427612,url:"https://vercel.com/gzeus-projects/ufo-token-landing"},
+  {name:"html5-breakout-game",id:"prj_zAccLReN6AR8EwCkhxje3f2UBF6T",created:1759087086729,url:"https://vercel.com/gzeus-projects/html5-breakout-game"},
+  {name:"mvx-proofmind-c3oj",id:"prj_lN2z9jB9OQtiQEj4JuzOT9TW9V5r",created:1758556848988,url:"https://vercel.com/gzeus-projects/mvx-proofmind-c3oj"},
+  {name:"mvx-proofmind",id:"prj_yVFfxh5rZNbBPSiFUGbA7lLWWx5s",created:1758556758178,url:"https://vercel.com/gzeus-projects/mvx-proofmind"},
+  {name:"mvx-portfolio-manager",id:"prj_XoYVtIY9X8B9vSTb7pnvCX7xHhKH",created:1758481500850,url:"https://vercel.com/gzeus-projects/mvx-portfolio-manager"},
+  {name:"solana-wallet-connect",id:"prj_We28UIY4pMoa9F8E5ktKFLjXLuXO",created:1758330779172,url:"https://vercel.com/gzeus-projects/solana-wallet-connect"},
+];
 
-const PER_PAGE=12;
-let currentPage=1;
-let filteredRepos=[...REPOS];
-let activeLang='All';
-let searchQuery='';
+const DEPLOYMENTS = [
+  {id:"dpl_6u36EoukKwSwFYU8tzCcHG2odBeq",sha:"e7d2c35",msg:"fix: remove location stat, keep only real data (141 repos, 30 loaded)",url:"dev-xo1ack6k7-gzeus-projects.vercel.app",created:1776266264713,state:"READY",target:"production",inspector:"https://vercel.com/gzeus-projects/dev-hub/6u36EoukKwSwFYU8tzCcHG2odBeq"},
+  {id:"dpl_G6KLfC6FFeZtx5BCakMoC27xPceZ",sha:"c0d1b08",msg:"revert: restore clean v1 — remove fake stars, remove București, real repo data only",url:"dev-ge5sqlmpe-gzeus-projects.vercel.app",created:1776266078128,state:"READY",target:"production",inspector:"https://vercel.com/gzeus-projects/dev-hub/G6KLfC6FFeZtx5BCakMoC27xPceZ"},
+  {id:"dpl_52GZzuwowBzDzeDProDooZyLM8iS",sha:"895231c",msg:"feat: upgrade Dev Hub v2 — sidebar filtre, statistici animate, tab Activitate, Geist fonts",url:"dev-rgyw1vwt4-gzeus-projects.vercel.app",created:1776265696106,state:"READY",target:"production",inspector:"https://vercel.com/gzeus-projects/dev-hub/52GZzuwowBzDzeDProDooZyLM8iS"},
+  {id:"dpl_68uAvWAJyepmvsiUwMG848QJtXW9",sha:"296d146",msg:"feat: complete Dev Hub v2 — repos grid, commits, stats, Vercel threads, dark/light mode",url:"dev-onynf2bdg-gzeus-projects.vercel.app",created:1776265468623,state:"READY",target:"production",inspector:"https://vercel.com/gzeus-projects/dev-hub/68uAvWAJyepmvsiUwMG848QJtXW9"},
+  {id:"dpl_3wmESyKQBPL2Rnjv6JuRxMgcoovc",sha:"1c0115f",msg:"docs: add TODO roadmap for Dev Hub development",url:"dev-a7hn17jw5-gzeus-projects.vercel.app",created:1776264516901,state:"READY",target:"production",inspector:"https://vercel.com/gzeus-projects/dev-hub/3wmESyKQBPL2Rnjv6JuRxMgcoovc"},
+  {id:"dpl_7WsxSUzgNj4wnM6sZJCyZ7zn9fBd",sha:"a3d7c31",msg:"chore: sync live Vercel projects (33 real projects from gzeus-projects team)",url:"dev-9gtrakozn-gzeus-projects.vercel.app",created:1776264295736,state:"READY",target:"production",inspector:"https://vercel.com/gzeus-projects/dev-hub/7WsxSUzgNj4wnM6sZJCyZ7zn9fBd"},
+];
 
-function getLangColor(lang){return LANG_COLORS[lang]||'#8b949e'}
-
-function timeAgo(dateStr){
-  const d=new Date(dateStr),n=new Date();
-  const diff=Math.floor((n-d)/86400000);
-  if(diff===0)return 'azi';
-  if(diff===1)return 'ieri';
-  if(diff<7)return diff+'z';
-  if(diff<30)return Math.floor(diff/7)+'s';
-  if(diff<365)return Math.floor(diff/30)+'l';
-  return Math.floor(diff/365)+'a';
+/* ── UTILS ── */
+const LANG_COLORS={TypeScript:"#3178c6",JavaScript:"#f1e05a",Python:"#3572A5",Rust:"#dea584",HTML:"#e34c26",Lua:"#000080","C++":"#f34b7d",PowerShell:"#012456"};
+function langColor(l){return LANG_COLORS[l]||"#8b949e"}
+function ago(ts){
+  const ms=typeof ts==="string"?new Date(ts).getTime():ts;
+  const d=Math.floor((Date.now()-ms)/86400000);
+  if(d===0)return"azi";if(d===1)return"ieri";if(d<7)return d+"z";
+  if(d<30)return Math.floor(d/7)+"s";if(d<365)return Math.floor(d/30)+"l";
+  return Math.floor(d/365)+"a";
 }
+function initials(name){return name.replace(/-/g," ").split(" ").map(w=>w[0]).join("").slice(0,2).toUpperCase()}
 
-function renderRepoCard(repo){
-  const langColor=getLangColor(repo.lang);
-  const topicsHtml=repo.topics.length?`<div class="repo-topics">${repo.topics.slice(0,3).map(t=>`<span class="topic-tag">${t}</span>`).join('')}</div>`:'';
-  return `
-<a href="${repo.url}" target="_blank" rel="noopener noreferrer" class="repo-card" title="${repo.name}">
-  <div class="repo-header">
-    <span class="repo-name">${repo.name}</span>
-    <div class="repo-badges">
-      ${repo.fork?'<span class="badge badge-fork">fork</span>':''}
-      ${repo.issues>0?`<span class="badge badge-issues">${repo.issues} issue${repo.issues>1?'s':''}</span>`:''}
+/* ── REPOS ── */
+const PER=12;let page=1,filtered=[...REPOS],activeLang="All",q="";
+function repoCard(r){
+  const lc=langColor(r.lang);
+  const topics=r.topics.length?`<div class="repo-topics">${r.topics.slice(0,3).map(t=>`<span class="topic">${t}</span>`).join("")}</div>`:"";
+  return `<a href="${r.url}" target="_blank" rel="noopener noreferrer" class="repo-card">
+    <div class="repo-head">
+      <span class="repo-name">${r.name}</span>
+      <div class="repo-badges">
+        ${r.fork?'<span class="badge badge-fork">fork</span>':""}
+        ${r.issues>0?`<span class="badge badge-issue">${r.issues} issue${r.issues>1?"s":""}</span>`:""}
+      </div>
     </div>
-  </div>
-  <p class="repo-desc">${repo.desc||'<em>Fără descriere</em>'}</p>
-  ${topicsHtml}
-  <div class="repo-footer">
-    ${repo.lang?`<span class="lang-dot" style="background:${langColor}"></span><span class="lang-label">${repo.lang}</span>`:''}
-    <span class="repo-date">${timeAgo(repo.updated)}</span>
-  </div>
-</a>`;}
-
-function applyFilters(){
-  filteredRepos=REPOS.filter(r=>{
-    const matchLang=activeLang==='All'||(r.lang||'Other')===activeLang;
-    const q=searchQuery.toLowerCase();
-    const matchSearch=!q||r.name.toLowerCase().includes(q)||(r.desc||'').toLowerCase().includes(q)||r.topics.some(t=>t.includes(q));
-    return matchLang&&matchSearch;
-  });
-  currentPage=1;
-  renderGrid();
+    <p class="repo-desc">${r.desc||"<em>Fără descriere</em>"}</p>
+    ${topics}
+    <div class="repo-foot">
+      ${r.lang?`<span class="lang-dot" style="background:${lc}"></span><span class="lang-name">${r.lang}</span>`:""}
+      <span class="repo-age">${ago(r.updated)}</span>
+    </div>
+  </a>`;
 }
-
-function renderGrid(){
-  const grid=document.getElementById('repos-grid');
-  const start=(currentPage-1)*PER_PAGE;
-  const slice=filteredRepos.slice(start,start+PER_PAGE);
-  const count=document.getElementById('results-count');
-  const tabCount=document.getElementById('tab-repo-count');
-  count.textContent=`${filteredRepos.length} proiect${filteredRepos.length!==1?'e':''}`;
-  tabCount.textContent=filteredRepos.length;
-  if(!filteredRepos.length){grid.innerHTML='<div class="no-results">Niciun repo găsit</div>';renderPagination();return;}
-  grid.innerHTML=slice.map(renderRepoCard).join('');
+function applyFilters(){
+  filtered=REPOS.filter(r=>{
+    const ml=activeLang==="All"||(r.lang||"Other")===activeLang;
+    const mq=!q||r.name.toLowerCase().includes(q)||(r.desc||"").toLowerCase().includes(q)||r.topics.some(t=>t.includes(q));
+    return ml&&mq;
+  });
+  page=1;renderRepos();
+}
+function renderRepos(){
+  const grid=document.getElementById("repos-grid");
+  const start=(page-1)*PER,slice=filtered.slice(start,start+PER);
+  document.getElementById("results-label").textContent=`${filtered.length} proiect${filtered.length!==1?"e":""}`;
+  document.getElementById("cnt-repos").textContent=filtered.length;
+  grid.innerHTML=slice.length?slice.map(repoCard).join(""):`<div class="no-results">Niciun repo găsit</div>`;
   renderPagination();
 }
-
 function renderPagination(){
-  const pg=document.getElementById('pagination');
-  const total=Math.ceil(filteredRepos.length/PER_PAGE);
-  if(total<=1){pg.innerHTML='';return;}
-  pg.innerHTML=`
-    <button class="page-btn" onclick="goPage(${currentPage-1})" ${currentPage===1?'disabled':''}>← Prev</button>
-    <span class="page-info">${currentPage} / ${total}</span>
-    <button class="page-btn" onclick="goPage(${currentPage+1})" ${currentPage===total?'disabled':''}>Next →</button>
-  `;
+  const pg=document.getElementById("repo-pagination");
+  const total=Math.ceil(filtered.length/PER);
+  pg.innerHTML=total<=1?"":`
+    <button class="page-btn" onclick="goPage(${page-1})" ${page===1?"disabled":""}>← Înapoi</button>
+    <span class="page-info">${page} / ${total}</span>
+    <button class="page-btn" onclick="goPage(${page+1})" ${page===total?"disabled":""}>Înainte →</button>`;
 }
-function goPage(p){currentPage=p;renderGrid();window.scrollTo({top:0,behavior:'smooth'})}
+function goPage(p){page=p;renderRepos();scrollTo({top:0,behavior:"smooth"})}
+function buildLangPills(){
+  const langs=["All",...[...new Set(REPOS.map(r=>r.lang||"Other"))].sort()];
+  const c=document.getElementById("lang-pills");
+  c.innerHTML=langs.map(l=>`<button class="lang-pill${l==="All"?" active":""}" data-lang="${l}">${l}</button>`).join("");
+  c.querySelectorAll(".lang-pill").forEach(b=>b.addEventListener("click",()=>{
+    activeLang=b.dataset.lang;
+    c.querySelectorAll(".lang-pill").forEach(x=>x.classList.remove("active"));
+    b.classList.add("active");applyFilters();
+  }));
+}
+document.getElementById("search-repos").addEventListener("input",e=>{q=e.target.value.toLowerCase();applyFilters()});
 
-function buildLangFilters(){
-  const langs=['All',...[...new Set(REPOS.map(r=>r.lang||'Other'))].sort()];
-  const container=document.getElementById('lang-filters');
-  container.innerHTML=langs.map(l=>`<button class="lang-btn ${l==='All'?'active':''}" data-lang="${l}">${l}</button>`).join('');
-  container.querySelectorAll('.lang-btn').forEach(btn=>{
-    btn.addEventListener('click',()=>{
-      activeLang=btn.dataset.lang;
-      container.querySelectorAll('.lang-btn').forEach(b=>b.classList.remove('active'));
-      btn.classList.add('active');
-      applyFilters();
-    });
-  });
+/* ── VERCEL PROJECTS ── */
+function renderVercelProjects(){
+  const grid=document.getElementById("vprojects-grid");
+  grid.innerHTML=VERCEL_PROJECTS.map(p=>`
+    <a href="${p.url}" target="_blank" rel="noopener noreferrer" class="vproject-card">
+      <div class="vp-head">
+        <div class="vp-icon">${initials(p.name)}</div>
+        <span class="vp-name">${p.name}</span>
+      </div>
+      <div class="vp-meta">
+        <span class="vp-status status-ready"><span class="status-dot"></span>Ready</span>
+        <span class="vp-date">${ago(p.created)}</span>
+      </div>
+      <div class="vp-links">
+        <span class="vp-link">Dashboard →</span>
+      </div>
+    </a>`).join("");
 }
 
-document.getElementById('search-repos').addEventListener('input',e=>{
-  searchQuery=e.target.value;applyFilters();
-});
+/* ── DEPLOYMENTS ── */
+function renderDeployments(){
+  const list=document.getElementById("deploy-list");
+  list.innerHTML=DEPLOYMENTS.map((d,i)=>`
+    <div class="deploy-row">
+      <div class="deploy-state ready"><span class="deploy-dot"></span>Ready</div>
+      <div class="deploy-info">
+        <div class="deploy-commit">${d.msg}</div>
+        <div class="deploy-url">${d.url}</div>
+      </div>
+      <span class="deploy-env">${d.target}</span>
+      <div style="display:flex;flex-direction:column;align-items:flex-end;gap:0.3rem">
+        <span class="deploy-sha">${d.sha}</span>
+        <span class="deploy-age">${ago(d.created)}</span>
+        <a href="${d.inspector}" target="_blank" rel="noopener noreferrer" class="deploy-link">Inspector →</a>
+      </div>
+    </div>`).join("");
+}
 
-document.querySelectorAll('.tab').forEach(tab=>{
-  tab.addEventListener('click',()=>{
-    document.querySelectorAll('.tab').forEach(t=>{t.classList.remove('active');t.setAttribute('aria-selected','false')});
-    document.querySelectorAll('.tab-panel').forEach(p=>p.classList.remove('active'));
-    tab.classList.add('active');tab.setAttribute('aria-selected','true');
-    document.getElementById('panel-'+tab.dataset.tab).classList.add('active');
-  });
-});
+/* ── TABS ── */
+document.querySelectorAll(".tab").forEach(tab=>tab.addEventListener("click",()=>{
+  document.querySelectorAll(".tab").forEach(t=>t.classList.remove("active"));
+  document.querySelectorAll(".tab-panel").forEach(p=>p.classList.remove("active"));
+  tab.classList.add("active");
+  document.getElementById("panel-"+tab.dataset.tab).classList.add("active");
+}));
 
+/* ── THEME ── */
 (function(){
-  const t=document.querySelector('[data-theme-toggle]');
-  const r=document.documentElement;
-  let d=r.getAttribute('data-theme')||'dark';
-  r.setAttribute('data-theme',d);
-  function setIcon(){t.innerHTML=d==='dark'?'<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="5"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg>':'<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>'}
-  setIcon();
-  t&&t.addEventListener('click',()=>{d=d==='dark'?'light':'dark';r.setAttribute('data-theme',d);setIcon()});
+  const t=document.querySelector("[data-theme-toggle]"),r=document.documentElement;
+  let d=r.getAttribute("data-theme")||"dark";
+  function icon(){t.innerHTML=d==="dark"?'<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="5"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg>':'<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>'}
+  icon();
+  t&&t.addEventListener("click",()=>{d=d==="dark"?"light":"dark";r.setAttribute("data-theme",d);icon()});
 })();
 
-buildLangFilters();
-renderGrid();
+/* ── INIT ── */
+buildLangPills();
+renderRepos();
+renderVercelProjects();
+renderDeployments();
 </script>
 </body>
 </html>
