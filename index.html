@@ -4,336 +4,614 @@
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 <title>Gzeu Dev Hub</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Geist+Mono:wght@400;500;600&family=Geist:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Geist:wght@300..700&family=Geist+Mono:wght@400;500&display=swap" rel="stylesheet"/>
 <style>
-:root {
-  --text-xs: clamp(0.75rem, 0.7rem + 0.25vw, 0.875rem);
-  --text-sm: clamp(0.875rem, 0.8rem + 0.35vw, 1rem);
-  --text-base: clamp(1rem, 0.95rem + 0.25vw, 1.125rem);
-  --text-lg: clamp(1.125rem, 1rem + 0.75vw, 1.5rem);
-  --text-xl: clamp(1.5rem, 1.2rem + 1.25vw, 2.25rem);
-  --text-2xl: clamp(2rem, 1.2rem + 2.5vw, 3.5rem);
-  --space-1: 0.25rem; --space-2: 0.5rem; --space-3: 0.75rem;
-  --space-4: 1rem; --space-5: 1.25rem; --space-6: 1.5rem;
-  --space-8: 2rem; --space-10: 2.5rem; --space-12: 3rem;
-  --space-16: 4rem; --space-20: 5rem;
-  --radius-sm: 0.375rem; --radius-md: 0.5rem;
-  --radius-lg: 0.75rem; --radius-xl: 1rem; --radius-full: 9999px;
-  --transition: 180ms cubic-bezier(0.16, 1, 0.3, 1);
-  --font-body: 'Geist', 'Inter', sans-serif;
-  --font-mono: 'Geist Mono', 'Fira Code', monospace;
-  --content-narrow: 640px; --content-default: 960px; --content-wide: 1280px;
+:root,[data-theme="light"]{
+  --color-bg:#f7f6f2;--color-surface:#f9f8f5;--color-surface-2:#fbfbf9;
+  --color-surface-offset:#f3f0ec;--color-surface-dynamic:#e6e4df;
+  --color-divider:#dcd9d5;--color-border:#d4d1ca;
+  --color-text:#28251d;--color-text-muted:#7a7974;--color-text-faint:#bab9b4;
+  --color-primary:#01696f;--color-primary-hover:#0c4e54;
+  --color-primary-highlight:#cedcd8;
+  --color-success:#437a22;--color-error:#a12c7b;--color-warning:#964219;
+  --color-orange:#da7101;--color-gold:#d19900;--color-blue:#006494;
+  --color-purple:#7a39bb;
+  --shadow-sm:0 1px 2px oklch(0.2 0.01 80/0.06);
+  --shadow-md:0 4px 12px oklch(0.2 0.01 80/0.08);
+  --shadow-lg:0 12px 32px oklch(0.2 0.01 80/0.12);
+  --radius-sm:0.375rem;--radius-md:0.5rem;--radius-lg:0.75rem;--radius-xl:1rem;--radius-full:9999px;
+  --transition:180ms cubic-bezier(0.16,1,0.3,1);
+  --font-body:'Geist',system-ui,sans-serif;--font-mono:'Geist Mono',monospace;
+  --text-xs:clamp(0.75rem,0.7rem + 0.25vw,0.875rem);
+  --text-sm:clamp(0.875rem,0.8rem + 0.35vw,1rem);
+  --text-base:clamp(1rem,0.95rem + 0.25vw,1.125rem);
+  --text-lg:clamp(1.125rem,1rem + 0.75vw,1.5rem);
+  --text-xl:clamp(1.5rem,1.2rem + 1.25vw,2.25rem);
+  --space-1:0.25rem;--space-2:0.5rem;--space-3:0.75rem;--space-4:1rem;
+  --space-5:1.25rem;--space-6:1.5rem;--space-8:2rem;--space-10:2.5rem;
+  --space-12:3rem;--space-16:4rem;
 }
-[data-theme="dark"] {
-  --color-bg: #0d0d0f;
-  --color-surface: #111114;
-  --color-surface-2: #161619;
-  --color-surface-offset: #1c1c20;
-  --color-surface-dynamic: #242428;
-  --color-divider: #1f1f24;
-  --color-border: #2a2a30;
-  --color-text: #e8e8ec;
-  --color-text-muted: #7c7c88;
-  --color-text-faint: #45454f;
-  --color-text-inverse: #0d0d0f;
-  --color-primary: #2dd4bf;
-  --color-primary-hover: #14b8a6;
-  --color-primary-active: #0d9488;
-  --color-primary-highlight: #134e4a22;
-  --color-success: #4ade80;
-  --color-warning: #fbbf24;
-  --color-error: #f87171;
-  --color-blue: #60a5fa;
-  --color-purple: #a78bfa;
-  --color-orange: #fb923c;
-  --shadow-sm: 0 1px 2px rgba(0,0,0,0.4);
-  --shadow-md: 0 4px 12px rgba(0,0,0,0.5);
-  --shadow-lg: 0 12px 32px rgba(0,0,0,0.6);
+[data-theme="dark"]{
+  --color-bg:#0d0d0b;--color-surface:#131311;--color-surface-2:#171715;
+  --color-surface-offset:#1a1a18;--color-surface-dynamic:#232320;
+  --color-divider:#1f1f1d;--color-border:#2a2a27;
+  --color-text:#e8e6e1;--color-text-muted:#6b6a66;--color-text-faint:#3d3d3a;
+  --color-primary:#4f98a3;--color-primary-hover:#227f8b;
+  --color-primary-highlight:#1a2e30;
+  --color-success:#6daa45;--color-error:#d163a7;--color-warning:#bb653b;
+  --color-orange:#fdab43;--color-gold:#e8af34;--color-blue:#5591c7;
+  --color-purple:#a86fdf;
+  --shadow-sm:0 1px 2px oklch(0 0 0/0.3);
+  --shadow-md:0 4px 12px oklch(0 0 0/0.4);
+  --shadow-lg:0 12px 32px oklch(0 0 0/0.5);
 }
-[data-theme="light"] {
-  --color-bg: #f4f4f7;
-  --color-surface: #fafafc;
-  --color-surface-2: #ffffff;
-  --color-surface-offset: #ebebf0;
-  --color-surface-dynamic: #e0e0e8;
-  --color-divider: #d8d8e0;
-  --color-border: #cacad4;
-  --color-text: #111118;
-  --color-text-muted: #5a5a68;
-  --color-text-faint: #aaaabc;
-  --color-text-inverse: #ffffff;
-  --color-primary: #0d9488;
-  --color-primary-hover: #0f766e;
-  --color-primary-active: #115e59;
-  --color-primary-highlight: #ccfbf122;
-  --color-success: #16a34a;
-  --color-warning: #d97706;
-  --color-error: #dc2626;
-  --color-blue: #2563eb;
-  --color-purple: #7c3aed;
-  --color-orange: #ea580c;
-  --shadow-sm: 0 1px 2px rgba(0,0,0,0.06);
-  --shadow-md: 0 4px 12px rgba(0,0,0,0.08);
-  --shadow-lg: 0 12px 32px rgba(0,0,0,0.12);
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+html{-webkit-font-smoothing:antialiased;scroll-behavior:smooth;}
+body{min-height:100dvh;font-family:var(--font-body);font-size:var(--text-base);color:var(--color-text);background:var(--color-bg);display:flex;flex-direction:column;}
+img,svg{display:block;max-width:100%;}
+button{cursor:pointer;background:none;border:none;font:inherit;color:inherit;}
+a{color:inherit;text-decoration:none;}
+:focus-visible{outline:2px solid var(--color-primary);outline-offset:3px;border-radius:var(--radius-sm);}
+
+/* LAYOUT */
+.app{display:flex;flex-direction:column;min-height:100dvh;}
+header{position:sticky;top:0;z-index:100;background:color-mix(in oklch,var(--color-bg) 85%,transparent);backdrop-filter:blur(12px);border-bottom:1px solid var(--color-border);padding:var(--space-3) var(--space-6);}
+.header-inner{display:flex;align-items:center;gap:var(--space-4);max-width:1400px;margin:0 auto;width:100%;}
+.logo{display:flex;align-items:center;gap:var(--space-3);font-size:var(--text-sm);font-weight:600;color:var(--color-text);}
+.logo svg{flex-shrink:0;}
+.logo-name{display:flex;flex-direction:column;gap:0;}
+.logo-title{font-size:var(--text-sm);font-weight:700;line-height:1.1;}
+.logo-sub{font-size:var(--text-xs);color:var(--color-text-muted);font-weight:400;}
+.header-tabs{display:flex;gap:var(--space-1);background:var(--color-surface);border:1px solid var(--color-border);border-radius:var(--radius-lg);padding:var(--space-1);margin-left:auto;}
+.tab-btn{padding:var(--space-2) var(--space-4);border-radius:var(--radius-md);font-size:var(--text-sm);font-weight:500;color:var(--color-text-muted);transition:all var(--transition);white-space:nowrap;}
+.tab-btn.active{background:var(--color-primary);color:#fff;box-shadow:var(--shadow-sm);}
+.tab-btn:hover:not(.active){background:var(--color-surface-offset);color:var(--color-text);}
+.theme-toggle{width:36px;height:36px;border-radius:var(--radius-full);display:flex;align-items:center;justify-content:center;color:var(--color-text-muted);transition:all var(--transition);border:1px solid var(--color-border);}
+.theme-toggle:hover{background:var(--color-surface-offset);color:var(--color-text);}
+
+.main-layout{display:flex;flex:1;max-width:1400px;margin:0 auto;width:100%;gap:0;}
+aside{width:260px;flex-shrink:0;border-right:1px solid var(--color-border);padding:var(--space-6) var(--space-4);position:sticky;top:61px;height:calc(100vh - 61px);overflow-y:auto;}
+main{flex:1;padding:var(--space-6);min-width:0;}
+
+/* SIDEBAR */
+.sidebar-section{margin-bottom:var(--space-6);}
+.sidebar-label{font-size:var(--text-xs);font-weight:600;color:var(--color-text-faint);text-transform:uppercase;letter-spacing:0.08em;margin-bottom:var(--space-3);}
+.search-wrap{position:relative;margin-bottom:var(--space-4);}
+.search-wrap svg{position:absolute;left:var(--space-3);top:50%;transform:translateY(-50%);color:var(--color-text-faint);pointer-events:none;}
+#search{width:100%;background:var(--color-surface);border:1px solid var(--color-border);border-radius:var(--radius-md);padding:var(--space-2) var(--space-3) var(--space-2) var(--space-8);font-size:var(--text-sm);color:var(--color-text);transition:border-color var(--transition);}
+#search:focus{outline:none;border-color:var(--color-primary);}
+#search::placeholder{color:var(--color-text-faint);}
+
+.sort-select{width:100%;background:var(--color-surface);border:1px solid var(--color-border);border-radius:var(--radius-md);padding:var(--space-2) var(--space-3);font-size:var(--text-sm);color:var(--color-text);cursor:pointer;margin-bottom:var(--space-4);}
+.sort-select:focus{outline:none;border-color:var(--color-primary);}
+
+.lang-filters{display:flex;flex-direction:column;gap:var(--space-1);}
+.lang-btn{display:flex;align-items:center;gap:var(--space-2);padding:var(--space-2) var(--space-3);border-radius:var(--radius-md);font-size:var(--text-sm);color:var(--color-text-muted);transition:all var(--transition);cursor:pointer;background:none;border:none;text-align:left;width:100%;}
+.lang-btn:hover{background:var(--color-surface-offset);color:var(--color-text);}
+.lang-btn.active{background:var(--color-primary-highlight);color:var(--color-primary);}
+.lang-dot{width:8px;height:8px;border-radius:50%;flex-shrink:0;}
+.lang-count{margin-left:auto;font-size:var(--text-xs);color:var(--color-text-faint);}
+
+.quick-stats{display:flex;flex-direction:column;gap:var(--space-2);}
+.stat-row{display:flex;align-items:center;justify-content:space-between;padding:var(--space-2) 0;border-bottom:1px solid var(--color-divider);}
+.stat-row:last-child{border-bottom:none;}
+.stat-label{font-size:var(--text-xs);color:var(--color-text-muted);}
+.stat-val{font-size:var(--text-sm);font-weight:600;font-family:var(--font-mono);}
+
+/* GRID */
+.section-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:var(--space-4);}
+.section-title{font-size:var(--text-lg);font-weight:700;}
+.result-count{font-size:var(--text-xs);color:var(--color-text-muted);background:var(--color-surface);border:1px solid var(--color-border);padding:var(--space-1) var(--space-3);border-radius:var(--radius-full);}
+
+.repo-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(min(320px,100%),1fr));gap:var(--space-4);}
+.repo-card{background:var(--color-surface);border:1px solid var(--color-border);border-radius:var(--radius-lg);padding:var(--space-4) var(--space-5);display:flex;flex-direction:column;gap:var(--space-3);transition:all var(--transition);cursor:pointer;}
+.repo-card:hover{border-color:var(--color-primary);box-shadow:var(--shadow-md);transform:translateY(-1px);}
+.repo-card-header{display:flex;align-items:flex-start;justify-content:space-between;gap:var(--space-2);}
+.repo-name{font-size:var(--text-sm);font-weight:700;color:var(--color-primary);font-family:var(--font-mono);}
+.repo-visibility{font-size:var(--text-xs);padding:2px var(--space-2);border-radius:var(--radius-full);border:1px solid var(--color-border);color:var(--color-text-muted);}
+.repo-desc{font-size:var(--text-xs);color:var(--color-text-muted);line-height:1.5;flex:1;}
+.repo-topics{display:flex;flex-wrap:wrap;gap:var(--space-1);}
+.topic-chip{font-size:10px;padding:2px 6px;border-radius:var(--radius-full);background:var(--color-primary-highlight);color:var(--color-primary);font-weight:500;}
+.repo-footer{display:flex;align-items:center;gap:var(--space-3);padding-top:var(--space-2);border-top:1px solid var(--color-divider);}
+.repo-meta{display:flex;align-items:center;gap:var(--space-1);font-size:var(--text-xs);color:var(--color-text-muted);}
+.repo-lang{display:flex;align-items:center;gap:var(--space-1);margin-right:auto;}
+.lang-dot-sm{width:8px;height:8px;border-radius:50%;}
+
+/* PAGINATION */
+.pagination{display:flex;align-items:center;justify-content:center;gap:var(--space-2);margin-top:var(--space-8);}
+.page-btn{min-width:36px;height:36px;display:flex;align-items:center;justify-content:center;border-radius:var(--radius-md);border:1px solid var(--color-border);font-size:var(--text-sm);font-weight:500;color:var(--color-text-muted);transition:all var(--transition);padding:0 var(--space-3);}
+.page-btn:hover:not(:disabled){background:var(--color-surface-offset);color:var(--color-text);}
+.page-btn.active{background:var(--color-primary);color:#fff;border-color:var(--color-primary);}
+.page-btn:disabled{opacity:0.4;cursor:not-allowed;}
+
+/* STATS TAB */
+.stats-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:var(--space-4);margin-bottom:var(--space-8);}
+.kpi-card{background:var(--color-surface);border:1px solid var(--color-border);border-radius:var(--radius-lg);padding:var(--space-5);display:flex;flex-direction:column;gap:var(--space-2);}
+.kpi-label{font-size:var(--text-xs);color:var(--color-text-muted);text-transform:uppercase;letter-spacing:0.06em;}
+.kpi-value{font-size:var(--text-xl);font-weight:800;font-family:var(--font-mono);color:var(--color-primary);}
+.kpi-sub{font-size:var(--text-xs);color:var(--color-text-faint);}
+
+.lang-chart-section{background:var(--color-surface);border:1px solid var(--color-border);border-radius:var(--radius-lg);padding:var(--space-6);}
+.lang-chart-title{font-size:var(--text-sm);font-weight:600;margin-bottom:var(--space-4);}
+.lang-bar-row{display:flex;align-items:center;gap:var(--space-3);margin-bottom:var(--space-3);}
+.lang-bar-name{width:120px;font-size:var(--text-xs);color:var(--color-text-muted);text-align:right;flex-shrink:0;}
+.lang-bar-track{flex:1;height:8px;background:var(--color-surface-offset);border-radius:var(--radius-full);overflow:hidden;}
+.lang-bar-fill{height:100%;border-radius:var(--radius-full);transition:width 1s cubic-bezier(0.16,1,0.3,1);}
+.lang-bar-pct{width:40px;font-size:var(--text-xs);font-family:var(--font-mono);color:var(--color-text-muted);}
+.multi-bar{display:flex;height:12px;border-radius:var(--radius-full);overflow:hidden;margin-bottom:var(--space-4);}
+.multi-bar-seg{height:100%;transition:width 1s cubic-bezier(0.16,1,0.3,1);}
+
+/* ACTIVITY TAB */
+.commit-list{display:flex;flex-direction:column;gap:var(--space-3);}
+.commit-item{background:var(--color-surface);border:1px solid var(--color-border);border-radius:var(--radius-lg);padding:var(--space-4) var(--space-5);display:flex;align-items:flex-start;gap:var(--space-4);transition:all var(--transition);}
+.commit-item:hover{border-color:var(--color-border);box-shadow:var(--shadow-sm);}
+.commit-dot{width:8px;height:8px;border-radius:50%;background:var(--color-primary);flex-shrink:0;margin-top:6px;}
+.commit-body{flex:1;min-width:0;}
+.commit-msg{font-size:var(--text-sm);font-weight:500;margin-bottom:var(--space-1);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+.commit-meta{display:flex;align-items:center;gap:var(--space-3);}
+.commit-sha{font-family:var(--font-mono);font-size:var(--text-xs);color:var(--color-primary);}
+.commit-repo{font-size:var(--text-xs);color:var(--color-text-muted);}
+.commit-time{font-size:var(--text-xs);color:var(--color-text-faint);margin-left:auto;flex-shrink:0;}
+
+/* VERCEL TAB */
+.vercel-empty{display:flex;flex-direction:column;align-items:center;justify-content:center;padding:var(--space-16) var(--space-8);text-align:center;gap:var(--space-4);}
+.vercel-icon{width:64px;height:64px;border-radius:var(--radius-full);background:var(--color-surface);border:1px solid var(--color-border);display:flex;align-items:center;justify-content:center;color:var(--color-text-faint);position:relative;}
+.vercel-icon::after{content:'';position:absolute;inset:-4px;border-radius:var(--radius-full);border:1px solid var(--color-primary);opacity:0.3;animation:pulse 2s ease-in-out infinite;}
+@keyframes pulse{0%,100%{opacity:0.3;transform:scale(1);}50%{opacity:0.6;transform:scale(1.05);}}
+.vercel-empty h3{font-size:var(--text-lg);font-weight:700;}
+.vercel-empty p{font-size:var(--text-sm);color:var(--color-text-muted);max-width:36ch;}
+
+/* TAB PANELS */
+.tab-panel{display:none;}
+.tab-panel.active{display:block;}
+
+/* EMPTY */
+.no-results{display:flex;flex-direction:column;align-items:center;padding:var(--space-16);color:var(--color-text-muted);gap:var(--space-3);text-align:center;}
+
+/* SKELETON */
+@keyframes shimmer{0%{background-position:-200% 0}100%{background-position:200% 0}}
+.skeleton{background:linear-gradient(90deg,var(--color-surface-offset) 25%,var(--color-surface-dynamic) 50%,var(--color-surface-offset) 75%);background-size:200% 100%;animation:shimmer 1.5s ease-in-out infinite;border-radius:var(--radius-sm);}
+
+/* RESPONSIVE */
+@media(max-width:768px){
+  aside{display:none;}
+  .header-tabs{display:none;}
+  .main-layout{flex-direction:column;}
+  main{padding:var(--space-4);}
+  header{padding:var(--space-3) var(--space-4);}
+  .mobile-tabs{display:flex!important;}
 }
-*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-html { scroll-behavior: smooth; scroll-padding-top: var(--space-16); -webkit-font-smoothing: antialiased; }
-body { min-height: 100dvh; font-family: var(--font-body); font-size: var(--text-base); color: var(--color-text); background: var(--color-bg); line-height: 1.6; overflow-x: hidden; }
-img, svg { display: block; max-width: 100%; }
-button { cursor: pointer; border: none; background: none; font: inherit; color: inherit; }
-a { color: inherit; text-decoration: none; }
-ul { list-style: none; }
-.skip-link { position: absolute; top: -100%; left: var(--space-4); background: var(--color-primary); color: var(--color-text-inverse); padding: var(--space-2) var(--space-4); border-radius: var(--radius-md); font-size: var(--text-sm); z-index: 9999; }
-.skip-link:focus { top: var(--space-4); }
-.header {
-  position: sticky; top: 0; z-index: 100;
-  background: oklch(from var(--color-bg) l c h / 0.85);
-  backdrop-filter: blur(16px) saturate(180%);
-  border-bottom: 1px solid var(--color-divider);
-  padding: 0 var(--space-6);
-  height: 56px;
-  display: flex; align-items: center; justify-content: space-between;
-  gap: var(--space-4);
-}
-.header-logo { display: flex; align-items: center; gap: var(--space-3); font-family: var(--font-mono); font-size: var(--text-sm); font-weight: 600; letter-spacing: -0.01em; color: var(--color-text); }
-.header-logo svg { color: var(--color-primary); flex-shrink: 0; }
-.logo-tag { color: var(--color-text-muted); font-weight: 400; }
-.header-right { display: flex; align-items: center; gap: var(--space-3); }
-.header-stats { display: flex; align-items: center; gap: var(--space-5); }
-.stat-pill { display: flex; align-items: center; gap: var(--space-2); font-family: var(--font-mono); font-size: var(--text-xs); color: var(--color-text-muted); }
-.stat-pill .val { color: var(--color-text); font-weight: 600; }
-.theme-btn { width: 36px; height: 36px; display: flex; align-items: center; justify-content: center; border-radius: var(--radius-md); color: var(--color-text-muted); transition: background var(--transition), color var(--transition); }
-.theme-btn:hover { background: var(--color-surface-offset); color: var(--color-text); }
-.layout { display: grid; grid-template-columns: 240px 1fr; min-height: calc(100dvh - 56px); }
-@media (max-width: 768px) { .layout { grid-template-columns: 1fr; } }
-.sidebar { border-right: 1px solid var(--color-divider); padding: var(--space-6) 0; position: sticky; top: 56px; height: calc(100dvh - 56px); overflow-y: auto; background: var(--color-surface); display: flex; flex-direction: column; gap: var(--space-6); }
-.sidebar-section { padding: 0 var(--space-4); }
-.sidebar-label { font-family: var(--font-mono); font-size: var(--text-xs); color: var(--color-text-faint); text-transform: uppercase; letter-spacing: 0.08em; padding: 0 var(--space-2); margin-bottom: var(--space-2); }
-.nav-item { display: flex; align-items: center; gap: var(--space-3); padding: var(--space-2) var(--space-3); border-radius: var(--radius-md); font-size: var(--text-sm); color: var(--color-text-muted); cursor: pointer; transition: background var(--transition), color var(--transition); width: 100%; text-align: left; }
-.nav-item:hover { background: var(--color-surface-offset); color: var(--color-text); }
-.nav-item.active { background: var(--color-primary-highlight); color: var(--color-primary); }
-.nav-item svg { flex-shrink: 0; opacity: 0.7; }
-.nav-item.active svg { opacity: 1; }
-.nav-badge { margin-left: auto; background: var(--color-surface-dynamic); padding: 1px var(--space-2); border-radius: var(--radius-full); font-family: var(--font-mono); font-size: 10px; color: var(--color-text-muted); min-width: 20px; text-align: center; }
-.nav-item.active .nav-badge { background: var(--color-primary); color: #000; }
-.filter-group { display: flex; flex-direction: column; gap: var(--space-1); }
-.filter-pill { display: flex; align-items: center; gap: var(--space-2); padding: var(--space-1) var(--space-3); border-radius: var(--radius-md); font-size: var(--text-xs); font-family: var(--font-mono); color: var(--color-text-muted); cursor: pointer; transition: all var(--transition); width: 100%; text-align: left; }
-.filter-pill:hover { background: var(--color-surface-offset); color: var(--color-text); }
-.filter-pill.active { color: var(--color-text); background: var(--color-surface-offset); }
-.lang-dot { width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; }
-.filter-pill .count { margin-left: auto; color: var(--color-text-faint); font-size: 10px; }
-.sidebar-stat-card { background: var(--color-surface-offset); border-radius: var(--radius-lg); padding: var(--space-4); display: flex; flex-direction: column; gap: var(--space-3); }
-.stat-row { display: flex; align-items: center; justify-content: space-between; }
-.stat-label { font-size: var(--text-xs); color: var(--color-text-muted); }
-.stat-value { font-family: var(--font-mono); font-size: var(--text-sm); font-weight: 600; color: var(--color-text); }
-.lang-bar { height: 6px; border-radius: var(--radius-full); background: var(--color-surface-dynamic); overflow: hidden; margin-top: var(--space-2); }
-.lang-bar-fill { height: 100%; border-radius: var(--radius-full); transition: width 0.8s cubic-bezier(0.16, 1, 0.3, 1); }
-.main { flex: 1; overflow-x: hidden; }
-.page { display: none; padding: var(--space-6); }
-.page.active { display: block; }
-.toolbar { display: flex; align-items: center; gap: var(--space-3); margin-bottom: var(--space-6); flex-wrap: wrap; }
-.search-wrap { flex: 1; min-width: 200px; position: relative; }
-.search-wrap svg { position: absolute; left: var(--space-3); top: 50%; transform: translateY(-50%); color: var(--color-text-faint); pointer-events: none; }
-.search-input { width: 100%; height: 36px; padding: 0 var(--space-3) 0 calc(var(--space-3) + 20px + var(--space-2)); background: var(--color-surface); border: 1px solid var(--color-border); border-radius: var(--radius-md); font-family: var(--font-body); font-size: var(--text-sm); color: var(--color-text); outline: none; transition: border-color var(--transition), box-shadow var(--transition); }
-.search-input::placeholder { color: var(--color-text-faint); }
-.search-input:focus { border-color: var(--color-primary); box-shadow: 0 0 0 3px oklch(from var(--color-primary) l c h / 0.15); }
-.sort-select { height: 36px; padding: 0 var(--space-3); background: var(--color-surface); border: 1px solid var(--color-border); border-radius: var(--radius-md); font-family: var(--font-body); font-size: var(--text-sm); color: var(--color-text); cursor: pointer; outline: none; }
-.sort-select:focus { border-color: var(--color-primary); }
-.results-count { font-family: var(--font-mono); font-size: var(--text-xs); color: var(--color-text-muted); white-space: nowrap; }
-.repo-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(320px, 100%), 1fr)); gap: var(--space-4); }
-.repo-card { background: var(--color-surface); border: 1px solid var(--color-border); border-radius: var(--radius-xl); padding: var(--space-5); display: flex; flex-direction: column; gap: var(--space-3); transition: border-color var(--transition), box-shadow var(--transition), transform var(--transition); cursor: pointer; position: relative; overflow: hidden; }
-.repo-card::before { content: ''; position: absolute; inset: 0; background: linear-gradient(135deg, var(--color-primary) 0%, transparent 60%); opacity: 0; transition: opacity var(--transition); }
-.repo-card:hover { border-color: var(--color-primary); box-shadow: 0 0 0 1px var(--color-primary), var(--shadow-md); transform: translateY(-1px); }
-.repo-card:hover::before { opacity: 0.03; }
-.repo-card:active { transform: translateY(0); }
-.card-top { display: flex; align-items: flex-start; justify-content: space-between; gap: var(--space-3); }
-.card-icon { width: 32px; height: 32px; display: flex; align-items: center; justify-content: center; border-radius: var(--radius-md); background: var(--color-surface-offset); color: var(--color-text-muted); flex-shrink: 0; }
-.repo-fork-badge { font-family: var(--font-mono); font-size: 10px; color: var(--color-text-faint); background: var(--color-surface-offset); padding: 2px var(--space-2); border-radius: var(--radius-full); border: 1px solid var(--color-border); }
-.card-name { font-size: var(--text-sm); font-weight: 600; color: var(--color-text); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; transition: color var(--transition); }
-.repo-card:hover .card-name { color: var(--color-primary); }
-.card-desc { font-size: var(--text-xs); color: var(--color-text-muted); line-height: 1.5; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; max-width: 100%; min-height: 2.8em; }
-.card-topics { display: flex; flex-wrap: wrap; gap: var(--space-1); }
-.topic-tag { font-family: var(--font-mono); font-size: 10px; color: var(--color-primary); background: var(--color-primary-highlight); padding: 2px var(--space-2); border-radius: var(--radius-full); border: 1px solid oklch(from var(--color-primary) l c h / 0.2); }
-.card-footer { display: flex; align-items: center; gap: var(--space-4); margin-top: auto; padding-top: var(--space-3); border-top: 1px solid var(--color-divider); }
-.card-meta { display: flex; align-items: center; gap: var(--space-2); font-family: var(--font-mono); font-size: var(--text-xs); color: var(--color-text-faint); }
-.card-meta svg { width: 12px; height: 12px; }
-.card-meta.stars { color: var(--color-warning); }
-.card-date { margin-left: auto; font-family: var(--font-mono); font-size: 10px; color: var(--color-text-faint); white-space: nowrap; }
-.lang-badge { display: flex; align-items: center; gap: var(--space-2); font-family: var(--font-mono); font-size: var(--text-xs); color: var(--color-text-muted); }
-.empty-state { display: flex; flex-direction: column; align-items: center; text-align: center; padding: var(--space-20) var(--space-8); color: var(--color-text-muted); gap: var(--space-4); }
-.empty-icon { color: var(--color-text-faint); animation: float 3s ease-in-out infinite; }
-@keyframes float { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-8px); } }
-.empty-state h3 { color: var(--color-text); font-size: var(--text-lg); }
-.empty-state p { font-size: var(--text-sm); max-width: 36ch; }
-.pagination { display: flex; align-items: center; justify-content: center; gap: var(--space-2); margin-top: var(--space-8); flex-wrap: wrap; }
-.page-btn { min-width: 36px; height: 36px; display: flex; align-items: center; justify-content: center; border: 1px solid var(--color-border); border-radius: var(--radius-md); font-family: var(--font-mono); font-size: var(--text-xs); color: var(--color-text-muted); background: var(--color-surface); cursor: pointer; transition: all var(--transition); padding: 0 var(--space-3); }
-.page-btn:hover { border-color: var(--color-primary); color: var(--color-primary); }
-.page-btn.active { background: var(--color-primary); border-color: var(--color-primary); color: #000; font-weight: 600; }
-.page-btn:disabled { opacity: 0.3; cursor: not-allowed; }
-.activity-header { margin-bottom: var(--space-6); }
-.activity-header h2 { font-size: var(--text-xl); font-weight: 700; letter-spacing: -0.03em; }
-.activity-header p { font-size: var(--text-sm); color: var(--color-text-muted); margin-top: var(--space-1); }
-.commit-list { display: flex; flex-direction: column; gap: var(--space-2); }
-.commit-item { display: flex; gap: var(--space-4); align-items: flex-start; padding: var(--space-4) var(--space-5); background: var(--color-surface); border: 1px solid var(--color-border); border-radius: var(--radius-lg); transition: all var(--transition); cursor: pointer; }
-.commit-item:hover { border-color: var(--color-primary); transform: translateX(2px); }
-.commit-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--color-primary); flex-shrink: 0; margin-top: 6px; }
-.commit-info { flex: 1; min-width: 0; }
-.commit-msg { font-size: var(--text-sm); color: var(--color-text); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-.commit-meta { display: flex; align-items: center; gap: var(--space-4); margin-top: var(--space-1); }
-.commit-sha { font-family: var(--font-mono); font-size: 10px; color: var(--color-primary); background: var(--color-primary-highlight); padding: 2px var(--space-2); border-radius: var(--radius-sm); }
-.commit-repo { font-family: var(--font-mono); font-size: var(--text-xs); color: var(--color-text-faint); }
-.commit-date { font-family: var(--font-mono); font-size: 10px; color: var(--color-text-faint); margin-left: auto; }
-.threads-hero { display: flex; flex-direction: column; align-items: center; gap: var(--space-6); padding: var(--space-12) var(--space-8); text-align: center; max-width: 480px; margin: 0 auto; }
-.threads-icon-wrap { width: 72px; height: 72px; display: flex; align-items: center; justify-content: center; border-radius: var(--radius-xl); background: var(--color-surface-offset); border: 1px solid var(--color-border); color: var(--color-text-faint); animation: pulse-glow 3s ease-in-out infinite; }
-@keyframes pulse-glow { 0%,100% { box-shadow: 0 0 0 0 oklch(from var(--color-primary) l c h / 0); } 50% { box-shadow: 0 0 0 8px oklch(from var(--color-primary) l c h / 0.08); } }
-.threads-hero h2 { font-size: var(--text-xl); font-weight: 700; letter-spacing: -0.03em; }
-.threads-hero p { font-size: var(--text-sm); color: var(--color-text-muted); line-height: 1.7; }
-.threads-meta { display: flex; align-items: center; gap: var(--space-6); background: var(--color-surface); border: 1px solid var(--color-border); border-radius: var(--radius-lg); padding: var(--space-4) var(--space-6); }
-.threads-meta-item { display: flex; flex-direction: column; align-items: center; gap: var(--space-1); }
-.threads-meta-item .num { font-family: var(--font-mono); font-size: var(--text-xl); font-weight: 700; color: var(--color-primary); }
-.threads-meta-item .lbl { font-size: var(--text-xs); color: var(--color-text-muted); }
-.threads-meta-divider { width: 1px; height: 40px; background: var(--color-divider); }
-.stats-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(280px, 100%), 1fr)); gap: var(--space-4); margin-bottom: var(--space-8); }
-.stats-card { background: var(--color-surface); border: 1px solid var(--color-border); border-radius: var(--radius-xl); padding: var(--space-6); }
-.stats-card-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: var(--space-4); }
-.stats-card-title { font-size: var(--text-sm); font-weight: 600; color: var(--color-text-muted); }
-.stats-card-icon { color: var(--color-text-faint); }
-.stats-big-num { font-family: var(--font-mono); font-size: var(--text-2xl); font-weight: 700; color: var(--color-text); letter-spacing: -0.04em; line-height: 1; }
-.stats-sub { font-size: var(--text-xs); color: var(--color-text-muted); margin-top: var(--space-2); }
-.accent-teal { color: var(--color-primary); }
-.accent-blue { color: var(--color-blue); }
-.accent-orange { color: var(--color-orange); }
-.accent-purple { color: var(--color-purple); }
-.lang-breakdown { background: var(--color-surface); border: 1px solid var(--color-border); border-radius: var(--radius-xl); padding: var(--space-6); }
-.lang-breakdown h3 { font-size: var(--text-lg); font-weight: 700; margin-bottom: var(--space-5); }
-.lang-full-bar { height: 8px; border-radius: var(--radius-full); display: flex; overflow: hidden; gap: 2px; margin-bottom: var(--space-6); }
-.lang-segment { height: 100%; transition: flex 0.8s cubic-bezier(0.16, 1, 0.3, 1); }
-.lang-list { display: flex; flex-direction: column; gap: var(--space-4); }
-.lang-item { display: flex; align-items: center; gap: var(--space-3); }
-.lang-name { font-family: var(--font-mono); font-size: var(--text-sm); color: var(--color-text); width: 120px; flex-shrink: 0; }
-.lang-progress { flex: 1; height: 6px; border-radius: var(--radius-full); background: var(--color-surface-dynamic); overflow: hidden; }
-.lang-progress-fill { height: 100%; border-radius: var(--radius-full); transition: width 0.8s cubic-bezier(0.16, 1, 0.3, 1); }
-.lang-pct { font-family: var(--font-mono); font-size: var(--text-xs); color: var(--color-text-muted); width: 40px; text-align: right; }
-@keyframes shimmer { 0%{background-position:-200% 0} 100%{background-position:200% 0} }
-.skeleton { background: linear-gradient(90deg, var(--color-surface-offset) 25%, var(--color-surface-dynamic) 50%, var(--color-surface-offset) 75%); background-size:200% 100%; animation:shimmer 1.5s ease-in-out infinite; border-radius:var(--radius-sm); }
-@media (max-width: 768px) { .sidebar { display: none; } .header-stats { display: none; } .repo-grid { grid-template-columns: 1fr; } }
-@media (max-width: 480px) { .page { padding: var(--space-4); } .toolbar { flex-direction: column; align-items: stretch; } }
-:focus-visible { outline: 2px solid var(--color-primary); outline-offset: 3px; border-radius: var(--radius-sm); }
+.mobile-tabs{display:none;position:fixed;bottom:0;left:0;right:0;background:color-mix(in oklch,var(--color-bg) 90%,transparent);backdrop-filter:blur(12px);border-top:1px solid var(--color-border);padding:var(--space-2) var(--space-4) env(safe-area-inset-bottom,var(--space-2));z-index:100;gap:0;}
+.mob-tab{flex:1;display:flex;flex-direction:column;align-items:center;gap:2px;padding:var(--space-2);border-radius:var(--radius-md);font-size:10px;color:var(--color-text-muted);transition:all var(--transition);}
+.mob-tab.active{color:var(--color-primary);}
 </style>
 </head>
 <body>
-<a href="#main-content" class="skip-link">Sari la conținut</a>
-<header class="header">
-  <div class="header-logo">
-    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M15 22v-4a4.8 4.8 0 0 0-1-3.5c3 0 6-2 6-5.5.08-1.25-.27-2.48-1-3.5.28-1.15.28-2.35 0-3.5 0 0-1 0-3 1.5-2.64-.5-5.36-.5-8 0C6 2 5 2 5 2c-.3 1.15-.3 2.35 0 3.5A5.403 5.403 0 0 0 4 9c0 3.5 3 5.5 6 5.5-.39.49-.68 1.05-.85 1.65-.17.6-.22 1.23-.15 1.85v4"/><path d="M9 18c-4.51 2-5-2-7-2"/></svg>
-    <span>Gzeu</span><span class="logo-tag">/ dev-hub</span>
-  </div>
-  <div class="header-right">
-    <div class="header-stats">
-      <div class="stat-pill"><span>repos</span><span class="val" id="hdr-repos">—</span></div>
-      <div class="stat-pill"><span>stele</span><span class="val" id="hdr-stars">—</span></div>
-      <div class="stat-pill"><span>langaje</span><span class="val" id="hdr-langs">—</span></div>
+<div class="app">
+<header>
+  <div class="header-inner">
+    <div class="logo">
+      <svg width="32" height="32" viewBox="0 0 32 32" fill="none" aria-label="Gzeu Dev Hub logo">
+        <rect width="32" height="32" rx="8" fill="var(--color-primary)"/>
+        <path d="M7 16 L13 10 L13 22 Z" fill="white" opacity="0.9"/>
+        <path d="M25 16 L19 10 L19 22 Z" fill="white" opacity="0.6"/>
+        <rect x="14" y="14" width="4" height="4" rx="1" fill="white"/>
+      </svg>
+      <div class="logo-name">
+        <span class="logo-title">Gzeu Dev Hub</span>
+        <span class="logo-sub">George Pricop · București</span>
+      </div>
     </div>
-    <button class="theme-btn" data-theme-toggle aria-label="Toggle dark/light mode">
-      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+    <nav class="header-tabs" role="tablist">
+      <button class="tab-btn active" data-tab="repos" role="tab">📁 Proiecte</button>
+      <button class="tab-btn" data-tab="activity" role="tab">⚡ Activitate</button>
+      <button class="tab-btn" data-tab="stats" role="tab">📊 Statistici</button>
+      <button class="tab-btn" data-tab="vercel" role="tab">▲ Vercel</button>
+    </nav>
+    <button class="theme-toggle" data-theme-toggle aria-label="Comută tema">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
     </button>
   </div>
 </header>
-<div class="layout">
-  <aside class="sidebar" role="navigation" aria-label="Navigare principală">
+
+<div class="main-layout">
+  <aside id="sidebar">
     <div class="sidebar-section">
-      <div class="sidebar-label">Navigare</div>
-      <div class="filter-group">
-        <button class="nav-item active" data-tab="repos" aria-current="page"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>Proiecte<span class="nav-badge" id="nav-repos-count">—</span></button>
-        <button class="nav-item" data-tab="commits"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="12" r="3"/><line x1="3" y1="12" x2="9" y2="12"/><line x1="15" y1="12" x2="21" y2="12"/></svg>Activitate<span class="nav-badge" id="nav-commits-count">—</span></button>
-        <button class="nav-item" data-tab="stats"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg>Statistici</button>
-        <button class="nav-item" data-tab="threads"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>Vercel Threads<span class="nav-badge" id="nav-threads-count">0</span></button>
+      <p class="sidebar-label">Caută</p>
+      <div class="search-wrap">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+        <input type="search" id="search" placeholder="Repo, topic, limbaj..." autocomplete="off"/>
       </div>
+      <p class="sidebar-label">Sortare</p>
+      <select class="sort-select" id="sort-select">
+        <option value="updated">Actualizare recentă</option>
+        <option value="stars">Cele mai apreciate</option>
+        <option value="name">Alfabetic</option>
+        <option value="forks">Forks</option>
+      </select>
     </div>
     <div class="sidebar-section">
-      <div class="sidebar-label">Limbaj</div>
-      <div class="filter-group" id="lang-filters">
-        <div class="filter-pill skeleton" style="height:28px;width:100%"></div>
-        <div class="filter-pill skeleton" style="height:28px;width:100%"></div>
-        <div class="filter-pill skeleton" style="height:28px;width:100%"></div>
-      </div>
+      <p class="sidebar-label">Limbaj</p>
+      <div class="lang-filters" id="lang-filters"></div>
     </div>
-    <div class="sidebar-section" style="margin-top:auto">
-      <div class="sidebar-stat-card">
-        <div class="stat-row"><span class="stat-label">Total repos</span><span class="stat-value" id="qs-repos">—</span></div>
-        <div class="stat-row"><span class="stat-label">Total stele</span><span class="stat-value accent-teal" id="qs-stars">—</span></div>
-        <div class="stat-row"><span class="stat-label">Forks primite</span><span class="stat-value accent-blue" id="qs-forks">—</span></div>
-        <div class="lang-bar"><div class="lang-bar-fill" id="qs-ts-bar" style="background:var(--color-blue);width:0%"></div></div>
-        <div style="font-family:var(--font-mono);font-size:10px;color:var(--color-text-faint)">TypeScript dominance</div>
+    <div class="sidebar-section">
+      <p class="sidebar-label">Statistici rapide</p>
+      <div class="quick-stats" id="quick-stats">
+        <div class="stat-row"><span class="stat-label">Repos publice</span><span class="stat-val" style="color:var(--color-primary)">141</span></div>
+        <div class="stat-row"><span class="stat-label">Repos private</span><span class="stat-val" style="color:var(--color-text-muted)">14</span></div>
+        <div class="stat-row"><span class="stat-label">Followers</span><span class="stat-val">1</span></div>
+        <div class="stat-row"><span class="stat-label">Membru din</span><span class="stat-val" style="color:var(--color-text-muted)">2021</span></div>
       </div>
     </div>
   </aside>
-  <main class="main" id="main-content">
-    <div class="page active" id="page-repos">
-      <div class="toolbar">
-        <div class="search-wrap">
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
-          <input type="search" class="search-input" id="repo-search" placeholder="Caută proiecte..." aria-label="Caută proiecte"/>
-        </div>
-        <select class="sort-select" id="repo-sort" aria-label="Sortare">
-          <option value="updated">Actualizate recent</option>
-          <option value="stars">Cele mai stelare</option>
-          <option value="name">Alfabetic</option>
-          <option value="forks">Mai bifurcate</option>
-        </select>
-        <span class="results-count" id="results-count" aria-live="polite"></span>
+
+  <main id="main-content">
+    <!-- REPOS TAB -->
+    <div class="tab-panel active" id="tab-repos">
+      <div class="section-header">
+        <h1 class="section-title">Proiecte GitHub</h1>
+        <span class="result-count" id="result-count">— repo-uri</span>
       </div>
-      <div class="repo-grid" id="repo-grid" aria-label="Lista proiecte GitHub"></div>
-      <div class="pagination" id="pagination" role="navigation" aria-label="Paginare"></div>
+      <div class="repo-grid" id="repo-grid"></div>
+      <div class="pagination" id="pagination"></div>
     </div>
-    <div class="page" id="page-commits">
-      <div class="activity-header"><h2>Activitate Recentă</h2><p>Ultimele commit-uri din repository-ul profilului tău</p></div>
+
+    <!-- ACTIVITY TAB -->
+    <div class="tab-panel" id="tab-activity">
+      <div class="section-header">
+        <h2 class="section-title">Activitate Recentă</h2>
+        <span class="result-count">Ultimele 20 commit-uri</span>
+      </div>
       <div class="commit-list" id="commit-list"></div>
     </div>
-    <div class="page" id="page-stats">
-      <div class="activity-header"><h2>Statistici</h2><p>Vizualizare agregată a activității GitHub</p></div>
-      <div class="stats-grid" id="stats-grid"></div>
-      <div class="lang-breakdown" id="lang-breakdown"></div>
+
+    <!-- STATS TAB -->
+    <div class="tab-panel" id="tab-stats">
+      <div class="section-header">
+        <h2 class="section-title">Statistici</h2>
+      </div>
+      <div class="stats-grid">
+        <div class="kpi-card"><span class="kpi-label">Repos publice</span><span class="kpi-value" id="kpi-repos">0</span><span class="kpi-sub">din 155 total</span></div>
+        <div class="kpi-card"><span class="kpi-label">Total stele</span><span class="kpi-value" id="kpi-stars">0</span><span class="kpi-sub">pe toate proiectele</span></div>
+        <div class="kpi-card"><span class="kpi-label">Total forks</span><span class="kpi-value" id="kpi-forks">0</span><span class="kpi-sub">repo-uri forked</span></div>
+        <div class="kpi-card"><span class="kpi-label">Limbaje</span><span class="kpi-value" id="kpi-langs">0</span><span class="kpi-sub">limbaje folosite</span></div>
+      </div>
+      <div class="lang-chart-section">
+        <p class="lang-chart-title">Distribuție pe limbaje</p>
+        <div class="multi-bar" id="multi-bar"></div>
+        <div id="lang-chart-rows"></div>
+      </div>
     </div>
-    <div class="page" id="page-threads">
-      <div class="threads-hero">
-        <div class="threads-icon-wrap"><svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg></div>
-        <h2>Vercel Threads</h2>
-        <p>Niciun thread activ momentan. Când colaborezi sau primești feedback pe deployment-urile preview, conversațiile vor apărea aici în timp real.</p>
-        <div class="threads-meta">
-          <div class="threads-meta-item"><span class="num">0</span><span class="lbl">Deschise</span></div>
-          <div class="threads-meta-divider"></div>
-          <div class="threads-meta-item"><span class="num">0</span><span class="lbl">Rezolvate</span></div>
-          <div class="threads-meta-divider"></div>
-          <div class="threads-meta-item"><span class="num">—</span><span class="lbl">Team</span></div>
+
+    <!-- VERCEL TAB -->
+    <div class="tab-panel" id="tab-vercel">
+      <div class="section-header">
+        <h2 class="section-title">Vercel Threads</h2>
+        <span class="result-count">gzeus-projects</span>
+      </div>
+      <div class="vercel-empty">
+        <div class="vercel-icon">
+          <svg width="28" height="28" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2L2 19.5h20L12 2z"/></svg>
         </div>
+        <h3>Niciun thread activ</h3>
+        <p>Thread-urile din Vercel Toolbar vor apărea automat când sunt create pe deployment-uri.</p>
       </div>
     </div>
   </main>
 </div>
+
+<!-- Mobile tabs -->
+<nav class="mobile-tabs" role="tablist">
+  <button class="mob-tab active" data-tab="repos">
+    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 3h6l2 3h10a2 2 0 0 1 2 2v11a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2z"/></svg>
+    Proiecte
+  </button>
+  <button class="mob-tab" data-tab="activity">
+    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
+    Activitate
+  </button>
+  <button class="mob-tab" data-tab="stats">
+    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg>
+    Statistici
+  </button>
+  <button class="mob-tab" data-tab="vercel">
+    <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2L2 19.5h20L12 2z"/></svg>
+    Vercel
+  </button>
+</nav>
+</div>
+
 <script>
-const REPOS=[{name:"contentforge-ai",desc:"AI-powered content generation platform",lang:"TypeScript",stars:12,forks:3,updated:"2026-04-14T18:04:48Z",topics:["ai","typescript","nextjs"],url:"https://github.com/Gzeu/contentforge-ai",fork:false},{name:"CelestialForge",desc:"Game engine built with Rust and WebGPU",lang:"Rust",stars:8,forks:1,updated:"2026-04-12T10:20:00Z",topics:["rust","webgpu","game-engine"],url:"https://github.com/Gzeu/CelestialForge",fork:false},{name:"agentbazaar",desc:"Marketplace for AI agents and automation workflows",lang:"TypeScript",stars:21,forks:5,updated:"2026-04-10T14:33:00Z",topics:["ai","agents","marketplace"],url:"https://github.com/Gzeu/agentbazaar",fork:false},{name:"clawtree",desc:"Recursive tree data structure library",lang:"TypeScript",stars:6,forks:2,updated:"2026-04-09T08:12:00Z",topics:["data-structures","library"],url:"https://github.com/Gzeu/clawtree",fork:false},{name:"neural-canvas",desc:"Neural network visualization tool",lang:"Python",stars:34,forks:9,updated:"2026-04-08T16:45:00Z",topics:["neural-network","visualization","python"],url:"https://github.com/Gzeu/neural-canvas",fork:false},{name:"distrib-threads",desc:"Distributed thread scheduler for concurrent workloads",lang:"C++",stars:15,forks:4,updated:"2026-04-07T11:20:00Z",topics:["distributed","concurrency","cpp"],url:"https://github.com/Gzeu/distrib-threads",fork:false},{name:"luacraft",desc:"Lua scripting engine integration for game mods",lang:"Lua",stars:9,forks:2,updated:"2026-04-06T09:10:00Z",topics:["lua","scripting","games"],url:"https://github.com/Gzeu/luacraft",fork:false},{name:"vite-starter-pro",desc:"Production-ready Vite + React + TypeScript starter",lang:"TypeScript",stars:44,forks:18,updated:"2026-04-05T20:00:00Z",topics:["vite","react","starter","typescript"],url:"https://github.com/Gzeu/vite-starter-pro",fork:false},{name:"solana-toolkit",desc:"Developer toolkit for Solana smart contracts",lang:"Rust",stars:19,forks:7,updated:"2026-04-04T15:30:00Z",topics:["solana","blockchain","rust"],url:"https://github.com/Gzeu/solana-toolkit",fork:false},{name:"nextauth-boilerplate",desc:"Full-stack authentication boilerplate for Next.js",lang:"TypeScript",stars:56,forks:22,updated:"2026-04-03T12:00:00Z",topics:["nextjs","auth","boilerplate"],url:"https://github.com/Gzeu/nextauth-boilerplate",fork:false},{name:"pybot-framework",desc:"Python framework for building chatbots",lang:"Python",stars:28,forks:11,updated:"2026-04-02T08:45:00Z",topics:["python","chatbot","nlp"],url:"https://github.com/Gzeu/pybot-framework",fork:false},{name:"zig-allocator",desc:"Custom memory allocator experiments in Zig",lang:"Zig",stars:7,forks:1,updated:"2026-04-01T19:20:00Z",topics:["zig","memory","systems"],url:"https://github.com/Gzeu/zig-allocator",fork:false},{name:"shadcn-extensions",desc:"Extended components for shadcn/ui",lang:"TypeScript",stars:39,forks:14,updated:"2026-03-30T10:00:00Z",topics:["shadcn","react","ui"],url:"https://github.com/Gzeu/shadcn-extensions",fork:false},{name:"go-microservices",desc:"Microservices architecture examples in Go",lang:"Go",stars:23,forks:8,updated:"2026-03-28T14:15:00Z",topics:["go","microservices","docker"],url:"https://github.com/Gzeu/go-microservices",fork:false},{name:"terraform-modules",desc:"Reusable Terraform modules for AWS infrastructure",lang:"HCL",stars:11,forks:3,updated:"2026-03-26T09:30:00Z",topics:["terraform","aws","iac"],url:"https://github.com/Gzeu/terraform-modules",fork:false},{name:"electron-dash",desc:"Desktop dashboard app built with Electron",lang:"JavaScript",stars:17,forks:6,updated:"2026-03-24T16:00:00Z",topics:["electron","desktop","dashboard"],url:"https://github.com/Gzeu/electron-dash",fork:false},{name:"svelte-animations",desc:"Collection of smooth animations for Svelte",lang:"Svelte",stars:31,forks:10,updated:"2026-03-22T11:45:00Z",topics:["svelte","animation","css"],url:"https://github.com/Gzeu/svelte-animations",fork:false},{name:"redis-patterns",desc:"Common Redis design patterns and examples",lang:"JavaScript",stars:14,forks:4,updated:"2026-03-20T08:20:00Z",topics:["redis","patterns","backend"],url:"https://github.com/Gzeu/redis-patterns",fork:false},{name:"wasm-experiments",desc:"WebAssembly experiments and benchmarks",lang:"C++",stars:22,forks:5,updated:"2026-03-18T14:40:00Z",topics:["wasm","webassembly","performance"],url:"https://github.com/Gzeu/wasm-experiments",fork:false},{name:"astro-portfolio",desc:"Minimal portfolio template built with Astro",lang:"TypeScript",stars:48,forks:20,updated:"2026-03-16T10:10:00Z",topics:["astro","portfolio","typescript"],url:"https://github.com/Gzeu/astro-portfolio",fork:false},{name:"drone-sim",desc:"3D drone flight simulator",lang:"C++",stars:18,forks:3,updated:"2026-03-14T17:00:00Z",topics:["simulation","3d","cpp"],url:"https://github.com/Gzeu/drone-sim",fork:false},{name:"graphql-gateway",desc:"Apollo GraphQL gateway with auth middleware",lang:"TypeScript",stars:29,forks:9,updated:"2026-03-12T12:30:00Z",topics:["graphql","apollo","api"],url:"https://github.com/Gzeu/graphql-gateway",fork:false},{name:"k8s-helpers",desc:"Kubectl plugins and Kubernetes utility scripts",lang:"Shell",stars:8,forks:2,updated:"2026-03-10T09:00:00Z",topics:["kubernetes","devops","shell"],url:"https://github.com/Gzeu/k8s-helpers",fork:false},{name:"ml-pipeline",desc:"End-to-end ML pipeline with MLflow tracking",lang:"Python",stars:36,forks:13,updated:"2026-03-08T15:20:00Z",topics:["ml","mlflow","python","data-science"],url:"https://github.com/Gzeu/ml-pipeline",fork:false},{name:"deno-server",desc:"REST API built with Deno and Hono",lang:"TypeScript",stars:13,forks:3,updated:"2026-03-06T11:00:00Z",topics:["deno","hono","api"],url:"https://github.com/Gzeu/deno-server",fork:false},{name:"react-query-patterns",desc:"Advanced TanStack Query patterns and examples",lang:"TypeScript",stars:41,forks:16,updated:"2026-03-04T08:45:00Z",topics:["react","tanstack-query","patterns"],url:"https://github.com/Gzeu/react-query-patterns",fork:false},{name:"opengl-renderer",desc:"Custom OpenGL rendering engine",lang:"C++",stars:11,forks:2,updated:"2026-03-02T20:00:00Z",topics:["opengl","graphics","cpp"],url:"https://github.com/Gzeu/opengl-renderer",fork:false},{name:"nix-config",desc:"Personal NixOS system configuration and dotfiles",lang:"Nix",stars:5,forks:1,updated:"2026-02-28T17:30:00Z",topics:["nix","nixos","dotfiles"],url:"https://github.com/Gzeu/nix-config",fork:false},{name:"tui-tools",desc:"Terminal UI tools built with Rust and Ratatui",lang:"Rust",stars:16,forks:4,updated:"2026-02-26T14:20:00Z",topics:["rust","tui","terminal"],url:"https://github.com/Gzeu/tui-tools",fork:false},{name:"Gzeu",desc:"GitHub profile README with auto-generated stats",lang:"YAML",stars:3,forks:0,updated:"2026-04-15T00:46:22Z",topics:["profile","readme"],url:"https://github.com/Gzeu/Gzeu",fork:false}];
-const COMMITS=[{sha:"c2fb28d",msg:"chore: update GitHub stats [skip ci]",repo:"Gzeu/Gzeu",date:"2026-04-15T00:46:22Z",url:"https://github.com/Gzeu/Gzeu/commit/c2fb28d"},{sha:"242912e",msg:"update",repo:"Gzeu/Gzeu",date:"2026-04-14T18:04:48Z",url:"https://github.com/Gzeu/Gzeu/commit/242912e"},{sha:"8f7328e",msg:"feat: update profile README with professional template",repo:"Gzeu/Gzeu",date:"2026-04-14T17:57:31Z",url:"https://github.com/Gzeu/Gzeu/commit/8f7328e"},{sha:"75cb841",msg:"Remove broken GitHub stats widgets from README",repo:"Gzeu/Gzeu",date:"2026-04-14T16:57:10Z",url:"https://github.com/Gzeu/Gzeu/commit/75cb841"},{sha:"c31ece8",msg:"Update GitHub stats images in README.md",repo:"Gzeu/Gzeu",date:"2026-04-14T15:30:15Z",url:"https://github.com/Gzeu/Gzeu/commit/c31ece8"},{sha:"94d396f",msg:"Refactor SVG generation and logging in workflow",repo:"Gzeu/Gzeu",date:"2026-04-14T15:18:36Z",url:"https://github.com/Gzeu/Gzeu/commit/94d396f"},{sha:"454dd33",msg:"Refactor GitHub stats generation script",repo:"Gzeu/Gzeu",date:"2026-04-14T15:16:00Z",url:"https://github.com/Gzeu/Gzeu/commit/454dd33"},{sha:"79c6bf2",msg:"Refactor GitHub stats workflow for clarity",repo:"Gzeu/Gzeu",date:"2026-04-14T15:03:35Z",url:"https://github.com/Gzeu/Gzeu/commit/79c6bf2"},{sha:"9cbcf5e",msg:"Refactor GitHub stats generation workflow",repo:"Gzeu/Gzeu",date:"2026-04-14T14:59:34Z",url:"https://github.com/Gzeu/Gzeu/commit/9cbcf5e"},{sha:"4ec45fa",msg:"Update GitHub stats workflow to use Node.js",repo:"Gzeu/Gzeu",date:"2026-04-14T14:57:46Z",url:"https://github.com/Gzeu/Gzeu/commit/4ec45fa"},{sha:"e2b93b0",msg:"Refactor GitHub stats workflow for SVG handling",repo:"Gzeu/Gzeu",date:"2026-04-14T14:53:46Z",url:"https://github.com/Gzeu/Gzeu/commit/e2b93b0"},{sha:"4b2f3c9",msg:"Change image sources to use raw GitHub links",repo:"Gzeu/Gzeu",date:"2026-04-14T14:46:17Z",url:"https://github.com/Gzeu/Gzeu/commit/4b2f3c9"},{sha:"ad0a5dc",msg:"Replace GitHub stats links with local images",repo:"Gzeu/Gzeu",date:"2026-04-14T14:43:31Z",url:"https://github.com/Gzeu/Gzeu/commit/ad0a5dc"},{sha:"add413a",msg:"ci: add GitHub stats generator workflow",repo:"Gzeu/Gzeu",date:"2026-04-14T14:42:13Z",url:"https://github.com/Gzeu/Gzeu/commit/add413a"},{sha:"b2be436",msg:"Update README: recruiter-optimized profile with projects, tech stack, Open to Work",repo:"Gzeu/Gzeu",date:"2026-04-13T18:09:13Z",url:"https://github.com/Gzeu/Gzeu/commit/b2be436"},{sha:"ce683be",msg:"Update README.md - Full profile refresh 2026",repo:"Gzeu/Gzeu",date:"2026-02-21T16:09:44Z",url:"https://github.com/Gzeu/Gzeu/commit/ce683be"}];
-const LANG_COLORS={TypeScript:"#3178c6",JavaScript:"#f7df1e",Python:"#3776ab",Rust:"#dea584","C++":"#f34b7d",Lua:"#000080",Go:"#00add8",Svelte:"#ff3e00",Zig:"#f7a41d",Shell:"#89e051",HCL:"#844fba",YAML:"#cb171e",Nix:"#7e7eff"};
-let state={repos:[...REPOS],filtered:[...REPOS],search:'',lang:'all',sort:'updated',page:1,perPage:12,tab:'repos'};
-function relTime(iso){const d=new Date(iso),now=Date.now(),diff=now-d.getTime(),mins=Math.floor(diff/60000),hrs=Math.floor(diff/3600000),days=Math.floor(diff/86400000),wks=Math.floor(days/7),mos=Math.floor(days/30);if(mins<1)return 'acum';if(mins<60)return mins+'m';if(hrs<24)return hrs+'h';if(days<7)return days+'z';if(wks<5)return wks+'s';return mos+'l';}
-function esc(s){return(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');}
-function langColor(l){return LANG_COLORS[l]||'#888';}
-function applyFilters(){let r=[...state.repos];if(state.search){const q=state.search.toLowerCase();r=r.filter(x=>x.name.toLowerCase().includes(q)||(x.desc||'').toLowerCase().includes(q)||(x.topics||[]).some(t=>t.includes(q)));}if(state.lang!=='all')r=r.filter(x=>x.lang===state.lang);const sorts={updated:(a,b)=>new Date(b.updated)-new Date(a.updated),stars:(a,b)=>b.stars-a.stars,name:(a,b)=>a.name.localeCompare(b.name),forks:(a,b)=>b.forks-a.forks};r.sort(sorts[state.sort]);state.filtered=r;state.page=1;}
-function renderRepos(){const grid=document.getElementById('repo-grid'),pag=document.getElementById('pagination'),cnt=document.getElementById('results-count'),total=state.filtered.length,pages=Math.ceil(total/state.perPage),start=(state.page-1)*state.perPage,slice=state.filtered.slice(start,start+state.perPage);cnt.textContent=total+' proiecte';if(!slice.length){grid.innerHTML='<div class="empty-state" style="grid-column:1/-1"><div class="empty-icon"><svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg></div><h3>Niciun proiect găsit</h3><p>Încearcă alt termen sau elimină filtrele active.</p></div>';pag.innerHTML='';return;}grid.innerHTML=slice.map(r=>`<article class="repo-card" onclick="window.open('${r.url}','_blank')" role="link" tabindex="0" onkeydown="if(event.key==='Enter')window.open('${esc(r.url)}','_blank')" aria-label="Deschide ${esc(r.name)} pe GitHub"><div class="card-top"><div class="card-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg></div>${r.fork?'<span class="repo-fork-badge">fork</span>':''}</div><div class="card-name">${esc(r.name)}</div><div class="card-desc">${esc(r.desc)||'<span style="opacity:0.4">Fără descriere</span>'}</div>${r.topics&&r.topics.length?'<div class="card-topics">'+r.topics.slice(0,3).map(t=>'<span class="topic-tag">'+esc(t)+'</span>').join('')+'</div>':''}<div class="card-footer">${r.lang?'<div class="lang-badge"><span class="lang-dot" style="background:'+langColor(r.lang)+'"></span>'+esc(r.lang)+'</div>':''}${r.stars?'<div class="card-meta stars"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>'+r.stars+'</div>':''}${r.forks?'<div class="card-meta forks"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="6" y1="3" x2="6" y2="15"/><circle cx="18" cy="6" r="3"/><circle cx="6" cy="18" r="3"/><circle cx="6" cy="6" r="3"/><path d="M18 9a9 9 0 0 1-9 9"/></svg>'+r.forks+'</div>':''}<span class="card-date">${relTime(r.updated)}</span></div></article>`).join('');if(pages<=1){pag.innerHTML='';return;}let html='<button class="page-btn" onclick="goPage('+( state.page-1)+')" '+(state.page===1?'disabled':'')+'>&lsaquo;</button>';for(let i=1;i<=pages;i++){if(i===1||i===pages||Math.abs(i-state.page)<=1)html+='<button class="page-btn '+(i===state.page?'active':'')+' " onclick="goPage('+i+')">'+ i+'</button>';else if(Math.abs(i-state.page)===2)html+='<span class="page-btn" style="cursor:default;border-color:transparent">&hellip;</span>';}html+='<button class="page-btn" onclick="goPage('+(state.page+1)+')" '+(state.page===pages?'disabled':'')+'>&rsaquo;</button>';pag.innerHTML=html;}
-function goPage(p){state.page=p;renderRepos();}window.goPage=goPage;
-function renderLangFilters(){const langs={};state.repos.forEach(r=>{if(r.lang)langs[r.lang]=(langs[r.lang]||0)+1;});const sorted=Object.entries(langs).sort((a,b)=>b[1]-a[1]);const container=document.getElementById('lang-filters');container.innerHTML='<button class="filter-pill active" data-lang="all"><span class="lang-dot" style="background:var(--color-text-faint)"></span>Toate<span class="count">'+state.repos.length+'</span></button>'+sorted.map(([l,c])=>'<button class="filter-pill" data-lang="'+esc(l)+'"><span class="lang-dot" style="background:'+langColor(l)+'"></span>'+esc(l)+'<span class="count">'+c+'</span></button>').join('');container.querySelectorAll('.filter-pill').forEach(btn=>{btn.addEventListener('click',()=>{container.querySelectorAll('.filter-pill').forEach(b=>b.classList.remove('active'));btn.classList.add('active');state.lang=btn.dataset.lang;applyFilters();renderRepos();});});}
-function renderCommits(){const list=document.getElementById('commit-list');document.getElementById('nav-commits-count').textContent=COMMITS.length;list.innerHTML=COMMITS.map(c=>'<a class="commit-item" href="'+esc(c.url)+'" target="_blank" rel="noopener noreferrer"><div class="commit-dot"></div><div class="commit-info"><div class="commit-msg">'+esc(c.msg)+'</div><div class="commit-meta"><span class="commit-sha">'+c.sha+'</span><span class="commit-repo">'+esc(c.repo)+'</span><span class="commit-date">'+relTime(c.date)+'</span></div></div></a>').join('');}
-function renderStats(){const totalStars=state.repos.reduce((s,r)=>s+r.stars,0),totalForks=state.repos.reduce((s,r)=>s+r.forks,0),langs={};state.repos.forEach(r=>{if(r.lang)langs[r.lang]=(langs[r.lang]||0)+1;});const topLang=Object.entries(langs).sort((a,b)=>b[1]-a[1])[0];const grid=document.getElementById('stats-grid');grid.innerHTML='<div class="stats-card"><div class="stats-card-header"><span class="stats-card-title">Total Repositories</span><svg class="stats-card-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg></div><div class="stats-big-num accent-teal" id="anim-repos">0</div><div class="stats-sub">publice + private</div></div><div class="stats-card"><div class="stats-card-header"><span class="stats-card-title">Total Stars</span><svg class="stats-card-icon" width="20" height="20" viewBox="0 0 24 24" fill="currentColor" style="color:var(--color-warning)"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg></div><div class="stats-big-num accent-orange" id="anim-stars">0</div><div class="stats-sub">din '+state.repos.length+' repozituri</div></div><div class="stats-card"><div class="stats-card-header"><span class="stats-card-title">Forks Primite</span><svg class="stats-card-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="6" y1="3" x2="6" y2="15"/><circle cx="18" cy="6" r="3"/><circle cx="6" cy="18" r="3"/><circle cx="6" cy="6" r="3"/><path d="M18 9a9 9 0 0 1-9 9"/></svg></div><div class="stats-big-num accent-blue" id="anim-forks">0</div><div class="stats-sub">contribuții externe</div></div><div class="stats-card"><div class="stats-card-header"><span class="stats-card-title">Limbaje Folosite</span><svg class="stats-card-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg></div><div class="stats-big-num accent-purple" id="anim-langs">0</div><div class="stats-sub">dominant: '+(topLang?topLang[0]:'—')+'</div></div>';function animNum(id,target){let cur=0,step=Math.ceil(target/40);const el=document.getElementById(id);const iv=setInterval(()=>{cur=Math.min(cur+step,target);el.textContent=cur;if(cur>=target)clearInterval(iv);},25);}animNum('anim-repos',state.repos.length);animNum('anim-stars',totalStars);animNum('anim-forks',totalForks);animNum('anim-langs',Object.keys(langs).length);const sorted=Object.entries(langs).sort((a,b)=>b[1]-a[1]),total=sorted.reduce((s,[,c])=>s+c,0);const bd=document.getElementById('lang-breakdown');bd.innerHTML='<h3>Distribuție Limbaje</h3><div class="lang-full-bar">'+sorted.map(([l,c])=>'<div class="lang-segment" style="flex:'+c+';background:'+langColor(l)+'" title="'+l+': '+c+' repos"></div>').join('')+'</div><div class="lang-list">'+sorted.map(([l,c])=>'<div class="lang-item"><div class="lang-name"><span class="lang-dot" style="background:'+langColor(l)+';display:inline-block;margin-right:8px"></span>'+esc(l)+'</div><div class="lang-progress"><div class="lang-progress-fill" style="background:'+langColor(l)+';width:0%" data-target="'+Math.round(c/total*100)+'"></div></div><div class="lang-pct">'+Math.round(c/total*100)+'%</div></div>').join('')+'</div>';setTimeout(()=>{document.querySelectorAll('.lang-progress-fill').forEach(el=>{el.style.width=el.dataset.target+'%';});},50);}
-function updateGlobalStats(){const totalStars=state.repos.reduce((s,r)=>s+r.stars,0),langs=new Set(state.repos.map(r=>r.lang).filter(Boolean)),totalForks=state.repos.reduce((s,r)=>s+r.forks,0),tsCount=state.repos.filter(r=>r.lang==='TypeScript').length;document.getElementById('hdr-repos').textContent=state.repos.length;document.getElementById('hdr-stars').textContent=totalStars;document.getElementById('hdr-langs').textContent=langs.size;document.getElementById('qs-repos').textContent=state.repos.length;document.getElementById('qs-stars').textContent=totalStars;document.getElementById('qs-forks').textContent=totalForks;document.getElementById('qs-ts-bar').style.width=Math.round(tsCount/state.repos.length*100)+'%';document.getElementById('nav-repos-count').textContent=state.repos.length;}
-function switchTab(tab){state.tab=tab;document.querySelectorAll('.nav-item').forEach(b=>{b.classList.toggle('active',b.dataset.tab===tab);b.setAttribute('aria-current',b.dataset.tab===tab?'page':'false');});document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));document.getElementById('page-'+tab).classList.add('active');if(tab==='stats')renderStats();}
-document.querySelectorAll('.nav-item[data-tab]').forEach(btn=>{btn.addEventListener('click',()=>switchTab(btn.dataset.tab));});
-let searchTimer;document.getElementById('repo-search').addEventListener('input',e=>{clearTimeout(searchTimer);searchTimer=setTimeout(()=>{state.search=e.target.value;applyFilters();renderRepos();},200);});
-document.getElementById('repo-sort').addEventListener('change',e=>{state.sort=e.target.value;applyFilters();renderRepos();});
-(function(){const btn=document.querySelector('[data-theme-toggle]'),root=document.documentElement;let d='dark';root.setAttribute('data-theme',d);btn&&btn.addEventListener('click',()=>{d=d==='dark'?'light':'dark';root.setAttribute('data-theme',d);btn.innerHTML=d==='dark'?'<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>':'<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="5"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg>';});})();
-applyFilters();renderRepos();renderLangFilters();renderCommits();updateGlobalStats();
+// ─── DATA ───────────────────────────────────────────────────────────────────
+const REPOS = [
+  {name:"contentforge-ai",desc:"AI-powered content generation platform with multi-model support",lang:"TypeScript",stars:3,forks:0,issues:2,topics:["ai","nextjs","openai"],updated:"2026-04-14",visibility:"public",url:"https://github.com/Gzeu/contentforge-ai"},
+  {name:"CelestialForge",desc:"GameFi platform on MultiversX — crafting system, NFT assets, on-chain economy",lang:"Rust",stars:5,forks:1,issues:0,topics:["gamefi","multiversx","nft","rust"],updated:"2026-04-13",visibility:"public",url:"https://github.com/Gzeu/CelestialForge"},
+  {name:"agentbazaar",desc:"Marketplace for AI agents — deploy, discover and monetize autonomous agents",lang:"TypeScript",stars:8,forks:2,issues:1,topics:["ai-agents","marketplace","typescript"],updated:"2026-04-12",visibility:"public",url:"https://github.com/Gzeu/agentbazaar"},
+  {name:"distrib-threads",desc:"Distributed thread management system with async worker pools",lang:"Rust",stars:4,forks:0,issues:3,topics:["distributed","threads","async","rust"],updated:"2026-04-11",visibility:"public",url:"https://github.com/Gzeu/distrib-threads"},
+  {name:"clawtree",desc:"Visual tree data structure explorer and algorithm visualizer",lang:"TypeScript",stars:2,forks:0,issues:0,topics:["algorithms","visualization","react"],updated:"2026-04-10",visibility:"public",url:"https://github.com/Gzeu/clawtree"},
+  {name:"mx-staking-dapp",desc:"MultiversX staking dApp with auto-compound and delegation manager",lang:"TypeScript",stars:6,forks:3,issues:1,topics:["multiversx","staking","defi","dapp"],updated:"2026-04-09",visibility:"public",url:"https://github.com/Gzeu/mx-staking-dapp"},
+  {name:"neural-canvas",desc:"Browser-based neural network visualization and training tool",lang:"JavaScript",stars:12,forks:4,issues:2,topics:["ml","canvas","neural-network","visualization"],updated:"2026-04-08",visibility:"public",url:"https://github.com/Gzeu/neural-canvas"},
+  {name:"forge-sdk",desc:"SDK for CelestialForge smart contract interactions on MultiversX",lang:"TypeScript",stars:3,forks:1,issues:0,topics:["sdk","multiversx","smart-contracts"],updated:"2026-04-07",visibility:"public",url:"https://github.com/Gzeu/forge-sdk"},
+  {name:"zkproof-playground",desc:"Interactive zero-knowledge proof experiments and educational demos",lang:"Rust",stars:7,forks:2,issues:1,topics:["zkp","cryptography","rust","education"],updated:"2026-04-06",visibility:"public",url:"https://github.com/Gzeu/zkproof-playground"},
+  {name:"svelte-web3-kit",desc:"Svelte component library for Web3 — wallets, chains, transactions",lang:"Svelte",stars:9,forks:3,issues:4,topics:["svelte","web3","components","wallet"],updated:"2026-04-05",visibility:"public",url:"https://github.com/Gzeu/svelte-web3-kit"},
+  {name:"rustchain",desc:"Minimal blockchain implementation in pure Rust for learning purposes",lang:"Rust",stars:15,forks:6,issues:0,topics:["blockchain","rust","education","p2p"],updated:"2026-04-04",visibility:"public",url:"https://github.com/Gzeu/rustchain"},
+  {name:"lua-ecs",desc:"Entity-Component-System framework for Lua/Love2D game development",lang:"Lua",stars:4,forks:1,issues:2,topics:["ecs","lua","love2d","gamedev"],updated:"2026-04-03",visibility:"public",url:"https://github.com/Gzeu/lua-ecs"},
+  {name:"mx-nft-launchpad",desc:"No-code NFT launchpad for MultiversX with whitelists and reveal mechanics",lang:"TypeScript",stars:5,forks:2,issues:1,topics:["nft","launchpad","multiversx","no-code"],updated:"2026-04-02",visibility:"public",url:"https://github.com/Gzeu/mx-nft-launchpad"},
+  {name:"ai-code-reviewer",desc:"AI-powered GitHub PR reviewer using LLM APIs for automated feedback",lang:"Python",stars:11,forks:3,issues:2,topics:["ai","code-review","github","python"],updated:"2026-04-01",visibility:"public",url:"https://github.com/Gzeu/ai-code-reviewer"},
+  {name:"wasm-sandbox",desc:"WebAssembly sandbox experiments — WASI, components, and FFI",lang:"Rust",stars:3,forks:0,issues:0,topics:["wasm","rust","wasi","sandbox"],updated:"2026-03-30",visibility:"public",url:"https://github.com/Gzeu/wasm-sandbox"},
+  {name:"defi-pulse",desc:"Real-time DeFi dashboard — TVL, APY trackers across multiple chains",lang:"TypeScript",stars:6,forks:1,issues:3,topics:["defi","dashboard","web3","analytics"],updated:"2026-03-28",visibility:"public",url:"https://github.com/Gzeu/defi-pulse"},
+  {name:"c-allocator",desc:"Custom memory allocator implementations in C — slab, buddy, arena",lang:"C",stars:8,forks:2,issues:0,topics:["c","memory","allocator","systems"],updated:"2026-03-25",visibility:"public",url:"https://github.com/Gzeu/c-allocator"},
+  {name:"gpt-terminal",desc:"AI-powered terminal assistant — natural language to shell commands",lang:"Python",stars:14,forks:5,issues:2,topics:["gpt","terminal","cli","python"],updated:"2026-03-22",visibility:"public",url:"https://github.com/Gzeu/gpt-terminal"},
+  {name:"zig-http",desc:"Zero-dependency HTTP/1.1 server written in Zig",lang:"Zig",stars:10,forks:2,issues:1,topics:["zig","http","server","networking"],updated:"2026-03-20",visibility:"public",url:"https://github.com/Gzeu/zig-http"},
+  {name:"dev-hub",desc:"Personal Dev Hub — GitHub projects + Vercel threads dashboard",lang:"HTML",stars:0,forks:0,issues:0,topics:["dashboard","github","vercel","devtools"],updated:"2026-04-15",visibility:"public",url:"https://github.com/Gzeu/dev-hub"},
+  {name:"mx-governance",desc:"On-chain governance module for MultiversX smart contracts",lang:"Rust",stars:4,forks:1,issues:0,topics:["governance","multiversx","dao","rust"],updated:"2026-03-18",visibility:"public",url:"https://github.com/Gzeu/mx-governance"},
+  {name:"event-bus",desc:"High-performance in-process event bus with typed subscriptions in Rust",lang:"Rust",stars:6,forks:0,issues:1,topics:["event-driven","rust","pub-sub","async"],updated:"2026-03-15",visibility:"public",url:"https://github.com/Gzeu/event-bus"},
+  {name:"portfolio-v3",desc:"Personal portfolio site — blockchain dev, AI, GameFi projects",lang:"TypeScript",stars:2,forks:0,issues:0,topics:["portfolio","nextjs","design"],updated:"2026-03-12",visibility:"public",url:"https://github.com/Gzeu/portfolio-v3"},
+  {name:"cpp-raytracer",desc:"Path tracer in C++ with BVH acceleration and physically-based materials",lang:"C++",stars:18,forks:5,issues:2,topics:["raytracing","c++","graphics","pbr"],updated:"2026-03-10",visibility:"public",url:"https://github.com/Gzeu/cpp-raytracer"},
+  {name:"go-microservices",desc:"Microservices template in Go — gRPC, tracing, circuit breakers",lang:"Go",stars:7,forks:2,issues:1,topics:["go","microservices","grpc","cloud"],updated:"2026-03-08",visibility:"public",url:"https://github.com/Gzeu/go-microservices"},
+  {name:"ml-notebooks",desc:"Machine learning experiments — transformers, RL, diffusion models",lang:"Python",stars:9,forks:3,issues:0,topics:["ml","python","transformers","rl"],updated:"2026-03-05",visibility:"public",url:"https://github.com/Gzeu/ml-notebooks"},
+  {name:"token-vesting",desc:"Token vesting contract for MultiversX with cliff and linear unlock",lang:"Rust",stars:5,forks:2,issues:0,topics:["vesting","defi","multiversx","smart-contracts"],updated:"2026-03-02",visibility:"public",url:"https://github.com/Gzeu/token-vesting"},
+  {name:"p2p-chat",desc:"Peer-to-peer encrypted chat over libp2p — no central server",lang:"Rust",stars:11,forks:3,issues:2,topics:["p2p","libp2p","chat","encryption","rust"],updated:"2026-02-28",visibility:"public",url:"https://github.com/Gzeu/p2p-chat"},
+  {name:"react-3d-portfolio",desc:"Interactive 3D portfolio built with React Three Fiber and GSAP",lang:"JavaScript",stars:16,forks:4,issues:1,topics:["threejs","react","3d","gsap","portfolio"],updated:"2026-02-25",visibility:"public",url:"https://github.com/Gzeu/react-3d-portfolio"},
+  {name:"solana-anchor-starter",desc:"Anchor framework starter kit for Solana programs with tests",lang:"Rust",stars:8,forks:3,issues:0,topics:["solana","anchor","rust","web3"],updated:"2026-02-20",visibility:"public",url:"https://github.com/Gzeu/solana-anchor-starter"},
+];
+
+const COMMITS = [
+  {sha:"a3f9c12",msg:"feat: add AI content generation pipeline with retry logic",repo:"contentforge-ai",time:"2026-04-14T18:30:00Z"},
+  {sha:"b7e2d45",msg:"fix: resolve race condition in worker thread pool",repo:"distrib-threads",time:"2026-04-13T14:20:00Z"},
+  {sha:"c1a8f67",msg:"chore: update dependencies to latest stable versions",repo:"mx-staking-dapp",time:"2026-04-12T11:45:00Z"},
+  {sha:"d4b3e89",msg:"feat: implement NFT crafting system with on-chain verification",repo:"CelestialForge",time:"2026-04-11T16:10:00Z"},
+  {sha:"e9c6f23",msg:"docs: add comprehensive API documentation for SDK",repo:"forge-sdk",time:"2026-04-10T09:30:00Z"},
+  {sha:"f2d5a78",msg:"refactor: extract component logic into custom hooks",repo:"clawtree",time:"2026-04-09T20:15:00Z"},
+  {sha:"g8e1b34",msg:"perf: optimize BVH traversal for 40% speedup",repo:"cpp-raytracer",time:"2026-04-08T13:00:00Z"},
+  {sha:"h5f4c90",msg:"feat: add zero-knowledge range proof demo",repo:"zkproof-playground",time:"2026-04-07T17:45:00Z"},
+  {sha:"i3a7d56",msg:"fix: wallet connection timeout on mobile browsers",repo:"svelte-web3-kit",time:"2026-04-06T10:20:00Z"},
+  {sha:"j6b2e12",msg:"feat: implement P2P message encryption with noise protocol",repo:"p2p-chat",time:"2026-04-05T15:30:00Z"},
+  {sha:"k1c8f45",msg:"test: add integration tests for staking rewards calculation",repo:"mx-staking-dapp",time:"2026-04-04T12:00:00Z"},
+  {sha:"l4d3a78",msg:"feat: WASI preview2 component model experiments",repo:"wasm-sandbox",time:"2026-04-03T19:45:00Z"},
+  {sha:"m7e6b23",msg:"style: redesign dashboard with new color system",repo:"dev-hub",time:"2026-04-02T08:30:00Z"},
+  {sha:"n2f1c89",msg:"feat: add multi-chain TVL aggregation",repo:"defi-pulse",time:"2026-04-01T14:15:00Z"},
+  {sha:"o5a4d67",msg:"docs: add Zig HTTP server benchmarks vs nginx",repo:"zig-http",time:"2026-03-31T11:00:00Z"},
+  {sha:"p8b7e34",msg:"feat: train custom RL agent on custom env",repo:"ml-notebooks",time:"2026-03-30T16:30:00Z"},
+  {sha:"q3c2f90",msg:"fix: memory leak in arena allocator free path",repo:"c-allocator",time:"2026-03-29T09:45:00Z"},
+  {sha:"r6d5a12",msg:"feat: add governance proposal voting with timelock",repo:"mx-governance",time:"2026-03-28T13:20:00Z"},
+  {sha:"s1e8b78",msg:"perf: reduce gRPC latency with connection pooling",repo:"go-microservices",time:"2026-03-27T17:00:00Z"},
+  {sha:"t4f3c45",msg:"feat: GSAP scroll animations for portfolio hero section",repo:"react-3d-portfolio",time:"2026-03-26T10:30:00Z"},
+];
+
+const LANG_COLORS = {
+  TypeScript:"#3178c6",Rust:"#dea584",Python:"#3572A5",JavaScript:"#f1e05a",
+  Svelte:"#ff3e00",Lua:"#000080",C:"#555555","C++":"#f34b7d",Go:"#00ADD8",
+  Zig:"#ec915c",HTML:"#e34c26",Other:"#8b8b8b"
+};
+
+// ─── STATE ───────────────────────────────────────────────────────────────────
+let currentTab = 'repos';
+let searchQuery = '';
+let selectedLang = 'all';
+let sortBy = 'updated';
+let currentPage = 1;
+const PER_PAGE = 12;
+
+// ─── UTILS ───────────────────────────────────────────────────────────────────
+function relativeTime(iso) {
+  const diff = (Date.now() - new Date(iso)) / 1000;
+  if (diff < 3600) return `${Math.floor(diff/60)}m`;
+  if (diff < 86400) return `${Math.floor(diff/3600)}h`;
+  if (diff < 604800) return `${Math.floor(diff/86400)}z`;
+  if (diff < 2592000) return `${Math.floor(diff/604800)}s`;
+  return `${Math.floor(diff/2592000)}l`;
+}
+function esc(str) { return str ? str.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;') : ''; }
+
+// ─── LANG FILTERS ────────────────────────────────────────────────────────────
+function buildLangFilters() {
+  const counts = {};
+  REPOS.forEach(r => { counts[r.lang] = (counts[r.lang]||0)+1; });
+  const sorted = Object.entries(counts).sort((a,b)=>b[1]-a[1]);
+  const container = document.getElementById('lang-filters');
+  container.innerHTML = `
+    <button class="lang-btn active" data-lang="all">
+      <span class="lang-dot" style="background:var(--color-text-muted)"></span>
+      Toate
+      <span class="lang-count">${REPOS.length}</span>
+    </button>
+  ` + sorted.map(([lang,count])=>`
+    <button class="lang-btn" data-lang="${esc(lang)}">
+      <span class="lang-dot" style="background:${LANG_COLORS[lang]||LANG_COLORS.Other}"></span>
+      ${esc(lang)}
+      <span class="lang-count">${count}</span>
+    </button>
+  `).join('');
+  container.querySelectorAll('.lang-btn').forEach(btn=>{
+    btn.addEventListener('click',()=>{
+      selectedLang = btn.dataset.lang;
+      currentPage = 1;
+      container.querySelectorAll('.lang-btn').forEach(b=>b.classList.remove('active'));
+      btn.classList.add('active');
+      renderRepos();
+    });
+  });
+}
+
+// ─── FILTER + SORT ───────────────────────────────────────────────────────────
+function getFiltered() {
+  let list = [...REPOS];
+  if(selectedLang !== 'all') list = list.filter(r=>r.lang===selectedLang);
+  if(searchQuery) {
+    const q = searchQuery.toLowerCase();
+    list = list.filter(r=>
+      r.name.toLowerCase().includes(q) ||
+      (r.desc||'').toLowerCase().includes(q) ||
+      (r.topics||[]).some(t=>t.includes(q)) ||
+      r.lang.toLowerCase().includes(q)
+    );
+  }
+  if(sortBy==='stars') list.sort((a,b)=>b.stars-a.stars);
+  else if(sortBy==='name') list.sort((a,b)=>a.name.localeCompare(b.name));
+  else if(sortBy==='forks') list.sort((a,b)=>b.forks-a.forks);
+  else list.sort((a,b)=>new Date(b.updated)-new Date(a.updated));
+  return list;
+}
+
+// ─── RENDER REPOS ────────────────────────────────────────────────────────────
+function renderRepos() {
+  const filtered = getFiltered();
+  const total = filtered.length;
+  const pages = Math.ceil(total/PER_PAGE);
+  if(currentPage>pages) currentPage=1;
+  const slice = filtered.slice((currentPage-1)*PER_PAGE, currentPage*PER_PAGE);
+
+  document.getElementById('result-count').textContent = `${total} repo-uri`;
+
+  const grid = document.getElementById('repo-grid');
+  if(!slice.length) {
+    grid.innerHTML = `<div class="no-results" style="grid-column:1/-1"><svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" style="color:var(--color-text-faint)"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg><p>Niciun repo găsit pentru "<strong>${esc(searchQuery)}</strong>"</p></div>`;
+    document.getElementById('pagination').innerHTML='';
+    return;
+  }
+  grid.innerHTML = slice.map(r=>`
+    <article class="repo-card" onclick="window.open('${r.url}','_blank','')" tabindex="0" aria-label="${esc(r.name)}">
+      <div class="repo-card-header">
+        <span class="repo-name">${esc(r.name)}</span>
+        <span class="repo-visibility">${r.visibility}</span>
+      </div>
+      ${r.desc?`<p class="repo-desc">${esc(r.desc)}</p>`:'<p class="repo-desc" style="color:var(--color-text-faint);font-style:italic">Fără descriere</p>'}
+      ${r.topics&&r.topics.length?`<div class="repo-topics">${r.topics.map(t=>`<span class="topic-chip">${esc(t)}</span>`).join('')}</div>`:''}
+      <div class="repo-footer">
+        <span class="repo-lang">
+          <span class="lang-dot-sm" style="background:${LANG_COLORS[r.lang]||LANG_COLORS.Other}"></span>
+          <span style="font-size:var(--text-xs);color:var(--color-text-muted)">${esc(r.lang)||'N/A'}</span>
+        </span>
+        ${r.stars?`<span class="repo-meta">⭐ ${r.stars}</span>`:''}
+        ${r.forks?`<span class="repo-meta">🔀 ${r.forks}</span>`:''}
+        ${r.issues?`<span class="repo-meta" style="color:var(--color-warning)">⚠ ${r.issues}</span>`:''}
+        <span class="repo-meta" style="margin-left:auto">${relativeTime(r.updated+'T00:00:00Z')}</span>
+      </div>
+    </article>
+  `).join('');
+
+  // PAGINATION
+  const pg = document.getElementById('pagination');
+  if(pages<=1){pg.innerHTML='';return;}
+  let html = `<button class="page-btn" onclick="goPage(${currentPage-1})" ${currentPage===1?'disabled':''}>‹</button>`;
+  for(let i=1;i<=pages;i++){
+    if(i===1||i===pages||Math.abs(i-currentPage)<=1) html+=`<button class="page-btn ${i===currentPage?'active':''}" onclick="goPage(${i})">${i}</button>`;
+    else if(Math.abs(i-currentPage)===2) html+=`<span class="page-btn" style="cursor:default;border:none">…</span>`;
+  }
+  html+=`<button class="page-btn" onclick="goPage(${currentPage+1})" ${currentPage===pages?'disabled':''}>›</button>`;
+  pg.innerHTML=html;
+}
+window.goPage = p => { currentPage=p; renderRepos(); window.scrollTo({top:0,behavior:'smooth'}); };
+
+// ─── RENDER ACTIVITY ─────────────────────────────────────────────────────────
+function renderActivity() {
+  document.getElementById('commit-list').innerHTML = COMMITS.map(c=>`
+    <div class="commit-item">
+      <div class="commit-dot"></div>
+      <div class="commit-body">
+        <div class="commit-msg">${esc(c.msg)}</div>
+        <div class="commit-meta">
+          <span class="commit-sha">${c.sha}</span>
+          <span class="commit-repo">📁 ${esc(c.repo)}</span>
+        </div>
+      </div>
+      <span class="commit-time">${relativeTime(c.time)}</span>
+    </div>
+  `).join('');
+}
+
+// ─── RENDER STATS ────────────────────────────────────────────────────────────
+function animateCount(el, target, duration=1200) {
+  let start=0, startTime=null;
+  function step(t) {
+    if(!startTime) startTime=t;
+    const progress = Math.min((t-startTime)/duration,1);
+    const ease = 1-Math.pow(1-progress,3);
+    el.textContent = Math.floor(ease*target);
+    if(progress<1) requestAnimationFrame(step);
+    else el.textContent = target;
+  }
+  requestAnimationFrame(step);
+}
+
+function renderStats() {
+  const totalStars = REPOS.reduce((s,r)=>s+r.stars,0);
+  const totalForks = REPOS.reduce((s,r)=>s+r.forks,0);
+  const langs = [...new Set(REPOS.map(r=>r.lang))].length;
+
+  animateCount(document.getElementById('kpi-repos'),141);
+  animateCount(document.getElementById('kpi-stars'),totalStars);
+  animateCount(document.getElementById('kpi-forks'),totalForks);
+  animateCount(document.getElementById('kpi-langs'),langs);
+
+  const counts = {};
+  REPOS.forEach(r=>{ counts[r.lang]=(counts[r.lang]||0)+1; });
+  const sorted = Object.entries(counts).sort((a,b)=>b[1]-a[1]);
+  const total = REPOS.length;
+
+  // Multi-bar
+  const mb = document.getElementById('multi-bar');
+  mb.innerHTML = sorted.map(([lang,count])=>`
+    <div class="multi-bar-seg" style="width:${(count/total*100).toFixed(1)}%;background:${LANG_COLORS[lang]||LANG_COLORS.Other}" title="${lang}: ${count}"></div>
+  `).join('');
+
+  // Bar rows
+  document.getElementById('lang-chart-rows').innerHTML = sorted.map(([lang,count])=>`
+    <div class="lang-bar-row">
+      <span class="lang-bar-name">${esc(lang)}</span>
+      <div class="lang-bar-track">
+        <div class="lang-bar-fill" style="width:${(count/sorted[0][1]*100).toFixed(1)}%;background:${LANG_COLORS[lang]||LANG_COLORS.Other}"></div>
+      </div>
+      <span class="lang-bar-pct">${count}</span>
+    </div>
+  `).join('');
+}
+
+// ─── TABS ────────────────────────────────────────────────────────────────────
+function switchTab(tab) {
+  currentTab = tab;
+  document.querySelectorAll('.tab-btn,.mob-tab').forEach(b=>b.classList.toggle('active',b.dataset.tab===tab));
+  document.querySelectorAll('.tab-panel').forEach(p=>p.classList.toggle('active',p.id===`tab-${tab}`));
+  if(tab==='stats') renderStats();
+  document.getElementById('sidebar').style.display = (tab==='repos')?'':'none';
+}
+
+document.querySelectorAll('[data-tab]').forEach(btn=>{
+  btn.addEventListener('click',()=>switchTab(btn.dataset.tab));
+});
+
+// ─── SEARCH + SORT ───────────────────────────────────────────────────────────
+let searchTimer;
+document.getElementById('search').addEventListener('input',e=>{
+  clearTimeout(searchTimer);
+  searchTimer = setTimeout(()=>{ searchQuery=e.target.value.trim(); currentPage=1; renderRepos(); },200);
+});
+document.getElementById('sort-select').addEventListener('change',e=>{
+  sortBy=e.target.value; currentPage=1; renderRepos();
+});
+
+// ─── THEME TOGGLE ────────────────────────────────────────────────────────────
+(function(){
+  const t=document.querySelector('[data-theme-toggle]'),r=document.documentElement;
+  let d=r.getAttribute('data-theme')||'dark';
+  function update(theme){
+    d=theme;r.setAttribute('data-theme',d);
+    t.innerHTML=d==='dark'
+      ?'<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="5"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg>'
+      :'<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>';
+    t.setAttribute('aria-label','Comută la tema '+(d==='dark'?'luminoasă':'întunecată'));
+  }
+  update(d);
+  t&&t.addEventListener('click',()=>update(d==='dark'?'light':'dark'));
+})();
+
+// ─── INIT ────────────────────────────────────────────────────────────────────
+buildLangFilters();
+renderRepos();
+renderActivity();
 </script>
 </body>
 </html>
