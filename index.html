@@ -78,6 +78,12 @@ a,button,[role="button"]{transition:color var(--transition),background var(--tra
 .meta-label{font-size:10px;color:var(--color-text-faint);text-transform:uppercase;letter-spacing:0.06em}
 .meta-divider{width:1px;height:28px;background:var(--color-border)}
 
+/* STATUS INDICATOR */
+.status-indicator{display:flex;align-items:center;gap:0.4rem;font-size:10px;color:var(--color-text-faint);font-family:var(--font-mono)}
+.pulse{width:6px;height:6px;border-radius:50%;background:var(--color-success);position:relative;flex-shrink:0}
+.pulse::after{content:"";position:absolute;inset:-3px;border-radius:50%;background:var(--color-success);opacity:0.4;animation:pulse 2s ease-in-out infinite}
+@keyframes pulse{0%,100%{transform:scale(1);opacity:0.4}50%{transform:scale(1.8);opacity:0}}
+
 /* TABS */
 .tabs{display:flex;gap:0.25rem;margin-bottom:1.5rem;background:var(--color-surface);border:1px solid var(--color-border);border-radius:var(--radius-lg);padding:0.25rem;overflow-x:auto}
 .tab{flex-shrink:0;padding:0.5rem 0.9rem;font-size:var(--text-xs);font-weight:500;border-radius:var(--radius-md);color:var(--color-text-muted);white-space:nowrap;transition:all var(--transition)}
@@ -96,8 +102,14 @@ a,button,[role="button"]{transition:color var(--transition),background var(--tra
 .lang-pill{padding:0.3rem 0.65rem;font-size:10px;font-weight:600;border-radius:var(--radius-full);border:1px solid var(--color-border);background:var(--color-surface);color:var(--color-text-muted);letter-spacing:0.02em;transition:all var(--transition)}
 .lang-pill:hover,.lang-pill.active{background:var(--color-primary);color:#fff;border-color:var(--color-primary)}
 
+/* SORT BAR */
+.sort-bar{display:flex;gap:0.3rem;align-items:center}
+.sort-label{font-size:10px;color:var(--color-text-faint);margin-right:0.25rem}
+.sort-btn{padding:0.25rem 0.6rem;font-size:10px;font-weight:500;border-radius:var(--radius-full);border:1px solid var(--color-border);background:var(--color-surface);color:var(--color-text-muted);transition:all var(--transition)}
+.sort-btn:hover,.sort-btn.active{background:var(--color-surface-offset);color:var(--color-text);border-color:color-mix(in oklch,var(--color-primary) 35%,var(--color-border))}
+
 /* SECTION HEADER */
-.section-row{display:flex;align-items:center;justify-content:space-between;margin-bottom:0.875rem}
+.section-row{display:flex;align-items:center;justify-content:space-between;margin-bottom:0.875rem;flex-wrap:wrap;gap:0.5rem}
 .section-label{font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:0.08em;color:var(--color-text-faint)}
 
 /* REPOS GRID */
@@ -134,6 +146,7 @@ a,button,[role="button"]{transition:color var(--transition),background var(--tra
 .vp-links{display:flex;gap:0.4rem;margin-top:auto}
 .vp-link{font-size:10px;color:var(--color-text-muted);padding:0.2rem 0.5rem;border-radius:var(--radius-sm);border:1px solid var(--color-border);background:var(--color-surface-offset)}
 .vp-link:hover{color:var(--color-primary);border-color:var(--color-primary)}
+.vp-has-deploy{border-color:color-mix(in oklch,var(--color-success) 25%,var(--color-border))}
 
 /* DEPLOYMENTS */
 .deploy-list{display:flex;flex-direction:column;gap:0.5rem}
@@ -151,6 +164,7 @@ a,button,[role="button"]{transition:color var(--transition),background var(--tra
 .deploy-links{display:flex;gap:0.4rem;align-items:center;flex-shrink:0}
 .deploy-link{font-size:10px;color:var(--color-text-muted);padding:0.2rem 0.5rem;border-radius:var(--radius-sm);border:1px solid var(--color-border);background:var(--color-surface-offset)}
 .deploy-link:hover{color:var(--color-primary);border-color:var(--color-primary)}
+.deploy-latest{font-size:9px;font-weight:700;text-transform:uppercase;letter-spacing:0.06em;padding:0.1rem 0.45rem;border-radius:var(--radius-full);background:color-mix(in oklch,var(--color-gold) 15%,transparent);color:var(--color-gold);border:1px solid color-mix(in oklch,var(--color-gold) 30%,transparent)}
 
 /* THREADS */
 .threads-empty{display:flex;flex-direction:column;align-items:center;padding:3rem 2rem;text-align:center;gap:1rem;background:var(--color-surface);border:1px solid var(--color-border);border-radius:var(--radius-xl)}
@@ -166,9 +180,15 @@ a,button,[role="button"]{transition:color var(--transition),background var(--tra
 .page-btn:disabled{opacity:0.35;cursor:not-allowed}
 .page-info{font-size:10px;color:var(--color-text-faint);font-family:var(--font-mono)}
 
-/* PANELS */
-.tab-panel{display:none}.tab-panel.active{display:block}
+/* PANEL TRANSITIONS */
+.tab-panel{display:none;animation:fadeIn 150ms ease}
+.tab-panel.active{display:block}
+@keyframes fadeIn{from{opacity:0;transform:translateY(4px)}to{opacity:1;transform:translateY(0)}}
 .no-results{padding:2.5rem 1.5rem;text-align:center;color:var(--color-text-muted);font-size:var(--text-xs)}
+
+/* KEYBOARD HINT */
+.kbd-hint{font-size:10px;color:var(--color-text-faint);display:flex;align-items:center;gap:0.3rem}
+kbd{font-family:var(--font-mono);font-size:9px;padding:0.15rem 0.35rem;border-radius:var(--radius-sm);border:1px solid var(--color-border);background:var(--color-surface-offset);color:var(--color-text-muted)}
 
 @media(max-width:640px){
   .header{padding:0.75rem 1rem}
@@ -182,6 +202,7 @@ a,button,[role="button"]{transition:color var(--transition),background var(--tra
   .search-wrap{min-width:unset}
   .deploy-row{grid-template-columns:auto 1fr;grid-template-rows:auto auto}
   .deploy-env,.deploy-age{display:none}
+  .kbd-hint{display:none}
 }
 </style>
 </head>
@@ -201,6 +222,9 @@ a,button,[role="button"]{transition:color var(--transition),background var(--tra
     </div>
   </div>
   <div class="header-actions">
+    <div class="status-indicator">
+      <span class="pulse"></span>live
+    </div>
     <a href="https://github.com/Gzeu" target="_blank" rel="noopener noreferrer" class="gh-link">
       <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z"/></svg>
       GitHub
@@ -231,13 +255,13 @@ a,button,[role="button"]{transition:color var(--transition),background var(--tra
       </div>
       <div class="meta-divider"></div>
       <div class="meta-stat">
-        <div class="meta-num">6</div>
+        <div class="meta-num">7</div>
         <div class="meta-label">Deploys</div>
       </div>
     </div>
   </div>
 
-  <div class="tabs" role="tablist">
+  <div class="tabs" role="tablist" id="tab-bar">
     <button class="tab active" role="tab" data-tab="repos">
       GitHub <span class="tab-badge" id="cnt-repos">30</span>
     </button>
@@ -245,7 +269,7 @@ a,button,[role="button"]{transition:color var(--transition),background var(--tra
       Vercel Projects <span class="tab-badge">34</span>
     </button>
     <button class="tab" role="tab" data-tab="deploys">
-      Deployments <span class="tab-badge">6</span>
+      Deployments <span class="tab-badge">7</span>
     </button>
     <button class="tab" role="tab" data-tab="threads">
       Threads <span class="tab-badge">0</span>
@@ -263,6 +287,12 @@ a,button,[role="button"]{transition:color var(--transition),background var(--tra
     </div>
     <div class="section-row">
       <span class="section-label" id="results-label">30 proiecte</span>
+      <div class="sort-bar">
+        <span class="sort-label">sort:</span>
+        <button class="sort-btn active" data-sort="updated">recent</button>
+        <button class="sort-btn" data-sort="name">A–Z</button>
+        <button class="sort-btn" data-sort="issues">issues</button>
+      </div>
     </div>
     <div class="repos-grid" id="repos-grid"></div>
     <div class="pagination" id="repo-pagination"></div>
@@ -270,8 +300,14 @@ a,button,[role="button"]{transition:color var(--transition),background var(--tra
 
   <!-- VERCEL PROJECTS -->
   <div class="tab-panel" id="panel-vercel">
+    <div class="filters">
+      <div class="search-wrap">
+        <svg class="search-icon" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+        <input type="text" id="search-vercel" placeholder="Caută proiect Vercel…" autocomplete="off">
+      </div>
+    </div>
     <div class="section-row">
-      <span class="section-label">34 proiecte Vercel — gzeus-projects</span>
+      <span class="section-label" id="vercel-label">34 proiecte — gzeus-projects</span>
     </div>
     <div class="vprojects-grid" id="vprojects-grid"></div>
   </div>
@@ -279,7 +315,12 @@ a,button,[role="button"]{transition:color var(--transition),background var(--tra
   <!-- DEPLOYMENTS -->
   <div class="tab-panel" id="panel-deploys">
     <div class="section-row">
-      <span class="section-label">dev-hub — 6 deployment-uri recente</span>
+      <span class="section-label">dev-hub — 7 deployment-uri recente</span>
+      <div class="sort-bar">
+        <span class="sort-label">sort:</span>
+        <button class="sort-btn active" data-dsort="newest">newest</button>
+        <button class="sort-btn" data-dsort="oldest">oldest</button>
+      </div>
     </div>
     <div class="deploy-list" id="deploy-list"></div>
   </div>
@@ -332,7 +373,7 @@ const REPOS = [
 ];
 
 const VERCEL_PROJECTS = [
-  {name:"dev-hub",id:"prj_oExEwVtS7Bblao65Td6OgB005Z9p",created:1776264293522,url:"https://vercel.com/gzeus-projects/dev-hub"},
+  {name:"dev-hub",id:"prj_oExEwVtS7Bblao65Td6OgB005Z9p",created:1776264293522,url:"https://vercel.com/gzeus-projects/dev-hub",hasLatest:true},
   {name:"contentforge-ai",id:"prj_ztc4UWElPBwi4Nni0lzoygnHddz2",created:1776194660095,url:"https://vercel.com/gzeus-projects/contentforge-ai"},
   {name:"roblox-procedural-worlds",id:"prj_L6eh9r1tvCalKI4B6WhsFi9DTiau",created:1776185123605,url:"https://vercel.com/gzeus-projects/roblox-procedural-worlds"},
   {name:"carbonflow-ai",id:"prj_qcsIEXpfYoX5oU49xWhtG1Cd2MGW",created:1776109477485,url:"https://vercel.com/gzeus-projects/carbonflow-ai"},
@@ -369,6 +410,7 @@ const VERCEL_PROJECTS = [
 ];
 
 const DEPLOYMENTS = [
+  {id:"dpl_ExK3yQNhvXTzN2a2XKphwNnqXhB7",sha:"489f32b",msg:"feat: v3 — Vercel Projects tab (34 real), Deployments tab (6 real), professional dashboard",url:"dev-pzlfh1k00-gzeus-projects.vercel.app",created:1776266775690,state:"READY",target:"production",inspector:"https://vercel.com/gzeus-projects/dev-hub/ExK3yQNhvXTzN2a2XKphwNnqXhB7"},
   {id:"dpl_6u36EoukKwSwFYU8tzCcHG2odBeq",sha:"e7d2c35",msg:"fix: remove location stat, keep only real data (141 repos, 30 loaded)",url:"dev-xo1ack6k7-gzeus-projects.vercel.app",created:1776266264713,state:"READY",target:"production",inspector:"https://vercel.com/gzeus-projects/dev-hub/6u36EoukKwSwFYU8tzCcHG2odBeq"},
   {id:"dpl_G6KLfC6FFeZtx5BCakMoC27xPceZ",sha:"c0d1b08",msg:"revert: restore clean v1 — remove fake stars, remove București, real repo data only",url:"dev-ge5sqlmpe-gzeus-projects.vercel.app",created:1776266078128,state:"READY",target:"production",inspector:"https://vercel.com/gzeus-projects/dev-hub/G6KLfC6FFeZtx5BCakMoC27xPceZ"},
   {id:"dpl_52GZzuwowBzDzeDProDooZyLM8iS",sha:"895231c",msg:"feat: upgrade Dev Hub v2 — sidebar filtre, statistici animate, tab Activitate, Geist fonts",url:"dev-rgyw1vwt4-gzeus-projects.vercel.app",created:1776265696106,state:"READY",target:"production",inspector:"https://vercel.com/gzeus-projects/dev-hub/52GZzuwowBzDzeDProDooZyLM8iS"},
@@ -390,7 +432,7 @@ function ago(ts){
 function initials(name){return name.replace(/-/g," ").split(" ").map(w=>w[0]).join("").slice(0,2).toUpperCase()}
 
 /* ── REPOS ── */
-const PER=12;let page=1,filtered=[...REPOS],activeLang="All",q="";
+const PER=12;let page=1,filtered=[...REPOS],activeLang="All",q="",activeSort="updated";
 function repoCard(r){
   const lc=langColor(r.lang);
   const topics=r.topics.length?`<div class="repo-topics">${r.topics.slice(0,3).map(t=>`<span class="topic">${t}</span>`).join("")}</div>`:"";
@@ -410,12 +452,18 @@ function repoCard(r){
     </div>
   </a>`;
 }
+function sortRepos(arr){
+  if(activeSort==="name") return [...arr].sort((a,b)=>a.name.localeCompare(b.name));
+  if(activeSort==="issues") return [...arr].sort((a,b)=>b.issues-a.issues);
+  return [...arr].sort((a,b)=>new Date(b.updated)-new Date(a.updated));
+}
 function applyFilters(){
-  filtered=REPOS.filter(r=>{
+  let base=REPOS.filter(r=>{
     const ml=activeLang==="All"||(r.lang||"Other")===activeLang;
     const mq=!q||r.name.toLowerCase().includes(q)||(r.desc||"").toLowerCase().includes(q)||r.topics.some(t=>t.includes(q));
     return ml&&mq;
   });
+  filtered=sortRepos(base);
   page=1;renderRepos();
 }
 function renderRepos(){
@@ -446,12 +494,20 @@ function buildLangPills(){
   }));
 }
 document.getElementById("search-repos").addEventListener("input",e=>{q=e.target.value.toLowerCase();applyFilters()});
+document.querySelectorAll("[data-sort]").forEach(btn=>btn.addEventListener("click",()=>{
+  activeSort=btn.dataset.sort;
+  document.querySelectorAll("[data-sort]").forEach(b=>b.classList.remove("active"));
+  btn.classList.add("active");applyFilters();
+}));
 
 /* ── VERCEL PROJECTS ── */
+let vQuery="";
 function renderVercelProjects(){
   const grid=document.getElementById("vprojects-grid");
-  grid.innerHTML=VERCEL_PROJECTS.map(p=>`
-    <a href="${p.url}" target="_blank" rel="noopener noreferrer" class="vproject-card">
+  const list=vQuery?VERCEL_PROJECTS.filter(p=>p.name.toLowerCase().includes(vQuery)):VERCEL_PROJECTS;
+  document.getElementById("vercel-label").textContent=`${list.length} proiecte — gzeus-projects`;
+  grid.innerHTML=list.map(p=>`
+    <a href="${p.url}" target="_blank" rel="noopener noreferrer" class="vproject-card${p.hasLatest?" vp-has-deploy":""}">
       <div class="vp-head">
         <div class="vp-icon">${initials(p.name)}</div>
         <span class="vp-name">${p.name}</span>
@@ -459,17 +515,23 @@ function renderVercelProjects(){
       <div class="vp-meta">
         <span class="vp-status status-ready"><span class="status-dot"></span>Ready</span>
         <span class="vp-date">${ago(p.created)}</span>
+        ${p.hasLatest?'<span class="deploy-latest">latest</span>':""}
       </div>
       <div class="vp-links">
         <span class="vp-link">Dashboard →</span>
       </div>
     </a>`).join("");
 }
+document.getElementById("search-vercel").addEventListener("input",e=>{
+  vQuery=e.target.value.toLowerCase();renderVercelProjects();
+});
 
 /* ── DEPLOYMENTS ── */
+let dSort="newest";
 function renderDeployments(){
   const list=document.getElementById("deploy-list");
-  list.innerHTML=DEPLOYMENTS.map((d,i)=>`
+  const sorted=dSort==="oldest"?[...DEPLOYMENTS].reverse():DEPLOYMENTS;
+  list.innerHTML=sorted.map((d,i)=>`
     <div class="deploy-row">
       <div class="deploy-state ready"><span class="deploy-dot"></span>Ready</div>
       <div class="deploy-info">
@@ -478,12 +540,18 @@ function renderDeployments(){
       </div>
       <span class="deploy-env">${d.target}</span>
       <div style="display:flex;flex-direction:column;align-items:flex-end;gap:0.3rem">
+        ${i===0&&dSort==="newest"?'<span class="deploy-latest">latest</span>':""}
         <span class="deploy-sha">${d.sha}</span>
         <span class="deploy-age">${ago(d.created)}</span>
         <a href="${d.inspector}" target="_blank" rel="noopener noreferrer" class="deploy-link">Inspector →</a>
       </div>
     </div>`).join("");
 }
+document.querySelectorAll("[data-dsort]").forEach(btn=>btn.addEventListener("click",()=>{
+  dSort=btn.dataset.dsort;
+  document.querySelectorAll("[data-dsort]").forEach(b=>b.classList.remove("active"));
+  btn.classList.add("active");renderDeployments();
+}));
 
 /* ── TABS ── */
 document.querySelectorAll(".tab").forEach(tab=>tab.addEventListener("click",()=>{
@@ -492,6 +560,22 @@ document.querySelectorAll(".tab").forEach(tab=>tab.addEventListener("click",()=>
   tab.classList.add("active");
   document.getElementById("panel-"+tab.dataset.tab).classList.add("active");
 }));
+
+/* ── KEYBOARD NAV ── */
+document.addEventListener("keydown",e=>{
+  if(e.target.tagName==="INPUT") return;
+  const tabs=["repos","vercel","deploys","threads"];
+  const active=document.querySelector(".tab.active");
+  const idx=tabs.findIndex(t=>active&&active.dataset.tab===t);
+  if(e.key==="ArrowRight"&&idx<tabs.length-1){document.querySelectorAll(".tab")[idx+1].click()}
+  if(e.key==="ArrowLeft"&&idx>0){document.querySelectorAll(".tab")[idx-1].click()}
+  if(e.key==="/"&&!e.ctrlKey&&!e.metaKey){
+    e.preventDefault();
+    const activePanel=document.querySelector(".tab-panel.active");
+    const inp=activePanel&&activePanel.querySelector("input");
+    inp&&inp.focus();
+  }
+});
 
 /* ── THEME ── */
 (function(){
@@ -504,7 +588,7 @@ document.querySelectorAll(".tab").forEach(tab=>tab.addEventListener("click",()=>
 
 /* ── INIT ── */
 buildLangPills();
-renderRepos();
+applyFilters();
 renderVercelProjects();
 renderDeployments();
 </script>
