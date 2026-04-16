@@ -143,10 +143,10 @@ img{display:block;max-width:100%}
   </nav>
   <div class="header-actions">
     <div class="profile-chip">
-      <img src="https://avatars.githubusercontent.com/u/96602369?v=4" alt="Gzeu" loading="lazy">
+      <img src="https://avatars.githubusercontent.com/u/96602369?v=4" alt="Gzeu" loading="lazy" width="22" height="22">
       Gzeu
     </div>
-    <button class="theme-btn" onclick="toggleTheme()" title="Toggle theme">
+    <button class="theme-btn" onclick="toggleTheme()" title="Toggle theme" aria-label="Toggle theme">
       <svg id="theme-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
         <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
       </svg>
@@ -188,12 +188,12 @@ img{display:block;max-width:100%}
       </div>
       <div class="search-bar">
         <svg class="search-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
-        <input class="search-input" id="search" placeholder="Caută repo..." oninput="onSearch()">
+        <input class="search-input" id="search" placeholder="Caută repo... (apasă /)" oninput="onSearch()" aria-label="Caută repo">
         <span class="kbd">/</span>
       </div>
       <div class="sort-row">
         <label>Sortare:</label>
-        <select id="sort-sel" onchange="render()">
+        <select id="sort-sel" onchange="render()" aria-label="Sortare">
           <option value="updated">Actualizat recent</option>
           <option value="stars">Stele ↓</option>
           <option value="issues">Issues ↓</option>
@@ -219,7 +219,6 @@ img{display:block;max-width:100%}
 <div class="toast-wrap" id="toast-wrap"></div>
 
 <script>
-// ── REAL DATA FROM GITHUB API (fetched at build time) ──────────────────────
 const REPOS = [
   {name:"perchance-ai-prompt-library",desc:"The ultimate professional AI prompt generation toolkit with advanced CLI, batch processing, Discord bot integration, web interface, and AI image generation.",lang:"JavaScript",stars:3,forks:0,issues:12,private:false,topics:["ai-prompts","cli"],updated:"2026-04-08",url:"https://github.com/Gzeu/perchance-ai-prompt-library"},
   {name:"contentforge-ai",desc:"ContentForge AI — platformă de generare de conținut cu AI.",lang:"TypeScript",stars:0,forks:0,issues:0,private:false,topics:[],updated:"2026-04-14",url:"https://github.com/Gzeu/contentforge-ai"},
@@ -266,48 +265,18 @@ const VERCEL_PROJECTS = [
   {name:"cosmic-quest-engine",url:"https://cosmic-quest-engine.vercel.app",created:"2025-12-14"}
 ];
 
-// ── STATE ──────────────────────────────────────────────────────────────────
-let filter = 'all';
-let langFilter = '';
-let searchQ = '';
-let sortBy = 'updated';
-let page = 1;
-const PER_PAGE = 12;
-let favorites = new Set();
+let filter='all',langFilter='',searchQ='',page=1;
+const PER_PAGE=12;
+let favorites=new Set();
 
-// ── LANG COLORS ────────────────────────────────────────────────────────────
-const LANG_COLOR = {
-  TypeScript:'#3178c6',JavaScript:'#f1e05a',Python:'#3572A5',HTML:'#e34c26',
-  PowerShell:'#012456',Solidity:'#AA6746',Rust:'#dea584',Go:'#00ADD8',
-  CSS:'#563d7c',Vue:'#41b883',Svelte:'#ff3e00'
-};
+const LANG_COLOR={TypeScript:'#3178c6',JavaScript:'#f1e05a',Python:'#3572A5',HTML:'#e34c26',PowerShell:'#012456',Solidity:'#AA6746',Rust:'#dea584',Go:'#00ADD8',CSS:'#563d7c',Vue:'#41b883',Svelte:'#ff3e00'};
+const REPO_EMOJI=(r)=>{if(r.lang==='TypeScript'||r.lang==='JavaScript')return'⚡';if(r.lang==='Python')return'🐍';if(r.lang==='HTML')return'🌐';if(r.lang==='Solidity')return'🔗';if(r.lang==='PowerShell')return'💻';return'📦';};
 
-const REPO_EMOJI = (r)=>{
-  if(r.lang==='TypeScript'||r.lang==='JavaScript') return '⚡';
-  if(r.lang==='Python') return '🐍';
-  if(r.lang==='HTML') return '🌐';
-  if(r.lang==='Solidity') return '🔗';
-  if(r.lang==='PowerShell') return '💻';
-  return '📦';
-};
+function relTime(d){const diff=(Date.now()-new Date(d))/864e5;if(diff<1)return'astăzi';if(diff<2)return'ieri';if(diff<7)return Math.round(diff)+'z';if(diff<30)return Math.round(diff/7)+'săpt';if(diff<365)return Math.round(diff/30)+'l';return Math.round(diff/365)+'a';}
 
-function relTime(d){
-  const diff=(Date.now()-new Date(d))/864e5;
-  if(diff<1) return 'astăzi';
-  if(diff<2) return 'ieri';
-  if(diff<7) return Math.round(diff)+'z';
-  if(diff<30) return Math.round(diff/7)+'săpt';
-  if(diff<365) return Math.round(diff/30)+'l';
-  return Math.round(diff/365)+'a';
-}
-
-// ── SIDEBAR STATS ──────────────────────────────────────────────────────────
 function updateSidebar(){
-  const pub=REPOS.filter(r=>!r.private).length;
-  const priv=REPOS.filter(r=>r.private).length;
-  const stars=REPOS.reduce((s,r)=>s+r.stars,0);
-  const issues=REPOS.reduce((s,r)=>s+r.issues,0);
-  const forks=REPOS.reduce((s,r)=>s+r.forks,0);
+  const pub=REPOS.filter(r=>!r.private).length,priv=REPOS.filter(r=>r.private).length;
+  const stars=REPOS.reduce((s,r)=>s+r.stars,0),issues=REPOS.reduce((s,r)=>s+r.issues,0),forks=REPOS.reduce((s,r)=>s+r.forks,0);
   const withTopics=REPOS.filter(r=>r.topics.length).length;
   document.getElementById('cnt-all').textContent=REPOS.length;
   document.getElementById('cnt-fav').textContent=favorites.size;
@@ -318,121 +287,83 @@ function updateSidebar(){
   document.getElementById('s-issues').textContent=issues;
   document.getElementById('s-forks').textContent=forks;
   document.getElementById('s-topics').textContent=withTopics;
-  // lang filters
   const langs=[...new Set(REPOS.map(r=>r.lang).filter(Boolean))].sort();
-  const lf=document.getElementById('lang-filters');
-  lf.innerHTML=langs.map(l=>{
-    const cnt=REPOS.filter(r=>r.lang===l).length;
-    const col=LANG_COLOR[l]||'#888';
-    return `<button class="filter-btn${langFilter===l?' active':''}" onclick="setLang('${l}',this)">
-      <span style="display:flex;align-items:center;gap:6px;">
-        <span class="lang-dot" style="background:${col}"></span>${l}
-      </span>
-      <span class="filter-count">${cnt}</span>
-    </button>`;
+  document.getElementById('lang-filters').innerHTML=langs.map(l=>{
+    const cnt=REPOS.filter(r=>r.lang===l).length,col=LANG_COLOR[l]||'#888';
+    return`<button class="filter-btn${langFilter===l?' active':''}" onclick="setLang('${l}',this)"><span style="display:flex;align-items:center;gap:6px;"><span class="lang-dot" style="background:${col}"></span>${l}</span><span class="filter-count">${cnt}</span></button>`;
   }).join('');
   document.getElementById('last-updated').textContent='actualizat '+relTime(new Date().toISOString());
 }
 
-// ── FILTER & SORT ──────────────────────────────────────────────────────────
 function getFiltered(){
   let repos=[...REPOS];
-  if(filter==='fav') repos=repos.filter(r=>favorites.has(r.name));
-  else if(filter==='public') repos=repos.filter(r=>!r.private);
-  else if(filter==='private') repos=repos.filter(r=>r.private);
-  if(langFilter) repos=repos.filter(r=>r.lang===langFilter);
-  if(searchQ){
-    const q=searchQ.toLowerCase();
-    repos=repos.filter(r=>r.name.toLowerCase().includes(q)||(r.desc||'').toLowerCase().includes(q)||r.topics.some(t=>t.includes(q)));
-  }
-  sortBy=document.getElementById('sort-sel').value;
-  if(sortBy==='stars') repos.sort((a,b)=>b.stars-a.stars);
-  else if(sortBy==='issues') repos.sort((a,b)=>b.issues-a.issues);
-  else if(sortBy==='alpha') repos.sort((a,b)=>a.name.localeCompare(b.name));
+  if(filter==='fav')repos=repos.filter(r=>favorites.has(r.name));
+  else if(filter==='public')repos=repos.filter(r=>!r.private);
+  else if(filter==='private')repos=repos.filter(r=>r.private);
+  if(langFilter)repos=repos.filter(r=>r.lang===langFilter);
+  if(searchQ){const q=searchQ.toLowerCase();repos=repos.filter(r=>r.name.toLowerCase().includes(q)||(r.desc||'').toLowerCase().includes(q)||r.topics.some(t=>t.includes(q)));}
+  const s=document.getElementById('sort-sel').value;
+  if(s==='stars')repos.sort((a,b)=>b.stars-a.stars);
+  else if(s==='issues')repos.sort((a,b)=>b.issues-a.issues);
+  else if(s==='alpha')repos.sort((a,b)=>a.name.localeCompare(b.name));
   else repos.sort((a,b)=>new Date(b.updated)-new Date(a.updated));
   return repos;
 }
 
-// ── RENDER ─────────────────────────────────────────────────────────────────
 function render(){
-  const repos=getFiltered();
-  const total=repos.length;
-  const pages=Math.ceil(total/PER_PAGE)||1;
-  if(page>pages) page=1;
-  const slice=repos.slice((page-1)*PER_PAGE, page*PER_PAGE);
-
+  const repos=getFiltered(),total=repos.length,pages=Math.ceil(total/PER_PAGE)||1;
+  if(page>pages)page=1;
+  const slice=repos.slice((page-1)*PER_PAGE,page*PER_PAGE);
   document.getElementById('results-count').textContent=total+' repo-uri';
-
   const grid=document.getElementById('repo-grid');
-  if(!slice.length){
-    grid.innerHTML=`<div class="empty" style="grid-column:1/-1"><div class="empty-icon">🔍</div><p>Niciun repo găsit</p></div>`;
-  } else {
-    grid.innerHTML=slice.map(r=>{
-      const col=LANG_COLOR[r.lang]||'#888';
-      const isFav=favorites.has(r.name);
-      const topics=r.topics.slice(0,3).map(t=>`<span class="topic-tag">${t}</span>`).join('');
-      const hp=r.homepage?`<a href="${r.homepage}" target="_blank" rel="noopener" onclick="event.stopPropagation()" style="font-size:11px;color:var(--primary);font-family:'JetBrains Mono',monospace;display:block;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">🔗 ${r.homepage.replace('https://','')}</a>`:'';
-      return `<div class="repo-card${isFav?' favorited':''}" onclick="window.open('${r.url}','_blank')">
-        <button class="fav-btn${isFav?' on':''}" onclick="event.stopPropagation();toggleFav('${r.name}',this)" title="${isFav?'Elimină din':'Adaugă la'} favorite">${isFav?'★':'☆'}</button>
-        <div class="repo-header">
-          <div class="repo-icon">${REPO_EMOJI(r)}</div>
-          <div style="flex:1;min-width:0;padding-right:20px">
-            <div class="repo-name">${r.name}</div>
-            ${r.private?'<span class="repo-private">🔒 private</span>':''}
-          </div>
+  if(!slice.length){grid.innerHTML=`<div class="empty" style="grid-column:1/-1"><div class="empty-icon">🔍</div><p>Niciun repo găsit</p></div>`;return;}
+  grid.innerHTML=slice.map(r=>{
+    const col=LANG_COLOR[r.lang]||'#888',isFav=favorites.has(r.name);
+    const topics=r.topics.slice(0,3).map(t=>`<span class="topic-tag">${t}</span>`).join('');
+    const hp=r.homepage?`<a href="${r.homepage}" target="_blank" rel="noopener noreferrer" onclick="event.stopPropagation()" style="font-size:11px;color:var(--primary);font-family:'JetBrains Mono',monospace;display:block;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">🔗 ${r.homepage.replace('https://','')}</a>`:'';
+    return`<div class="repo-card${isFav?' favorited':''}" onclick="window.open('${r.url}','_blank','noopener')">
+      <button class="fav-btn${isFav?' on':''}" onclick="event.stopPropagation();toggleFav('${r.name}',this)" title="${isFav?'Elimină din':'Adaugă la'} favorite" aria-label="${isFav?'Elimină din':'Adaugă la'} favorite">${isFav?'★':'☆'}</button>
+      <div class="repo-header">
+        <div class="repo-icon">${REPO_EMOJI(r)}</div>
+        <div style="flex:1;min-width:0;padding-right:20px">
+          <div class="repo-name">${r.name}</div>
+          ${r.private?'<span class="repo-private">🔒 private</span>':''}
         </div>
-        ${r.desc?`<div class="repo-desc">${r.desc}</div>`:''}
-        ${topics?`<div class="repo-topics">${topics}</div>`:''}
-        ${hp}
-        <div class="repo-meta">
-          ${r.lang?`<span class="meta-chip"><span class="lang-dot" style="background:${col}"></span>${r.lang}</span>`:''}
-          ${r.stars>0?`<span class="meta-chip">⭐ ${r.stars}</span>`:''}
-          ${r.issues>0?`<span class="meta-chip">🔴 ${r.issues}</span>`:''}
-          ${r.forks>0?`<span class="meta-chip">🍴 ${r.forks}</span>`:''}
-          <span class="repo-date" style="margin-left:auto">${relTime(r.updated)}</span>
-        </div>
-      </div>`;
-    }).join('');
-  }
-
-  // Pagination
+      </div>
+      ${r.desc?`<div class="repo-desc">${r.desc}</div>`:''}
+      ${topics?`<div class="repo-topics">${topics}</div>`:''}
+      ${hp}
+      <div class="repo-meta">
+        ${r.lang?`<span class="meta-chip"><span class="lang-dot" style="background:${col}"></span>${r.lang}</span>`:''}
+        ${r.stars>0?`<span class="meta-chip">⭐ ${r.stars}</span>`:''}
+        ${r.issues>0?`<span class="meta-chip">🔴 ${r.issues}</span>`:''}
+        ${r.forks>0?`<span class="meta-chip">🍴 ${r.forks}</span>`:''}
+        <span class="repo-date" style="margin-left:auto">${relTime(r.updated)}</span>
+      </div>
+    </div>`;
+  }).join('');
   const pag=document.getElementById('pagination');
   if(pages<=1){pag.innerHTML='';return;}
-  let html=`<button class="page-btn" onclick="gotoPage(${page-1})" ${page===1?'disabled':''}>←</button>`;
-  for(let i=1;i<=pages;i++){
-    if(i===1||i===pages||Math.abs(i-page)<=1){
-      html+=`<button class="page-btn${i===page?' active':''}" onclick="gotoPage(${i})">${i}</button>`;
-    } else if(Math.abs(i-page)===2){
-      html+='<span style="color:var(--faint);padding:0 4px">…</span>';
-    }
-  }
-  html+=`<button class="page-btn" onclick="gotoPage(${page+1})" ${page===pages?'disabled':''}>→</button>`;
+  let html=`<button class="page-btn" onclick="gotoPage(${page-1})" ${page===1?'disabled':''} aria-label="Pagina anterioară">←</button>`;
+  for(let i=1;i<=pages;i++){if(i===1||i===pages||Math.abs(i-page)<=1)html+=`<button class="page-btn${i===page?' active':''}" onclick="gotoPage(${i})" aria-label="Pagina ${i}">${i}</button>`;else if(Math.abs(i-page)===2)html+='<span style="color:var(--faint);padding:0 4px">…</span>';}
+  html+=`<button class="page-btn" onclick="gotoPage(${page+1})" ${page===pages?'disabled':''} aria-label="Pagina următoare">→</button>`;
   pag.innerHTML=html;
 }
 
-function gotoPage(p){page=p;render();window.scrollTo(0,0)}
+function gotoPage(p){page=p;render();window.scrollTo(0,0);}
 
-// ── VERCEL RENDER ──────────────────────────────────────────────────────────
 function renderVercel(){
-  const g=document.getElementById('vercel-grid');
   document.getElementById('vercel-count').textContent=VERCEL_PROJECTS.length;
-  g.innerHTML=VERCEL_PROJECTS.map(p=>{
-    const url=`https://${p.name}.vercel.app`;
-    return `<div class="vercel-card">
-      <div>
-        <div class="vercel-name">${p.name}</div>
-        <div class="vercel-date">Creat: ${p.created}</div>
-      </div>
-      <div class="vercel-link">${p.url.replace('https://','')}</div>
-      <a class="btn-open" href="${p.url}" target="_blank" rel="noopener">
-        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15,3 21,3 21,9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
-        Deschide
-      </a>
-    </div>`;
-  }).join('');
+  document.getElementById('vercel-grid').innerHTML=VERCEL_PROJECTS.map(p=>`<div class="vercel-card">
+    <div><div class="vercel-name">${p.name}</div><div class="vercel-date">Creat: ${p.created}</div></div>
+    <div class="vercel-link">${p.url.replace('https://','')}</div>
+    <a class="btn-open" href="${p.url}" target="_blank" rel="noopener noreferrer">
+      <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15,3 21,3 21,9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+      Deschide
+    </a>
+  </div>`).join('');
 }
 
-// ── ACTIONS ────────────────────────────────────────────────────────────────
 function toggleFav(name,btn){
   if(favorites.has(name)){favorites.delete(name);btn.textContent='☆';btn.classList.remove('on');btn.closest('.repo-card').classList.remove('favorited');toast('Eliminat din favorite');}
   else{favorites.add(name);btn.textContent='★';btn.classList.add('on');btn.closest('.repo-card').classList.add('favorited');toast('⭐ Adăugat la favorite');}
@@ -441,17 +372,17 @@ function toggleFav(name,btn){
 
 function setFilter(f,el){
   filter=f;langFilter='';
-  document.querySelectorAll('.filter-btn').forEach(b=>b.classList.remove('active'));
+  document.querySelectorAll('.sidebar-section .filter-btn').forEach(b=>b.classList.remove('active'));
   el.classList.add('active');
   page=1;render();
 }
 
 function setLang(l,el){
-  langFilter=langFilter===l?'':l;
-  filter='all';
+  langFilter=langFilter===l?'':l;filter='all';
+  document.querySelectorAll('.sidebar-section .filter-btn').forEach(b=>b.classList.remove('active'));
   document.querySelectorAll('#lang-filters .filter-btn').forEach(b=>b.classList.remove('active'));
-  if(langFilter) el.classList.add('active');
-  document.querySelectorAll('.sidebar-section .filter-btn').forEach(b=>{if(b.textContent.trim().startsWith('Toate'))b.classList.add('active');});
+  if(langFilter)el.classList.add('active');
+  else document.querySelector('.sidebar-section .filter-btn').classList.add('active');
   page=1;updateSidebar();render();
 }
 
@@ -465,29 +396,23 @@ function switchTab(tab,el){
 }
 
 function toggleTheme(){
-  const h=document.documentElement;
-  const t=h.getAttribute('data-theme')==='dark'?'light':'dark';
+  const h=document.documentElement,t=h.getAttribute('data-theme')==='dark'?'light':'dark';
   h.setAttribute('data-theme',t);
-  const icon=document.getElementById('theme-icon');
-  icon.innerHTML=t==='dark'?'<path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>':'<circle cx="12" cy="12" r="5"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/>';
+  document.getElementById('theme-icon').innerHTML=t==='dark'?'<path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>':'<circle cx="12" cy="12" r="5"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/>';
 }
 
 function toast(msg){
-  const w=document.getElementById('toast-wrap');
-  const t=document.createElement('div');
-  t.className='toast';t.textContent=msg;
-  w.appendChild(t);
+  const w=document.getElementById('toast-wrap'),t=document.createElement('div');
+  t.className='toast';t.textContent=msg;w.appendChild(t);
   requestAnimationFrame(()=>t.classList.add('show'));
-  setTimeout(()=>{t.classList.remove('show');setTimeout(()=>t.remove(),250)},2200);
+  setTimeout(()=>{t.classList.remove('show');setTimeout(()=>t.remove(),250);},2200);
 }
 
-// ── KEYBOARD ───────────────────────────────────────────────────────────────
 document.addEventListener('keydown',e=>{
   if(e.key==='/'&&document.activeElement.tagName!=='INPUT'){e.preventDefault();document.getElementById('search').focus();}
   if(e.key==='Escape'){document.getElementById('search').value='';searchQ='';render();document.getElementById('search').blur();}
 });
 
-// ── INIT ───────────────────────────────────────────────────────────────────
 updateSidebar();
 render();
 renderVercel();
